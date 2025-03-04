@@ -1,0 +1,14 @@
+X: (03/04/2025):
+	- Làm quen với Carbon Design System.
+    - Áp dụng Carbon dựng layout UI cơ bản của Todo App
+    - Làm quen component của Angular và ng-template
+
+X: (04/04/2025):
+    - Phân rã Todo App thành các thành phần nhỏ hơn
+    - Làm quen cách giao tiếp giữa các component
+    - Triển khai giao tiếp
+    - Triển khai các logic cơ bản CRUD cho App
+    - App dụng @Input, @Output, signal() vào các logic
+
+X: (trong tuần này):
+    - Hoàn thiện cơ bản Todo App

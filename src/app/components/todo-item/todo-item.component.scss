@@ -1,0 +1,37 @@
+.todo-item-content {
+    display: grid;
+    column-gap: 1rem;
+    align-items: center;
+    grid-template-columns: repeat(12, 1fr);
+
+    .todo-item-content_state {
+        grid-column: 1/1;
+    }
+
+    .todo-item-content_title {
+        grid-column: 2/7;
+        & :first-child {
+            font-weight: bold;
+            font-size: large;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            overflow: hidden;
+        }
+    }
+
+    .todo-item-details {
+        grid-column: 7/12;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        overflow: hidden;
+    }
+}
+
+// .cds--icon-tooltip::ng-deep {
+//     transform: translateY(50%);
+// }
+

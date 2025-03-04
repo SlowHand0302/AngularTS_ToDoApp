@@ -1,0 +1,21 @@
+<div class="todos">
+    <main class="todos_container">
+        <header class="todos_header">
+            <p>todos works!</p>
+            <app-todo-modal />
+        </header>
+        <section class="todos_content">
+            <cds-contained-list label="List title" [action]="combinedActions">
+                <app-todo-item />
+            </cds-contained-list>
+        </section>
+        <footer class="todos_footer"></footer>
+    </main>
+</div>
+
+<ng-template #combinedActions let-item>
+    <cds-search class="todos-searchbar" [expandable]="true" size="lg"></cds-search>
+    <ibm-icon-button type="button" kind="primary" description="Add">
+        <svg class="cds--btn__icon" ibmIcon="add" size="16"></svg>
+    </ibm-icon-button>
+</ng-template>

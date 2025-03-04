@@ -1,0 +1,31 @@
+.todos {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    align-items: start;
+    height: 100vh;
+    .todos_container {
+        border: 1px solid oklch(0.929 0.013 255.508);
+        border-radius: 20px;
+        padding: 10px;
+        width: 60vw;
+
+        .todos_header p {
+            font-size: 30px;
+            font-weight: bold;
+            color: #008000;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .todos_container{
+        min-width: 100%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .todos .todos_container{
+        min-width: 90vw;
+    }
+}
