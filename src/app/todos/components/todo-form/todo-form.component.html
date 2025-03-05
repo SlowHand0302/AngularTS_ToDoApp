@@ -1,0 +1,32 @@
+<form class="todo-form">
+    <cds-text-label [invalid]="false" [invalidText]="'Something wrongs'">
+        Title:
+        <input cdsText type="text" class="input-field" placeholder="Type your Todo Title..." [value]="todo?.title" />
+    </cds-text-label>
+    <div style="display: flex; gap: 10px">
+        <cds-date-picker
+            [label]="'Deadline:'"
+            [theme]="'dark'"
+            [invalidText]="'Warning'"
+            [invalid]="false"
+            [range]="false"
+            [value]="deadline"
+            (change)="onSelectDate($event)"
+        ></cds-date-picker>
+        <cds-toggle
+            label="State:"
+            [checked]="todo?.state || false"
+            onText="Completed"
+            offText="Processing"
+        ></cds-toggle>
+    </div>
+    <cds-textarea-label [invalid]="false" invalidText="Something wrongs">
+        Details:
+        <textarea
+            cdsTextArea
+            class="textarea-field"
+            placeholder="Type your Todo Details..."
+            [value]="todo?.details"
+        ></textarea>
+    </cds-textarea-label>
+</form>

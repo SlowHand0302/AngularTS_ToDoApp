@@ -1,0 +1,36 @@
+<cds-modal [open]="modalState()" (overlaySelected)="triggerCloseModal.emit()" (close)="triggerCloseModal.emit()">
+    <cds-modal-header (closeSelect)="triggerCloseModal.emit()" [showCloseButton]="true">
+        @if (!selectedTodo) {
+        <p cdsModalHeaderHeading class="cds--modal-header__heading cds--type-beta">Add New Todo</p>
+        } @else {
+        <p cdsModalHeaderHeading class="cds--modal-header__heading cds--type-beta">Edit Todo</p>
+        }
+    </cds-modal-header>
+    <div class="cds--modal-content">
+        <app-todo-form [todo]="selectedTodo" />
+        <!-- <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">Deadline: 00/00/0000</p>
+        <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">State: Completed</p>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur sint voluptate, nostrum debitis neque
+            obcaecati sapiente enim consequuntur ratione ipsa a incidunt aperiam facere assumenda voluptas libero nisi,
+            rerum recusandae.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti sit voluptatem doloribus, nam, impedit
+            rerum quas modi cumque tempore nemo id animi natus eveniet. Voluptatum facilis non sapiente dignissimos
+            accusamus?
+        </p> -->
+    </div>
+    <cds-modal-footer>
+        <ng-container>
+            <button cdsButton="primary" (click)="triggerCloseModal.emit()" [attr.modal-primary-focus]="true">
+                Okay
+            </button>
+        </ng-container>
+        <ng-container>
+            <button cdsButton="secondary" (click)="triggerCloseModal.emit()" [attr.modal-primary-focus]="true">
+                Close
+            </button>
+        </ng-container>
+    </cds-modal-footer>
+</cds-modal>

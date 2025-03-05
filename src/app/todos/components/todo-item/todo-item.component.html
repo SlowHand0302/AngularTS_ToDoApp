@@ -1,0 +1,39 @@
+<cds-contained-list-item [clickable]="true" class="todo-item-container" [action]="overflowMenu">
+    <ng-container ibmContainedListItemButton>
+        <div class="todo-item-content">
+            <span class="todo-item-content_state">
+                <cds-checkbox
+                    [value]="todo().state"
+                    [hideLabel]="true"
+                    (checkedChange)="onCheckboxCheck.emit(todo())"
+                ></cds-checkbox>
+            </span>
+            <span class="todo-item-content_title">
+                <p>
+                    {{ todo().title }}
+                </p>
+                <p class="cds--label cds--label--no-margin">Deadline: {{ todo().deadline }}</p>
+            </span>
+            <span class="todo-item-details">
+                {{todo().details}}
+            </span>
+        </div>
+    </ng-container>
+</cds-contained-list-item>
+
+<ng-template #overflowMenu let-item>
+    <ibm-tooltip class="cds--icon-tooltip todos-tooltip" description="Options">
+        <ibm-overflow-menu
+            [flip]="false"
+            triggerClass="cds--toolbar-action"
+            placement="bottom"
+            [offset]="{ x: 50, y: -10 }"
+        >
+            <ibm-overflow-menu-option (click)="onViewClick.emit(todo())">View details</ibm-overflow-menu-option>
+            <ibm-overflow-menu-option (click)="onEditClick.emit(todo())">Edit</ibm-overflow-menu-option>
+            <ibm-overflow-menu-option (click)="onRemoveClick.emit(todo())" [divider]="true" type="danger">
+                Remove
+            </ibm-overflow-menu-option>
+        </ibm-overflow-menu>
+    </ibm-tooltip>
+</ng-template>

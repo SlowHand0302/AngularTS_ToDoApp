@@ -2,11 +2,18 @@
     <main class="todos_container">
         <header class="todos_header">
             <p>todos works!</p>
-            <app-todo-modal />
         </header>
         <section class="todos_content">
             <cds-contained-list label="List title" [action]="combinedActions">
-                <app-todo-item />
+                @for (item of todos(); track item.id) {
+                <app-todo-item
+                    [todo]="item"
+                    (onCheckboxCheck)="handleEditTodo($event)"
+                    (onEditClick)="handleTriggerOpenModal($event)"
+                    (onRemoveClick)="handleRemoveTodo($event)"
+                    (onViewClick)="onOptionsClick($event)"
+                />
+                }
             </cds-contained-list>
         </section>
         <footer class="todos_footer"></footer>
@@ -15,7 +22,15 @@
 
 <ng-template #combinedActions let-item>
     <cds-search class="todos-searchbar" [expandable]="true" size="lg"></cds-search>
-    <ibm-icon-button type="button" kind="primary" description="Add">
+    <button
+        [iconOnly]="true"
+        cdsButton="primary"
+        kind="primary"
+        description="Add"
+        (click)="handleTriggerOpenModal(null)"
+    >
         <svg class="cds--btn__icon" ibmIcon="add" size="16"></svg>
-    </ibm-icon-button>
+    </button>
 </ng-template>
+
+<app-todo-modal [selectedTodo]="selectedTodo()" [modalState]="triggerModal()" (triggerCloseModal)="triggerModal.set(false)" />
