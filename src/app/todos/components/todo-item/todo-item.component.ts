@@ -14,4 +14,9 @@ export class TodoItemComponent {
     @Output() onEditClick = new EventEmitter<Todo>();
     @Output() onRemoveClick = new EventEmitter<Todo>();
     @Output() onCheckboxCheck = new EventEmitter<Todo>();
+
+    handleUpdateState() {
+        let updatedState: Todo = { ...this.todo(), state: !this.todo().state };
+        this.onCheckboxCheck.emit(updatedState);
+    }
 }

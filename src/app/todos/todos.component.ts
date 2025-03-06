@@ -1,35 +1,39 @@
-import { Component, OnChanges, signal, SimpleChanges } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { TodoModalComponent } from './components/todo-modal/todo-modal.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
+import { TodoFormComponent } from './components/todo-form/todo-form.component';
 import { Todo, todoList } from '../shared/models/todo.model';
 
 @Component({
     selector: 'app-todos',
-    imports: [SharedModule, TodoModalComponent, TodoItemComponent],
+    imports: [SharedModule, TodoModalComponent, TodoItemComponent, TodoFormComponent],
     templateUrl: './todos.component.html',
     styleUrl: './todos.component.scss',
 })
 export class TodosComponent {
     todos = signal<Todo[]>(todoList);
-    triggerModal = signal<boolean>(false);
+    modalState = signal<boolean>(false);
     selectedTodo = signal<Todo | null>(null);
 
     onOptionsClick(todo: Todo) {
         console.log(todo);
     }
 
-    handleAddTodo() {}
-
-    handleEditTodo(todo: Todo) {}
-
-    handleRemoveTodo(todo: Todo) {
-        console.log(todo);
+    handleAddTodo(todo: Todo) {
+        this.todos.update((prev) => (prev = [{ ...todo, id: `${this.todos().length + 1}` }, ...prev]));
     }
 
+    handleEditTodo(todo: Todo) {
+        console.log(todo)
+        this.todos.update((prev) => (prev = [...prev.map((item) => (item.id === todo.id ? { ...todo } : item))]));
+    }
+
+    handleRemoveTodo(todo: Todo) {}
+
     handleTriggerOpenModal(todo: Todo | null) {
-        this.triggerModal.set(true);
+        this.modalState.set(true);
         this.selectedTodo.set(todo);
-        console.log(todo);
+        console.log(this.selectedTodo());
     }
 }

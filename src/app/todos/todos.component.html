@@ -1,4 +1,5 @@
 <div class="todos">
+    <!-- <pre>{{ todos() | json }}</pre> -->
     <main class="todos_container">
         <header class="todos_header">
             <p>todos works!</p>
@@ -33,4 +34,11 @@
     </button>
 </ng-template>
 
-<app-todo-modal [selectedTodo]="selectedTodo()" [modalState]="triggerModal()" (triggerCloseModal)="triggerModal.set(false)" />
+<app-todo-modal [selectedTodo]="selectedTodo()" [modalState]="modalState()" (triggerCloseModal)="modalState.set(false)">
+    <app-todo-form
+        [todo]="selectedTodo()"
+        [modalState]="modalState()"
+        (triggerCloseModal)="modalState.set(false)"
+        (submitForm)="selectedTodo() ? handleEditTodo($event) : handleAddTodo($event)"
+    />
+</app-todo-modal>

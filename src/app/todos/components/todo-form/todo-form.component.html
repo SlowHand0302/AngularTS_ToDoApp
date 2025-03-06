@@ -1,32 +1,77 @@
-<form class="todo-form">
-    <cds-text-label [invalid]="false" [invalidText]="'Something wrongs'">
+<form class="todo-form" #todoForm="ngForm" (ngSubmit)="onSubmit(todoForm)">
+    <cds-text-label
+        [invalid]="(title.dirty && !title.valid) || false"
+        [invalidText]="title.errors?.['required'] ? 'Please fill the Todo title' : title.errors?.['minlength'] && 'The Todo Title must have at least 6 characters'"
+    >
         Title:
-        <input cdsText type="text" class="input-field" placeholder="Type your Todo Title..." [value]="todo?.title" />
+        {{ todoTemplate() | json }}
+        <input
+            cdsText
+            type="text"
+            class="input-field"
+            placeholder="Type your Todo Title..."
+            [(ngModel)]="todoTemplate().title"
+            #title="ngModel"
+            name="title"
+            required
+            minlength="6"
+        />
     </cds-text-label>
-    <div style="display: flex; gap: 10px">
+    <div class="todo-form_group">
         <cds-date-picker
             [label]="'Deadline:'"
             [theme]="'dark'"
             [invalidText]="'Warning'"
             [invalid]="false"
             [range]="false"
-            [value]="deadline"
+            [ngModel]="deadline"
+            name="deadline"
             (change)="onSelectDate($event)"
         ></cds-date-picker>
         <cds-toggle
             label="State:"
-            [checked]="todo?.state || false"
             onText="Completed"
             offText="Processing"
+            [(ngModel)]="todoTemplate().state"
+            name="state"
         ></cds-toggle>
     </div>
-    <cds-textarea-label [invalid]="false" invalidText="Something wrongs">
+    <cds-textarea-label
+        [invalid]="details.dirty && (details.errors?.['required'] || details.errors?.['minlength'] || false)"
+        [invalidText]="details.errors?.['required'] ? 'Please fill the Todo details' : details.errors?.['minlength'] && 'The Todo Title must have at least 6 characters'"
+    >
         Details:
         <textarea
+            autoResize
             cdsTextArea
             class="textarea-field"
             placeholder="Type your Todo Details..."
-            [value]="todo?.details"
+            #details="ngModel"
+            [(ngModel)]="todoTemplate().details"
+            name="details"
+            required
+            minlength="6"
         ></textarea>
     </cds-textarea-label>
+    <div class="todo-form_group">
+        <ng-container>
+            <button cdsButton="primary" type="submit" [disabled]="!todoForm.valid" [attr.modal-primary-focus]="true">
+                Okay
+            </button>
+        </ng-container>
+        <ng-container>
+            <button
+                cdsButton="secondary"
+                type="button"
+                (click)="onCloseButtonClick()"
+                [attr.modal-primary-focus]="true"
+            >
+                Close
+            </button>
+        </ng-container>
+    </div>
 </form>
+
+<pre>
+    <!-- {{ deadline.errors | json }} -->
+</pre>

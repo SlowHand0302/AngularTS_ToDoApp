@@ -7,7 +7,7 @@ import { Todo } from '../../../shared/models/todo.model';
 @Component({
     selector: 'app-todo-modal',
     standalone: true,
-    imports: [SharedModule, TodoFormComponent, CommonModule],
+    imports: [SharedModule, CommonModule],
     templateUrl: './todo-modal.component.html',
     styleUrl: './todo-modal.component.scss',
 })
@@ -15,10 +15,4 @@ export class TodoModalComponent {
     modalState = input.required<boolean>();
     @Input() selectedTodo: Todo | null = null;
     @Output() triggerCloseModal = new EventEmitter<Event>();
-    
-    constructor() {
-        effect(() => {
-            console.log(this.selectedTodo);
-        });
-    }
 }

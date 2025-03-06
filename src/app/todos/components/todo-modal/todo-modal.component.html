@@ -7,7 +7,7 @@
         }
     </cds-modal-header>
     <div class="cds--modal-content">
-        <app-todo-form [todo]="selectedTodo" />
+        <ng-content></ng-content>
         <!-- <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">Deadline: 00/00/0000</p>
         <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">State: Completed</p>
         <p>
@@ -21,7 +21,7 @@
             accusamus?
         </p> -->
     </div>
-    <cds-modal-footer>
+    <!-- <cds-modal-footer>
         <ng-container>
             <button cdsButton="primary" (click)="triggerCloseModal.emit()" [attr.modal-primary-focus]="true">
                 Okay
@@ -32,5 +32,5 @@
                 Close
             </button>
         </ng-container>
-    </cds-modal-footer>
+    </cds-modal-footer> -->
 </cds-modal>

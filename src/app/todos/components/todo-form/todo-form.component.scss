@@ -3,6 +3,11 @@
     flex-direction: column;
     gap: 20px;
 
+    .todo-form_group {
+        display: flex;
+        gap: 10px;
+    }
+
     ::ng-deep .cds--text-input__field-wrapper {
         &[data-invalid='true'] {
             .input-field {
@@ -27,6 +32,8 @@
             width: 100%;
             border: 1px solid black;
             border-radius: 5px;
+            resize: none;
+            overflow: hidden;
         }
     }
 
@@ -40,5 +47,17 @@
 
     ::ng-deep .cds--label {
         font-size: 13px;
+    }
+
+    ::ng-deep .cds--btn:not(.cds--skeleton) {
+        padding-block: 0;
+        block-size: 0;
+        padding-inline: 0;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        font-weight: bold;
+        flex: 0 1 50%;
+        max-inline-size: none;
     }
 }

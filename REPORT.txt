@@ -1,10 +1,13 @@
-X: (03/04/2025):
-	- Làm quen với Carbon Design System. ✔
+X: (03/03/2025):
+    - Làm quen bộ quy tắc làm việc của CTY. ✔
+
+X: (04/03/2025):
+	- Làm quen với Carbon Design System. 
     - Áp dụng Carbon dựng layout UI cơ bản của Todo App. ✔
     - Làm quen template component của Angular ✔ và ng-template ✖.
     - Phân rã List Todo thành các thành phần nhỏ hơn. ✔
 
-X: (05/04/2025):
+X: (05/03/2025):
     - Dựng Modal Form cho tác vụ Create & Update. ✔
     - Dựng UI cho form validate. ✔
     - Dựng UI view detail cho Todo. ✔
@@ -12,15 +15,20 @@ X: (05/04/2025):
     - Sử dụng @Output() để lấy data từ component con. ✔
     - Đổ Mockup Data vào Form. ✖
 
-X: (05/04/2025):
-    - Áp dụng ng-content cho Modal.
-    - Gán chức năng mở modal cho các nút tương ứng.
-    - Dựng UI cho notification
-    - Làm quen cách giao tiếp giữa các component
-    - Triển khai giao tiếp
-    - Áp dụng @Input, @Output, signal() vào các logic
+X: (06/03/2025):
+    - Xử lý đầu vào data cho Date Picker (Previous Bug) ✔
+    - Xử lý validate và onChange cho Date Picker ✖
+    - Xử lý validate cho Date Picker ✖
+    - Tìm hiểu Reactive Form và Template Drive Form ✔
+    - Áp dụng Reactive Form ✖ và Template Drive Form ✔
+    - Áp dụng validate bằng Reactive Form ✖ và Template Drive Form ✔
+    - Gán chức năng mở modal cho các nút tương ứng (Add Modal và Edit Modal). ✔
+    - Triển khai logic cơ bản cho Add và Edit ✔
+    - Đổ Mockup Data vào Form. ✔
 
 X: (06/04/2025):
+    - Dựng UI cho notification
+    - Áp dụng ng-content cho Modal.
     - Triển khai các logic cơ bản CRUD cho App;
     - Làm quen Service trong Angular
 

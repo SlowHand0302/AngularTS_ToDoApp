@@ -1,21 +1,21 @@
-<cds-contained-list-item [clickable]="true" class="todo-item-container" [action]="overflowMenu">
-    <ng-container ibmContainedListItemButton>
+<cds-contained-list-item class="todo-item-container" [action]="overflowMenu">
+    <ng-container >
         <div class="todo-item-content">
             <span class="todo-item-content_state">
                 <cds-checkbox
-                    [value]="todo().state"
+                    [checked]="todo().state"
                     [hideLabel]="true"
-                    (checkedChange)="onCheckboxCheck.emit(todo())"
+                    (click)="handleUpdateState()"
                 ></cds-checkbox>
             </span>
             <span class="todo-item-content_title">
                 <p>
                     {{ todo().title }}
                 </p>
-                <p class="cds--label cds--label--no-margin">Deadline: {{ todo().deadline }}</p>
+                <p class="cds--label cds--label--no-margin">Deadline: {{ todo().deadline | date : 'dd/MM/yyyy' }}</p>
             </span>
             <span class="todo-item-details">
-                {{todo().details}}
+                {{ todo().details }}
             </span>
         </div>
     </ng-container>
