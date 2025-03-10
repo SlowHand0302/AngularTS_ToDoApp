@@ -3,7 +3,7 @@
         <div class="todo-item-content">
             <span class="todo-item-content_state">
                 <cds-checkbox
-                    [checked]="todo().state"
+                    [checked]="todo().isCompleted"
                     [hideLabel]="true"
                     (click)="handleUpdateState()"
                 ></cds-checkbox>
@@ -12,7 +12,7 @@
                 <p>
                     {{ todo().title }}
                 </p>
-                <p class="cds--label cds--label--no-margin">Deadline: {{ todo().deadline | date : 'dd/MM/yyyy' }}</p>
+                <p class="cds--label cds--label--no-margin">Deadline: {{ todo().deadline[0] | date : 'dd/MM/yyyy' }}</p>
             </span>
             <span class="todo-item-details">
                 {{ todo().details }}

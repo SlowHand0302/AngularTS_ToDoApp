@@ -1,44 +1,65 @@
-<form class="todo-form" #todoForm="ngForm" (ngSubmit)="onSubmit(todoForm)">
+<form class="todo-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
     <cds-text-label
-        [invalid]="(title.dirty && !title.valid) || false"
-        [invalidText]="title.errors?.['required'] ? 'Please fill the Todo title' : title.errors?.['minlength'] && 'The Todo Title must have at least 6 characters'"
+        [invalid]="
+            !todoForm.controls['title'].valid &&
+            (todoForm.controls['title'].dirty || todoForm.controls['title'].touched)
+        "
+        [invalidText]="
+            todoForm.controls['title'].hasError('required')
+                ? 'Please fill the Todo title'
+                : todoForm.controls['title'].hasError('minlength')
+                ? 'Title must have at least 6 characters'
+                : todoForm.controls['details'].hasError('whitespace')
+                ? 'Invalid value, value is only whitespace'
+                : 'Something is wrong'
+        "
     >
         Title:
-        {{ todoTemplate() | json }}
         <input
             cdsText
             type="text"
             class="input-field"
             placeholder="Type your Todo Title..."
-            [(ngModel)]="todoTemplate().title"
-            #title="ngModel"
             name="title"
-            required
-            minlength="6"
+            formControlName="title"
         />
     </cds-text-label>
     <div class="todo-form_group">
         <cds-date-picker
             [label]="'Deadline:'"
             [theme]="'dark'"
-            [invalidText]="'Warning'"
-            [invalid]="false"
             [range]="false"
-            [ngModel]="deadline"
             name="deadline"
-            (change)="onSelectDate($event)"
+            formControlName="deadline"
+            [invalid]="
+                !todoForm.controls['deadline'].valid &&
+                (todoForm.controls['deadline'].dirty || todoForm.controls['deadline'].touched)
+            "
+            [invalidText]="'Please fill the deadline'"
+            dateFormat="d/m/Y"
         ></cds-date-picker>
         <cds-toggle
-            label="State:"
+            label="Is Completed:"
             onText="Completed"
             offText="Processing"
-            [(ngModel)]="todoTemplate().state"
             name="state"
+            formControlName="isCompleted"
         ></cds-toggle>
     </div>
     <cds-textarea-label
-        [invalid]="details.dirty && (details.errors?.['required'] || details.errors?.['minlength'] || false)"
-        [invalidText]="details.errors?.['required'] ? 'Please fill the Todo details' : details.errors?.['minlength'] && 'The Todo Title must have at least 6 characters'"
+        [invalid]="
+            !todoForm.controls['details'].valid &&
+            (todoForm.controls['details'].dirty || todoForm.controls['details'].touched)
+        "
+        [invalidText]="
+            todoForm.controls['details'].hasError('required')
+                ? 'Please fill the Todo details'
+                : todoForm.controls['details'].hasError('minlength')
+                ? 'Title must have at least 6 characters'
+                : todoForm.controls['details'].hasError('whitespace')
+                ? 'Invalid value, value is only whitespace'
+                : 'Something is wrong'
+        "
     >
         Details:
         <textarea
@@ -46,16 +67,13 @@
             cdsTextArea
             class="textarea-field"
             placeholder="Type your Todo Details..."
-            #details="ngModel"
-            [(ngModel)]="todoTemplate().details"
             name="details"
-            required
-            minlength="6"
+            formControlName="details"
         ></textarea>
     </cds-textarea-label>
     <div class="todo-form_group">
         <ng-container>
-            <button cdsButton="primary" type="submit" [disabled]="!todoForm.valid" [attr.modal-primary-focus]="true">
+            <button cdsButton="primary" type="submit" [disabled]="todoForm.invalid" [attr.modal-primary-focus]="true">
                 Okay
             </button>
         </ng-container>
@@ -72,6 +90,7 @@
     </div>
 </form>
 
-<pre>
-    <!-- {{ deadline.errors | json }} -->
-</pre>
+<!-- <pre>
+    {{ todoForm.value | json }}
+    {{ todo | json }}
+</pre> -->

@@ -17,7 +17,7 @@ export class TodosComponent {
     selectedTodo = signal<Todo | null>(null);
 
     onOptionsClick(todo: Todo) {
-        console.log(todo);
+        // console.log(todo);
     }
 
     handleAddTodo(todo: Todo) {
@@ -25,15 +25,15 @@ export class TodosComponent {
     }
 
     handleEditTodo(todo: Todo) {
-        console.log(todo)
         this.todos.update((prev) => (prev = [...prev.map((item) => (item.id === todo.id ? { ...todo } : item))]));
     }
 
-    handleRemoveTodo(todo: Todo) {}
+    handleRemoveTodo(todo: Todo) {
+        this.todos.update((prev) => (prev = prev.filter((item) => item.id !== todo.id)));
+    }
 
     handleTriggerOpenModal(todo: Todo | null) {
         this.modalState.set(true);
         this.selectedTodo.set(todo);
-        console.log(this.selectedTodo());
     }
 }

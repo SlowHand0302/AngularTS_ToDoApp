@@ -16,7 +16,7 @@ export class TodoItemComponent {
     @Output() onCheckboxCheck = new EventEmitter<Todo>();
 
     handleUpdateState() {
-        let updatedState: Todo = { ...this.todo(), state: !this.todo().state };
+        let updatedState: Todo = { ...this.todo(), isCompleted: !this.todo().isCompleted };
         this.onCheckboxCheck.emit(updatedState);
     }
 }

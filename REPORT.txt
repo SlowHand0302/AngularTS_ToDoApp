@@ -17,8 +17,6 @@ X: (05/03/2025):
 
 X: (06/03/2025):
     - Xử lý đầu vào data cho Date Picker (Previous Bug) ✔
-    - Xử lý validate và onChange cho Date Picker ✖
-    - Xử lý validate cho Date Picker ✖
     - Tìm hiểu Reactive Form và Template Drive Form ✔
     - Áp dụng Reactive Form ✖ và Template Drive Form ✔
     - Áp dụng validate bằng Reactive Form ✖ và Template Drive Form ✔
@@ -26,11 +24,14 @@ X: (06/03/2025):
     - Triển khai logic cơ bản cho Add và Edit ✔
     - Đổ Mockup Data vào Form. ✔
 
-X: (06/04/2025):
-    - Dựng UI cho notification
-    - Áp dụng ng-content cho Modal.
-    - Triển khai các logic cơ bản CRUD cho App;
-    - Làm quen Service trong Angular
+X: (07/03/2025):
+    - Áp dụng Reactive Form ✔
+    - Xử lý validate cho Date Picker ✔
+    - Xử lý validate và onChange cho Date Picker ✔
+    - Triển khai các logic cơ bản CRUD cho App ✔
+    - Tìm hiểu Router outlet, router param, active Router -> snapshot get ID ✖
 
 X: (trong tuần này):
+    - Làm quen Service trong Angular
+    - Dựng UI cho notification
     - Hoàn thiện cơ bản Todo App
