@@ -1,0 +1,20 @@
+<div class="details-container">
+    <h3>
+        <strong>{{ todo.title }}</strong>
+    </h3>
+    <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">
+        Deadline: {{ todo.deadline[0] | date : 'dd/MM/yyyy' }}
+    </p>
+    @if (todo.isCompleted) {
+    <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">
+        State: <span class="details-state completed">Completed</span>
+    </p>
+    } @else {
+    <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">
+        State: <span class="details-state processing">Processing</span>
+    </p>
+    }
+    <p>
+        {{ todo.details }}
+    </p>
+</div>

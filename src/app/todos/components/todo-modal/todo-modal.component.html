@@ -1,25 +1,9 @@
 <cds-modal [open]="modalState()" (overlaySelected)="triggerCloseModal.emit()" (close)="triggerCloseModal.emit()">
     <cds-modal-header (closeSelect)="triggerCloseModal.emit()" [showCloseButton]="true">
-        @if (!selectedTodo) {
-        <p cdsModalHeaderHeading class="cds--modal-header__heading cds--type-beta">Add New Todo</p>
-        } @else {
-        <p cdsModalHeaderHeading class="cds--modal-header__heading cds--type-beta">Edit Todo</p>
-        }
+        <p cdsModalHeaderHeading class="cds--modal-header__heading cds--type-beta">{{ modalTitle }} Todo</p>
     </cds-modal-header>
     <div class="cds--modal-content">
         <ng-content></ng-content>
-        <!-- <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">Deadline: 00/00/0000</p>
-        <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">State: Completed</p>
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur sint voluptate, nostrum debitis neque
-            obcaecati sapiente enim consequuntur ratione ipsa a incidunt aperiam facere assumenda voluptas libero nisi,
-            rerum recusandae.
-        </p>
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti sit voluptatem doloribus, nam, impedit
-            rerum quas modi cumque tempore nemo id animi natus eveniet. Voluptatum facilis non sapiente dignissimos
-            accusamus?
-        </p> -->
     </div>
     <!-- <cds-modal-footer>
         <ng-container>

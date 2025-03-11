@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'carbon-components-angular';
 import { TooltipModule } from 'carbon-components-angular';
 import { DialogModule } from 'carbon-components-angular';
+import { RouterLink, RouterOutlet, Router } from '@angular/router';
 @NgModule({
     declarations: [],
     imports: [
@@ -29,6 +30,9 @@ import { DialogModule } from 'carbon-components-angular';
         CheckboxModule,
         TooltipModule,
         DialogModule,
+        // Route components & services
+        RouterLink,
+        RouterOutlet,
     ],
     exports: [
         CommonModule, // Required for ngIf, ngFor, etc.
@@ -44,6 +48,9 @@ import { DialogModule } from 'carbon-components-angular';
         CheckboxModule,
         TooltipModule,
         DialogModule,
+        // Route components & services
+        RouterLink,
+        RouterOutlet,
     ],
 })
 export class SharedModule {}

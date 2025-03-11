@@ -1,0 +1,27 @@
+.details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    ::ng-deep .cds--modal-header__label{
+        font-size: 14px;
+    }
+
+    .details-state {
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.375rem;
+        font-weight: bold;
+        font-size: 0.75rem;
+        margin-left: 5px;
+        &.completed {
+            border: 1px solid oklch(0.627 0.194 149.214);
+            background-color: oklch(0.982 0.018 155.826);
+            color: oklch(0.527 0.154 150.069);
+        }
+        &.processing {
+            border: 1px solid oklch(0.488 0.243 264.376);
+            background-color: oklch(0.97 0.014 254.604);
+            color: oklch(0.488 0.243 264.376);
+        }
+    }
+}

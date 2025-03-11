@@ -24,14 +24,17 @@ X: (06/03/2025):
     - Triển khai logic cơ bản cho Add và Edit ✔
     - Đổ Mockup Data vào Form. ✔
 
-X: (07/03/2025):
+X: (10/03/2025):
     - Áp dụng Reactive Form ✔
     - Xử lý validate cho Date Picker ✔
     - Xử lý validate và onChange cho Date Picker ✔
     - Triển khai các logic cơ bản CRUD cho App ✔
-    - Tìm hiểu Router outlet, router param, active Router -> snapshot get ID ✖
 
-X: (trong tuần này):
-    - Làm quen Service trong Angular
-    - Dựng UI cho notification
-    - Hoàn thiện cơ bản Todo App
+X: (11/03/2025):
+    - Tìm hiểu Router outlet, router param, active Router -> snapshot get ID ✔
+    - Áp dụng Router outlet, router param, active Router -> snapshot get ID ✔
+    - Xử lý đóng mở modal theo route ✔
+    - Xử lý component theo route ✔
+    - Research docsAngular: Service, Dependency injection, Behavior Subject. 
+    - Triển khai service cơ bản cho các logic CRUD
+    

@@ -1,5 +1,4 @@
 <div class="todos">
-    <!-- <pre>{{ todos() | json }}</pre> -->
     <main class="todos_container">
         <header class="todos_header">
             <p>todos works!</p>
@@ -10,9 +9,7 @@
                 <app-todo-item
                     [todo]="item"
                     (onCheckboxCheck)="handleEditTodo($event)"
-                    (onEditClick)="handleTriggerOpenModal($event)"
                     (onRemoveClick)="handleRemoveTodo($event)"
-                    (onViewClick)="onOptionsClick($event)"
                 />
                 }
             </cds-contained-list>
@@ -23,22 +20,11 @@
 
 <ng-template #combinedActions let-item>
     <cds-search class="todos-searchbar" [expandable]="true" size="lg"></cds-search>
-    <button
-        [iconOnly]="true"
-        cdsButton="primary"
-        kind="primary"
-        description="Add"
-        (click)="handleTriggerOpenModal(null)"
-    >
+    <button [iconOnly]="true" cdsButton="primary" kind="primary" description="Add" [routerLink]="'add'">
         <svg class="cds--btn__icon" ibmIcon="add" size="16"></svg>
     </button>
 </ng-template>
 
-<app-todo-modal [selectedTodo]="selectedTodo()" [modalState]="modalState()" (triggerCloseModal)="modalState.set(false)">
-    <app-todo-form
-        [todo]="selectedTodo()"
-        [modalState]="modalState()"
-        (triggerCloseModal)="modalState.set(false)"
-        (submitForm)="selectedTodo() ? handleEditTodo($event) : handleAddTodo($event)"
-    />
+<app-todo-modal [modalState]="modalState()" (triggerCloseModal)="handleTriggerCloseModal()">
+    <router-outlet />
 </app-todo-modal>

@@ -3,6 +3,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { TodoFormComponent } from '../todo-form/todo-form.component';
 import { CommonModule } from '@angular/common';
 import { Todo } from '../../../shared/models/todo.model';
+import { RouteWatcherService } from '../../../shared/services/route-watcher.service';
 
 @Component({
     selector: 'app-todo-modal',
@@ -13,6 +14,13 @@ import { Todo } from '../../../shared/models/todo.model';
 })
 export class TodoModalComponent {
     modalState = input.required<boolean>();
-    @Input() selectedTodo: Todo | null = null;
+    modalTitle = '';
     @Output() triggerCloseModal = new EventEmitter<Event>();
+    constructor(private routeWatcher: RouteWatcherService) {}
+
+    ngOnInit() {
+        this.routeWatcher.currentUrl$.subscribe((url) => {
+            this.modalTitle = url.split('/')[1];
+        });
+    }
 }
