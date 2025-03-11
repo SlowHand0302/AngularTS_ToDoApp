@@ -2,9 +2,10 @@ import { Component, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { TodoModalComponent } from './components/todo-modal/todo-modal.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
-import { Todo, todoList } from '../shared/models/todo.model';
+import { Todo } from '../shared/models/todo.model';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { RouteWatcherService } from '../shared/services/route-watcher.service';
+import { TodoService } from './services/todo.service';
 
 @Component({
     selector: 'app-todos',
@@ -12,16 +13,11 @@ import { RouteWatcherService } from '../shared/services/route-watcher.service';
     templateUrl: './todos.component.html',
     styleUrl: './todos.component.scss',
 })
-export class TodosComponent implements OnChanges {
-    todos = signal<Todo[]>(todoList);
+export class TodosComponent {
+    todos = signal<Todo[]>([]);
     modalState = signal<boolean>(false);
-    selectedTodo = signal<Todo | null>(null);
 
-    constructor(private router: Router, private routeWatcher: RouteWatcherService) {}
-
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log(this.todos);
-    }
+    constructor(private router: Router, private routeWatcher: RouteWatcherService, private todoService: TodoService) {}
 
     ngOnInit() {
         this.routeWatcher.currentUrl$.subscribe((url) => {
@@ -32,24 +28,11 @@ export class TodosComponent implements OnChanges {
                 this.modalState.set(false);
             }
         });
-    }
-    
-    handleAddTodo(todo: Todo) {
-        this.todos.update((prev) => (prev = [{ ...todo, id: this.todos().length + 1 }, ...prev]));
-    }
 
-    handleEditTodo(todo: Todo) {
-        this.todos.update((prev) => (prev = [...prev.map((item) => (item.id === todo.id ? { ...todo } : item))]));
+        this.todoService.todosSubject$.subscribe((todoList) => {
+            this.todos.set([...todoList]);
+        });
     }
-
-    handleRemoveTodo(todo: Todo) {
-        this.todos.update((prev) => (prev = prev.filter((item) => item.id !== todo.id)));
-    }
-
-    // handleTriggerOpenModal(todo: Todo | null) {
-    //     this.modalState.set(true);
-    //     this.selectedTodo.set(todo);
-    // }
 
     handleTriggerCloseModal() {
         this.router.navigate(['/']);

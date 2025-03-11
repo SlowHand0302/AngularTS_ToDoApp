@@ -1,8 +1,6 @@
-import { Component, effect, EventEmitter, input, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
-import { TodoFormComponent } from '../todo-form/todo-form.component';
 import { CommonModule } from '@angular/common';
-import { Todo } from '../../../shared/models/todo.model';
 import { RouteWatcherService } from '../../../shared/services/route-watcher.service';
 
 @Component({

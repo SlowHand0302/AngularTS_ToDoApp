@@ -31,7 +31,7 @@
         >
             <ibm-overflow-menu-option (click)="handleViewDetails()">View details</ibm-overflow-menu-option>
             <ibm-overflow-menu-option (click)="handleEdit()">Edit</ibm-overflow-menu-option>
-            <ibm-overflow-menu-option (click)="onRemoveClick.emit(todo())" [divider]="true" type="danger">
+            <ibm-overflow-menu-option (click)="handleRemove()" [divider]="true" type="danger">
                 Remove
             </ibm-overflow-menu-option>
         </ibm-overflow-menu>

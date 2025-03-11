@@ -6,11 +6,7 @@
         <section class="todos_content">
             <cds-contained-list label="List title" [action]="combinedActions">
                 @for (item of todos(); track item.id) {
-                <app-todo-item
-                    [todo]="item"
-                    (onCheckboxCheck)="handleEditTodo($event)"
-                    (onRemoveClick)="handleRemoveTodo($event)"
-                />
+                <app-todo-item [todo]="item" />
                 }
             </cds-contained-list>
         </section>

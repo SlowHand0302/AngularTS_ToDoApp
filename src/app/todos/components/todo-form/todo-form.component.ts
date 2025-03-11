@@ -4,7 +4,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { AutoResizeDirective } from '../../../shared/directives/auto-resize.directive';
 import { noWhitespaceValidator } from '../../../shared/validators/no-whitespace.validator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TodosComponent } from '../../todos.component';
+import { TodoService } from '../../services/todo.service';
 
 @Component({
     selector: 'app-todo-form',
@@ -15,10 +15,9 @@ import { TodosComponent } from '../../todos.component';
 export class TodoFormComponent {
     private readonly aRoute = inject(ActivatedRoute);
     private readonly router = inject(Router);
-    private readonly todosComponent = inject(TodosComponent);
 
     todoForm!: FormGroup;
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, private todoService: TodoService) {
         this.todoForm = this.fb.group({
             id: '',
             title: ['', Validators.compose([Validators.required, Validators.minLength(6), noWhitespaceValidator()])],
@@ -46,11 +45,11 @@ export class TodoFormComponent {
 
     onSubmit() {
         if (this.todoForm.value['id']) {
-            this.todosComponent.handleEditTodo(this.todoForm.value);
+            this.todoService.editTodo(this.todoForm.value);
         } else {
-            this.todosComponent.handleAddTodo(this.todoForm.value);
+            this.todoService.addTodo(this.todoForm.value);
         }
-        this.handleResetForm()
+        this.handleResetForm();
         this.router.navigate(['/']);
     }
 
@@ -64,9 +63,10 @@ export class TodoFormComponent {
     }
 
     fetchTodoById(id: number | string) {
-        const fetched = this.todosComponent.todos().find((item) => item.id === id);
+        const fetched = this.todoService.findTodoById(id);
         if (fetched) {
             this.todoForm.patchValue({ ...fetched });
         }
+        
     }
 }
