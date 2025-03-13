@@ -35,6 +35,14 @@ X: (11/03/2025):
     - Áp dụng Router outlet, router param, active Router -> snapshot get ID ✔
     - Xử lý đóng mở modal theo route ✔
     - Xử lý component theo route ✔
-    - Research docsAngular: Service, Dependency injection, Behavior Subject. 
-    - Triển khai service cơ bản cho các logic CRUD
+    - Research docsAngular: Service ✔, Dependency injection ✔, Behavior Subject ✖ 
+    - Triển khai service cơ bản cho các logic CRUD ✔
     
+X: (12/03/2025):
+    - Ôn lại các kiến thức cũ. ✔
+    - Thêm UI cho chức năng Sort và Filter. ✔
+    - Research using Carbon Icon ✔
+    - Thêm chức năng vào service cho Search, Filter và Sort. ✖
+    - Giả lập API và lazy loading ✖
+    - Research Behavior Subject ✔, Router Guard ✔, Auth Guard ✖
+    - Research HttpClient, call API JsonPlaceHolder ✖

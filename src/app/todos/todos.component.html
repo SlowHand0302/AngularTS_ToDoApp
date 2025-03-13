@@ -4,7 +4,7 @@
             <p>todos works!</p>
         </header>
         <section class="todos_content">
-            <cds-contained-list label="List title" [action]="combinedActions">
+            <cds-contained-list [label]="combinedTools" [action]="combinedActions">
                 @for (item of todos(); track item.id) {
                 <app-todo-item [todo]="item" />
                 }
@@ -14,13 +14,49 @@
     </main>
 </div>
 
-<ng-template #combinedActions let-item>
+<ng-template #combinedActions>
     <cds-search class="todos-searchbar" [expandable]="true" size="lg"></cds-search>
     <button [iconOnly]="true" cdsButton="primary" kind="primary" description="Add" [routerLink]="'add'">
         <svg class="cds--btn__icon" ibmIcon="add" size="16"></svg>
     </button>
 </ng-template>
 
+<ng-template #combinedTools>
+    <div class="todos_tools">
+        <cds-dropdown [appendInline]="true" [dropUp]="false" class="filter">
+            <cds-dropdown-list [items]="filterState"></cds-dropdown-list>
+        </cds-dropdown>
+        <cds-dropdown
+            [appendInline]="true"
+            class="sort"
+            [dropUp]="false"
+            [displayValue]="dropdownRenderer"
+            (selected)="handleSelectSort($event)"
+        >
+            <cds-dropdown-list
+                [items]="sortState"
+                [listTpl]="dropdownRenderer"
+                [class.hiddenLastChild]="isClearSortSelected()"
+            ></cds-dropdown-list>
+            <ng-template #dropdownRenderer let-item="item">
+                @if (item.content === 'Clear Sort' && item.selected) {
+                <div class="item">
+                    <svg class="cds--btn__icon" [cdsIcon]="item.icon" size="16"></svg>
+                    <p>Sort By</p>
+                </div>
+                } @else {
+                <div class="item">
+                    <svg class="cds--btn__icon" [cdsIcon]="item.icon" size="16"></svg>
+                    <p>{{ item.content }}</p>
+                </div>
+                }
+            </ng-template>
+        </cds-dropdown>
+    </div>
+</ng-template>
+
 <app-todo-modal [modalState]="modalState()" (triggerCloseModal)="handleTriggerCloseModal()">
     <router-outlet />
 </app-todo-modal>
+
+<!-- chevron--sort,chevron--sort--down,chevron--sort--up -->
