@@ -1,0 +1,42 @@
+.todos_tools {
+    display: flex;
+    gap: 5px;
+    max-width: 100%;
+
+    .sort {
+        flex: 1 0 50%;
+
+        ::ng-deep .cds--list-box__menu-icon {
+            display: none;
+        }
+
+        // .hiddenLastChild {
+        //     ::ng-deep .cds--list-box__menu {
+        //         li[title='Clear Sort'] {
+        //             display: none;
+        //         }
+        //     }
+        // }
+
+        .item {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            height: 100%;
+        }
+    }
+
+    .filter {
+        flex: 1 0 50%;
+    }
+
+    ::ng-deep .cds--dropdown,
+    .cds--list-box__field:focus,
+    .cds--list-box__menu-item--highlighted,
+    .cds--list-box__menu:focus {
+        border-radius: 5px;
+        border-bottom: none;
+        outline-color: #f4f4f5;
+    }
+}

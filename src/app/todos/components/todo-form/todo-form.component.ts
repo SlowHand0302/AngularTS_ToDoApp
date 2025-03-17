@@ -1,5 +1,5 @@
 import { Component, inject, SimpleChanges } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
 import { AutoResizeDirective } from '../../../shared/directives/auto-resize.directive';
 import { noWhitespaceValidator } from '../../../shared/validators/no-whitespace.validator';
@@ -8,7 +8,7 @@ import { TodoService } from '../../services/todo.service';
 
 @Component({
     selector: 'app-todo-form',
-    imports: [SharedModule, FormsModule, AutoResizeDirective, ReactiveFormsModule],
+    imports: [SharedModule, AutoResizeDirective],
     templateUrl: './todo-form.component.html',
     styleUrl: './todo-form.component.scss',
 })
@@ -35,8 +35,6 @@ export class TodoFormComponent {
             }
         });
     }
-
-    ngOnChanges(changes: SimpleChanges): void {}
 
     onCloseButtonClick() {
         this.handleResetForm();

@@ -1,69 +1,27 @@
 import { Component, signal } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { IconService, ListItem } from 'carbon-components-angular';
+import { IconService } from 'carbon-components-angular';
+import { ChevronSort16, ChevronDown16, ChevronUp16 } from '@carbon/icons';
 
+import { Todo } from '../shared/models/todo.model';
 import { TodoModalComponent } from './components/todo-modal/todo-modal.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
-import { Todo } from '../shared/models/todo.model';
+import { TodoToolsComponent } from './components/todo-tools/todo-tools.component';
 import { RouteWatcherService } from '../shared/services/route-watcher.service';
 import { TodoService } from './services/todo.service';
-import { ChevronSort16, ChevronDown16, ChevronUp16 } from '@carbon/icons';
+import { debounce, distinctUntilChanged, Subject, timer } from 'rxjs';
 
 @Component({
     selector: 'app-todos',
-    imports: [SharedModule, TodoModalComponent, TodoItemComponent, RouterLink, RouterOutlet],
+    imports: [SharedModule, TodoModalComponent, TodoItemComponent, RouterLink, RouterOutlet, TodoToolsComponent],
     templateUrl: './todos.component.html',
     styleUrl: './todos.component.scss',
 })
 export class TodosComponent {
     todos = signal<Todo[]>([]);
-    modalState = signal<boolean>(false);
-    filterState: ListItem[] = [
-        {
-            content: 'All',
-            icon: 'chevron--sort',
-            selected: true,
-        },
-        {
-            content: 'Completed',
-            icon: 'chevron--sort',
-            selected: false,
-        },
-        {
-            content: 'Processing',
-            icon: 'chevron--sort',
-            selected: false,
-        },
-    ];
-
-    sortState: ListItem[] = [
-        {
-            content: 'Title Asc',
-            icon: 'chevron--up',
-            selected: false,
-        },
-        {
-            content: 'Title Desc',
-            icon: 'chevron--down',
-            selected: false,
-        },
-        {
-            content: 'Deadline Asc',
-            icon: 'chevron--up',
-            selected: false,
-        },
-        {
-            content: 'Deadline Desc',
-            icon: 'chevron--down',
-            selected: false,
-        },
-        {
-            content: 'Clear Sort',
-            icon: 'chevron--sort',
-            selected: true,
-        },
-    ];
+    modalState = signal<boolean>(true);
+    private searchSubject = new Subject<string>();
 
     constructor(
         private router: Router,
@@ -72,13 +30,19 @@ export class TodosComponent {
         protected iconService: IconService,
     ) {
         iconService.registerAll([ChevronDown16, ChevronSort16, ChevronUp16]);
+        this.searchSubject
+            .pipe(
+                debounce(() => timer(300)),
+                distinctUntilChanged(),
+            )
+            .subscribe((value) => {
+                if (value) {
+                    this.todoService.searchTodo(value);
+                } else {
+                    this.todoService.resetTodo();
+                }
+            });
     }
-    
-    selectedItem: ListItem | null = {
-        content: 'Clear Sort',
-        icon: 'chevron--sort',
-        selected: true,
-    };
 
     ngOnInit() {
         this.routeWatcher.currentUrl$.subscribe((url) => {
@@ -95,14 +59,8 @@ export class TodosComponent {
         });
     }
 
-    handleSelectSort(item: any) {
-        this.sortState.forEach((i) => (i.selected = i === item));
-        this.selectedItem = { ...item.item };
-        console.log(item['item']);
-    }
-
-    isClearSortSelected(): boolean {
-        return this.selectedItem?.content === 'Clear Sort' && this.selectedItem.selected;
+    onSearchBarChange(searchText: string) {
+        this.searchSubject.next(searchText);
     }
 
     handleTriggerCloseModal() {

@@ -42,7 +42,19 @@ X: (12/03/2025):
     - Ôn lại các kiến thức cũ. ✔
     - Thêm UI cho chức năng Sort và Filter. ✔
     - Research using Carbon Icon ✔
-    - Thêm chức năng vào service cho Search, Filter và Sort. ✖
     - Giả lập API và lazy loading ✖
+    - Thêm chức năng vào service cho Search, Filter và Sort. ✖
     - Research Behavior Subject ✔, Router Guard ✔, Auth Guard ✖
     - Research HttpClient, call API JsonPlaceHolder ✖
+
+X: (13/03/2025):
+    - Thêm chức năng vào service cho Search ✔, Filter ✔ và Sort. ✔
+    - Thêm UI cho chức năng Sort và Filter. ✔
+    - Research HttpClient, call API JsonPlaceHolder ✖
+    - Giả lập API và lazy loading -> Thiết lập API server cho Authen ✖
+    - Research HttpClient, call API JsonPlaceHolder ✖
+
+X: (17/03/2025):
+    - Research Behavior Subject, Router Guard, Auth Guard 
+    - Research HttpClient, call API JsonPlaceHolder 
+    - Giả lập API và lazy loading -> Thiết lập API server cho Authen 

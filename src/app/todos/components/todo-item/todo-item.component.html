@@ -10,6 +10,7 @@
             </span>
             <span class="todo-item-content_title">
                 <p>
+                    {{ todo().id }}
                     {{ todo().title }}
                 </p>
                 <p class="cds--label cds--label--no-margin">Deadline: {{ todo().deadline[0] | date : 'dd/MM/yyyy' }}</p>

@@ -1,0 +1,31 @@
+<div class="todos_tools">
+    <cds-dropdown [appendInline]="true" [dropUp]="false" class="filter" (selected)="handleSelectFilter($event)">
+        <cds-dropdown-list [items]="filterState"></cds-dropdown-list>
+    </cds-dropdown>
+    <cds-dropdown
+        [appendInline]="true"
+        class="sort"
+        [dropUp]="false"
+        [displayValue]="dropdownRenderer"
+        (selected)="handleSelectSort($event)"
+    >
+        <cds-dropdown-list [items]="sortState" [listTpl]="dropdownRenderer"></cds-dropdown-list>
+        <ng-template #dropdownRenderer let-item="item">
+            <!-- @if (item.content === 'Clear Sort' && item.selected) {
+            <div class="item">
+                <svg class="cds--btn__icon" [cdsIcon]="item.icon" size="16"></svg>
+                <p>Sort By</p>
+            </div>
+            } @else {
+            } -->
+            <div class="item">
+                @if (item.order === 'asc') {
+                <svg class="cds--btn__icon" [cdsIcon]="'chevron--up'" size="16"></svg>
+                } @else {
+                <svg class="cds--btn__icon" [cdsIcon]="'chevron--down'" size="16"></svg>
+                }
+                <p>{{ item.content }}</p>
+            </div>
+        </ng-template>
+    </cds-dropdown>
+</div>

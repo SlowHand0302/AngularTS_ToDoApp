@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ButtonModule } from 'carbon-components-angular';
 import { InputModule } from 'carbon-components-angular';
@@ -35,6 +35,7 @@ import { DropdownModule } from 'carbon-components-angular';
         // Route components & services
         RouterLink,
         RouterOutlet,
+        ReactiveFormsModule,
     ],
     exports: [
         CommonModule, // Required for ngIf, ngFor, etc.
@@ -54,6 +55,7 @@ import { DropdownModule } from 'carbon-components-angular';
         // Route components & services
         RouterLink,
         RouterOutlet,
+        ReactiveFormsModule,
     ],
 })
 export class SharedModule {}
