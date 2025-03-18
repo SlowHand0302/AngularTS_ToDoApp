@@ -9,14 +9,14 @@ import { FilterOption } from '../../shared/models/filter.model';
 })
 export class TodoService {
     private todosSubject: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
-    private loadingTodos: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private todoFilterOption: BehaviorSubject<FilterOption<Todo>[]> = new BehaviorSubject<FilterOption<Todo>[]>([]);
     private todoSortOption: BehaviorSubject<SortOption<Todo>> = new BehaviorSubject<SortOption<Todo>>({
         key: 'title',
         order: 'asc',
     });
+    private loadingSet = new BehaviorSubject<Set<string>>(new Set());
+    public loadingSet$ = this.loadingSet.asObservable();
     public todosSubject$: Observable<Todo[]> = this.todosSubject.asObservable();
-    public loadingTodos$: Observable<boolean> = this.loadingTodos.asObservable();
 
     public findTodoById(todoId: number | string): Todo | null {
         return todoList.find((item) => item.id == todoId) ?? null;
@@ -44,7 +44,7 @@ export class TodoService {
                 ...this.todoFilterOption.value.map((item) => (item.key === option.key ? option : item)),
             ]);
         }
-        this.APIEmulator(() => this.filterTodo()).subscribe();
+        this.APIEmulator(() => this.filterTodo(), 'loadTodos').subscribe();
     }
 
     public setSortOption(option: SortOption<Todo>) {
@@ -103,12 +103,30 @@ export class TodoService {
         this.todosSubject.next([...todoList.sort((a, b) => a.title.localeCompare(b.title))]);
     }
 
-    public APIEmulator<T = void>(fn: () => T): Observable<T> {
+    public APIEmulator<T = void>(fn: () => T, requestId: string): Observable<T> {
         return of(null).pipe(
-            tap(() => this.loadingTodos.next(true)), // Start loading
-            delay(5000), 
-            map(() => fn()), // Ensure the function returns a value
-            tap(() => this.loadingTodos.next(false)), // Stop loading
+            tap(() => this.addLoading(requestId)), // Start loading
+            delay(500),
+            map(() => fn()), // Execute function
+            tap(() => this.removeLoading(requestId)), // Stop loading
         );
+    }
+
+    private addLoading(requestId: string) {
+        const currentState = new Set(this.loadingSet.value);
+        currentState.add(requestId);
+        this.loadingSet.next(currentState);
+        console.log(this.loadingSet.value);
+    }
+
+    private removeLoading(requestId: string) {
+        const currentState = new Set(this.loadingSet.value);
+        currentState.delete(requestId);
+        this.loadingSet.next(currentState);
+        console.log(this.loadingSet.value);
+    }
+
+    public isLoading(requestId: string): Observable<boolean> {
+        return this.loadingSet$.pipe(map((set) => set.has(requestId)));
     }
 }

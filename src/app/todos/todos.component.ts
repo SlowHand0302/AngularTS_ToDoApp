@@ -47,7 +47,7 @@ export class TodosComponent {
             .subscribe((value) => {
                 if (value) {
                     this.todoService.searchTodo(value);
-                    this.todoService.APIEmulator(() => this.todoService.searchTodo(value)).subscribe();
+                    this.todoService.APIEmulator(() => this.todoService.searchTodo(value), 'loadTodos').subscribe();
                 } else {
                     this.loadingTodos();
                 }
@@ -66,8 +66,8 @@ export class TodosComponent {
         this.todoService.todosSubject$.subscribe((todoList) => {
             this.todos.set([...todoList]);
         });
-        this.todoService.loadingTodos$.subscribe((state) => {
-            this.isLoading.set(state);
+        this.todoService.isLoading('loadTodos').subscribe((result) => {
+            this.isLoading.set(result);
         });
         this.loadingTodos();
     }
@@ -82,6 +82,6 @@ export class TodosComponent {
     }
 
     loadingTodos() {
-        this.todoService.APIEmulator(() => this.todoService.resetTodo()).subscribe();
+        this.todoService.APIEmulator(() => this.todoService.resetTodo(), 'loadTodos').subscribe();
     }
 }

@@ -13,7 +13,7 @@ import { TodoService } from '../../services/todo.service';
 })
 export class TodoModalComponent {
     modalState = input.required<boolean>();
-    isLoading = signal<boolean>(false);
+    isLoading = signal<number>(0);
     modalTitle = '';
     @Output() triggerCloseModal = new EventEmitter<Event>();
     constructor(private routeWatcher: RouteWatcherService, private todoService: TodoService) {}
@@ -22,13 +22,14 @@ export class TodoModalComponent {
         this.routeWatcher.currentUrl$.subscribe((url) => {
             this.modalTitle = url.split('/')[1];
         });
-        this.todoService.loadingTodos$.subscribe((state) => {
-            this.isLoading.set(state);
+        this.todoService.loadingSet$.subscribe((state) => {
+            this.isLoading.set(state.size);
+            console.log(state.size)
         });
     }
 
     handleOnCloseModal() {
-        if (!this.isLoading()) {
+        if (this.isLoading() <= 0) {
             this.triggerCloseModal.emit();
         }
     }

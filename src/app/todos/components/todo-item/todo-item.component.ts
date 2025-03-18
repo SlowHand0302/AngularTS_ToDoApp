@@ -29,6 +29,6 @@ export class TodoItemComponent {
     }
 
     handleRemove() {
-        this.todoService.removeTodo(this.todo().id);
+        this.todoService.APIEmulator(() => this.todoService.removeTodo(this.todo().id), 'loadTodos').subscribe();
     }
 }

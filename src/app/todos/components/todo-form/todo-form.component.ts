@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
 import { AutoResizeDirective } from '../../../shared/directives/auto-resize.directive';
@@ -16,8 +16,10 @@ import { Todo } from '../../../shared/models/todo.model';
 export class TodoFormComponent {
     private readonly aRoute = inject(ActivatedRoute);
     private readonly router = inject(Router);
-    isLoading = signal<boolean>(false);
-    isFirstLoad = signal<boolean>(true);
+    isLoading = signal<Map<string, boolean>>(new Map());
+    readonly isEditingOrAdding = computed(
+        () => (this.isLoading().get('edit') ?? false) || (this.isLoading().get('add') ?? false),
+    );
 
     todoForm!: FormGroup;
     constructor(private fb: FormBuilder, private todoService: TodoService) {
@@ -37,8 +39,11 @@ export class TodoFormComponent {
                 this.fetchTodoById(+id); // Convert string to number
             }
         });
-        this.todoService.loadingTodos$.subscribe((state) => {
-            this.isLoading.set(state);
+
+        ['edit', 'add', 'loadById'].forEach((key) => {
+            this.todoService.isLoading(key).subscribe((state) => {
+                this.isLoading.update((prev) => new Map(prev).set(key, state));
+            });
         });
     }
 
@@ -50,14 +55,14 @@ export class TodoFormComponent {
     onSubmit() {
         if (this.todoForm.value['id']) {
             this.todoService
-                .APIEmulator(() => this.todoService.editTodo(this.todoForm.value))
+                .APIEmulator(() => this.todoService.editTodo(this.todoForm.value), 'edit')
                 .subscribe(() => {
                     this.router.navigate(['/']);
                     this.handleResetForm();
                 });
         } else {
             this.todoService
-                .APIEmulator(() => this.todoService.addTodo(this.todoForm.value))
+                .APIEmulator(() => this.todoService.addTodo(this.todoForm.value), 'add')
                 .subscribe(() => {
                     this.router.navigate(['/']);
                     this.handleResetForm();
@@ -76,11 +81,10 @@ export class TodoFormComponent {
 
     fetchTodoById(id: number | string) {
         this.todoService
-            .APIEmulator<Todo | null>(() => this.todoService.findTodoById(id))
+            .APIEmulator<Todo | null>(() => this.todoService.findTodoById(id), 'loadById')
             .subscribe((result) => {
                 if (result) {
                     this.todoForm.patchValue({ ...result });
-                    this.isFirstLoad.set(false);
                 }
             });
     }

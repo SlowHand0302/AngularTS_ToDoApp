@@ -25,14 +25,14 @@ export class TodoDetailComponent {
                 this.fetchTodoById(+id); // Convert string to number
             }
         });
-        this.todoService.loadingTodos$.subscribe((state) => {
-            this.isLoading.set(state);
+        this.todoService.isLoading('loadById').subscribe((result) => {
+            this.isLoading.set(result);
         });
     }
 
     fetchTodoById(id: number | string) {
         this.todoService
-            .APIEmulator<Todo | null>(() => this.todoService.findTodoById(id))
+            .APIEmulator<Todo | null>(() => this.todoService.findTodoById(id), 'loadById')
             .subscribe((result) => {
                 if (result) {
                     this.todo = { ...result };

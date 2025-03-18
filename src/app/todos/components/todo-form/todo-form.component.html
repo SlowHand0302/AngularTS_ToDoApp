@@ -1,4 +1,4 @@
-@if (isLoading() && isFirstLoad()) {
+@if (isLoading().get('loadById')) {
 <app-todo-skeletons variant="todo-form__edit" />
 }@else {
 <form class="todo-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
@@ -25,7 +25,7 @@
             placeholder="Type your Todo Title..."
             name="title"
             formControlName="title"
-            [readOnly]="isLoading() && !isFirstLoad()"
+            [readOnly]="isEditingOrAdding()"
         />
     </cds-text-label>
     <div class="todo-form_group">
@@ -41,7 +41,7 @@
             "
             [invalidText]="'Please fill the deadline'"
             dateFormat="d/m/Y"
-            [readonly]="isLoading() && !isFirstLoad()"
+            [readonly]="isEditingOrAdding()"
         ></cds-date-picker>
         <cds-toggle
             label="Is Completed:"
@@ -74,13 +74,13 @@
             placeholder="Type your Todo Details..."
             name="details"
             formControlName="details"
-            [readOnly]="isLoading() && !isFirstLoad()"
+            [readOnly]="isEditingOrAdding()"
         ></textarea>
     </cds-textarea-label>
     <div class="todo-form_group">
         <ng-container>
             <button cdsButton="primary" type="submit" [disabled]="todoForm.invalid" [attr.modal-primary-focus]="true">
-                <cds-inline-loading [isActive]="isLoading() && !isFirstLoad()"></cds-inline-loading>Okay
+                <cds-inline-loading [isActive]="isEditingOrAdding()"></cds-inline-loading>Okay
             </button>
         </ng-container>
         <ng-container>
@@ -89,7 +89,7 @@
                 type="button"
                 (click)="onCloseButtonClick()"
                 [attr.modal-primary-focus]="true"
-                [disabled]="isLoading()"
+                [disabled]="isEditingOrAdding()"
             >
                 Close
             </button>
