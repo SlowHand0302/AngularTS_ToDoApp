@@ -3,6 +3,7 @@ import { SharedModule } from '../shared/shared.module';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { IconService } from 'carbon-components-angular';
 import { ChevronSort16, ChevronDown16, ChevronUp16 } from '@carbon/icons';
+import { debounce, distinctUntilChanged, Subject, timer } from 'rxjs';
 
 import { Todo } from '../shared/models/todo.model';
 import { TodoModalComponent } from './components/todo-modal/todo-modal.component';
@@ -10,16 +11,24 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { TodoToolsComponent } from './components/todo-tools/todo-tools.component';
 import { RouteWatcherService } from '../shared/services/route-watcher.service';
 import { TodoService } from './services/todo.service';
-import { debounce, distinctUntilChanged, Subject, timer } from 'rxjs';
-
+import { TodoSkeletonsComponent } from './components/todo-skeletons/todo-skeletons.component';
 @Component({
     selector: 'app-todos',
-    imports: [SharedModule, TodoModalComponent, TodoItemComponent, RouterLink, RouterOutlet, TodoToolsComponent],
+    imports: [
+        SharedModule,
+        TodoModalComponent,
+        TodoItemComponent,
+        RouterLink,
+        RouterOutlet,
+        TodoToolsComponent,
+        TodoSkeletonsComponent,
+    ],
     templateUrl: './todos.component.html',
     styleUrl: './todos.component.scss',
 })
 export class TodosComponent {
     todos = signal<Todo[]>([]);
+    isLoading = signal<boolean>(false);
     modalState = signal<boolean>(true);
     private searchSubject = new Subject<string>();
 
@@ -38,25 +47,29 @@ export class TodosComponent {
             .subscribe((value) => {
                 if (value) {
                     this.todoService.searchTodo(value);
+                    this.todoService.APIEmulator(() => this.todoService.searchTodo(value)).subscribe();
                 } else {
-                    this.todoService.resetTodo();
+                    this.loadingTodos();
                 }
             });
     }
 
     ngOnInit() {
         this.routeWatcher.currentUrl$.subscribe((url) => {
+            console.log('URL changed:', url); // Logs every URL change
             if (url.includes('add') || url.includes('edit') || url.includes('details')) {
-                console.log('URL changed:', url); // Logs every URL change
                 this.modalState.set(true);
             } else {
                 this.modalState.set(false);
             }
         });
-
         this.todoService.todosSubject$.subscribe((todoList) => {
             this.todos.set([...todoList]);
         });
+        this.todoService.loadingTodos$.subscribe((state) => {
+            this.isLoading.set(state);
+        });
+        this.loadingTodos();
     }
 
     onSearchBarChange(searchText: string) {
@@ -66,5 +79,9 @@ export class TodosComponent {
     handleTriggerCloseModal() {
         this.router.navigate(['/']);
         this.modalState.set(false);
+    }
+
+    loadingTodos() {
+        this.todoService.APIEmulator(() => this.todoService.resetTodo()).subscribe();
     }
 }

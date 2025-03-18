@@ -1,3 +1,6 @@
+@if (isLoading() && isFirstLoad()) {
+<app-todo-skeletons variant="todo-form__edit" />
+}@else {
 <form class="todo-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
     <cds-text-label
         [invalid]="
@@ -11,7 +14,7 @@
                 ? 'Title must have at least 6 characters'
                 : todoForm.controls['details'].hasError('whitespace')
                 ? 'Invalid value, value is only whitespace'
-                : 'Something is wrong'
+                : ''
         "
     >
         Title:
@@ -22,6 +25,7 @@
             placeholder="Type your Todo Title..."
             name="title"
             formControlName="title"
+            [readOnly]="isLoading() && !isFirstLoad()"
         />
     </cds-text-label>
     <div class="todo-form_group">
@@ -37,6 +41,7 @@
             "
             [invalidText]="'Please fill the deadline'"
             dateFormat="d/m/Y"
+            [readonly]="isLoading() && !isFirstLoad()"
         ></cds-date-picker>
         <cds-toggle
             label="Is Completed:"
@@ -69,12 +74,13 @@
             placeholder="Type your Todo Details..."
             name="details"
             formControlName="details"
+            [readOnly]="isLoading() && !isFirstLoad()"
         ></textarea>
     </cds-textarea-label>
     <div class="todo-form_group">
         <ng-container>
             <button cdsButton="primary" type="submit" [disabled]="todoForm.invalid" [attr.modal-primary-focus]="true">
-                Okay
+                <cds-inline-loading [isActive]="isLoading() && !isFirstLoad()"></cds-inline-loading>Okay
             </button>
         </ng-container>
         <ng-container>
@@ -83,14 +89,17 @@
                 type="button"
                 (click)="onCloseButtonClick()"
                 [attr.modal-primary-focus]="true"
+                [disabled]="isLoading()"
             >
                 Close
             </button>
         </ng-container>
     </div>
 </form>
+}
 
 <pre>
-    <!-- {{ todoForm.value | json }} -->
-    <!-- {{ todo | json }} -->
+    <!-- {{ todoForm.errors | json }}
+    {{ todoForm.valid | json }}
+    {{ todoForm.value | json }} -->
 </pre>

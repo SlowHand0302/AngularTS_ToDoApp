@@ -55,6 +55,14 @@ X: (13/03/2025):
     - Research HttpClient, call API JsonPlaceHolder ✖
 
 X: (17/03/2025):
-    - Research Behavior Subject, Router Guard, Auth Guard 
-    - Research HttpClient, call API JsonPlaceHolder 
-    - Giả lập API và lazy loading -> Thiết lập API server cho Authen 
+    - Thêm UI skeleton cho todo-item, todo-form, todo-detail.✔
+    - Thêm UI cho notification ✖
+    - Thêm UI loading cho create ✖, update ✖, search ✔ và filter service ✔
+    - Giả lập API cho cho create ✖, update ✖, search ✔ và filter service ✔
+    - Giả lập API và lazy loading ✔
+
+X: (18/03/2025):
+    - Thêm UI cho notification ✖
+    - Thêm UI loading cho create ✔, update ✔
+    - Chặn modal đóng khi request đang được thực hiện ✔
+    - Giả lập API cho cho create ✔, update ✔

@@ -59,5 +59,13 @@
         font-weight: bold;
         flex: 0 1 50%;
         max-inline-size: none;
+        ::ng-deep .cds--inline-loading {
+            inline-size: unset;
+            justify-content: center;
+            display: none;
+            &[ng-reflect-is-active='true'] {
+                display: flex;
+            }
+        }
     }
 }

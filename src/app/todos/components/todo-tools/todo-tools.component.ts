@@ -6,7 +6,8 @@ import { ChevronSort16, ChevronDown16, ChevronUp16 } from '@carbon/icons';
 import { SharedModule } from '../../../shared/shared.module';
 import { Todo } from '../../../shared/models/todo.model';
 import { todoFilterList, FilterListItem } from '../../../shared/models/filter.model';
-import { SortListItem, SortOption, todoSortList } from '../../../shared/models/sort.model';
+import { SortListItem, todoSortList } from '../../../shared/models/sort.model';
+
 
 @Component({
     selector: 'app-todo-tools',
@@ -32,7 +33,7 @@ export class TodoToolsComponent {
 
     handleSelectFilter(option: any) {
         let optionSelected = { ...option['item'] };
-            this.todoService.setFilterOption({
+        this.todoService.setFilterOption({
             key: optionSelected.key,
             value: optionSelected.value,
         });

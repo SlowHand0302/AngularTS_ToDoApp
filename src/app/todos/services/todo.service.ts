@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, delay, map, Observable, of, tap } from 'rxjs';
 import { Todo, todoList } from '../../shared/models/todo.model';
 import { SortOption } from '../../shared/models/sort.model';
 import { FilterOption } from '../../shared/models/filter.model';
@@ -8,18 +8,18 @@ import { FilterOption } from '../../shared/models/filter.model';
     providedIn: 'root',
 })
 export class TodoService {
-    private todosSubject: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>(
-        todoList.sort((a, b) => a.title.localeCompare(b.title)),
-    );
+    private todosSubject: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
+    private loadingTodos: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private todoFilterOption: BehaviorSubject<FilterOption<Todo>[]> = new BehaviorSubject<FilterOption<Todo>[]>([]);
     private todoSortOption: BehaviorSubject<SortOption<Todo>> = new BehaviorSubject<SortOption<Todo>>({
         key: 'title',
         order: 'asc',
     });
     public todosSubject$: Observable<Todo[]> = this.todosSubject.asObservable();
+    public loadingTodos$: Observable<boolean> = this.loadingTodos.asObservable();
 
     public findTodoById(todoId: number | string): Todo | null {
-        return this.todosSubject.value.find((item) => item.id == todoId) ?? null;
+        return todoList.find((item) => item.id == todoId) ?? null;
     }
 
     public addTodo(todo: Todo) {
@@ -44,7 +44,7 @@ export class TodoService {
                 ...this.todoFilterOption.value.map((item) => (item.key === option.key ? option : item)),
             ]);
         }
-        this.filterTodo();
+        this.APIEmulator(() => this.filterTodo()).subscribe();
     }
 
     public setSortOption(option: SortOption<Todo>) {
@@ -101,5 +101,14 @@ export class TodoService {
 
     public resetTodo() {
         this.todosSubject.next([...todoList.sort((a, b) => a.title.localeCompare(b.title))]);
+    }
+
+    public APIEmulator<T = void>(fn: () => T): Observable<T> {
+        return of(null).pipe(
+            tap(() => this.loadingTodos.next(true)), // Start loading
+            delay(5000), 
+            map(() => fn()), // Ensure the function returns a value
+            tap(() => this.loadingTodos.next(false)), // Stop loading
+        );
     }
 }

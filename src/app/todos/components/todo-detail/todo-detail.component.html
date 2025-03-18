@@ -1,3 +1,6 @@
+@if (isLoading()) {
+<app-todo-skeletons variant="todo-details" />
+}@else {
 <div class="details-container">
     <h3>
         <strong>{{ todo.title }}</strong>
@@ -18,3 +21,4 @@
         {{ todo.details }}
     </p>
 </div>
+}

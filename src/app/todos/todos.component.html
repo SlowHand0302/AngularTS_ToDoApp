@@ -5,12 +5,23 @@
         </header>
         <section class="todos_content">
             <cds-contained-list [label]="combinedTools" [action]="combinedActions">
-                <!-- @for (item of todos(); track item.id) {
+                @if (isLoading()) {
+                <!-- Handle Loading State -->
+                <app-todo-skeletons variant="todo-item" />
+                } @else if (todos().length > 0) {
+                <!-- Loaded List -->
+                @for (item of todos(); track item.id) {
                 <app-todo-item [todo]="item" />
-                } -->
+                }
+                <!-- Handle Emplty List -->
+                } @else {
+                <div style="width: 100%; text-align: center; margin: 50px 0">
+                    <strong> Opps, There is nothing here :(( </strong>
+                </div>
+                }
             </cds-contained-list>
         </section>
-        <footer class="todos_footer"></footer>
+        <footer class="todos_f ooter"></footer>
     </main>
 </div>
 

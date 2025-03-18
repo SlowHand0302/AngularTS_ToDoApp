@@ -1,0 +1,58 @@
+<!-- Skeleton for Items list -->
+@if (variant() === 'todo-item') { @for (item of numSkeletons; track $index) {
+<div class="todo-item-skeleton">
+    <div class="todo-item-skeleton__checkbox"></div>
+    <div class="todo-item-skeleton__content">
+        <div class="todo-item-skeleton__title todo-skeleton__loading"></div>
+        <div class="todo-item-skeleton__deadline todo-skeleton__loading"></div>
+        <div class="todo-item-skeleton__description todo-skeleton__loading"></div>
+    </div>
+    <div class="todo-item-skeleton__details">
+        <div class="todo-item-skeleton__description todo-skeleton__loading"></div>
+        <div class="todo-item-skeleton__description todo-skeleton__loading"></div>
+        <div class="todo-item-skeleton__description todo-skeleton__loading"></div>
+    </div>
+</div>
+} }
+
+<!-- Skeleton for Form Edit -->
+@if (variant() === 'todo-form__edit') {
+<div class="form">
+    <div class="form__group">
+        <label class="form__label">Title:</label>
+        <div class="form__input todo-skeleton__loading"></div>
+    </div>
+    <div class="form__row">
+        <div class="form__group">
+            <label class="form__label">Deadline:</label>
+            <div class="form__input todo-skeleton__loading"></div>
+        </div>
+        <div class="form__group">
+            <label class="form__label">Is Completed:</label>
+            <div class="form__toggle todo-skeleton__loading"></div>
+        </div>
+    </div>
+
+    <div class="form__group">
+        <label class="form__label">Details:</label>
+        <div class="form__textarea todo-skeleton__loading"></div>
+    </div>
+
+    <div class="form__actions">
+        <div class="form__button todo-skeleton__loading"></div>
+        <div class="form__button todo-skeleton__loading"></div>
+    </div>
+</div>
+}
+
+<!-- Skeleton for Todo Details -->
+@if (variant() === 'todo-details') {
+<div class="details">
+    <div class="details__title todo-skeleton__loading"></div>
+    <div class="details__deadline todo-skeleton__loading"></div>
+    <div class="details__state">
+        <div class="details__button todo-skeleton__loading"></div>
+    </div>
+    <div class="details__description todo-skeleton__loading"></div>
+</div>
+}
