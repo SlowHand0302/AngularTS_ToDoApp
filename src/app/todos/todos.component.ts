@@ -12,6 +12,8 @@ import { TodoToolsComponent } from './components/todo-tools/todo-tools.component
 import { RouteWatcherService } from '../shared/services/route-watcher.service';
 import { TodoService } from './services/todo.service';
 import { TodoSkeletonsComponent } from './components/todo-skeletons/todo-skeletons.component';
+import { TodoSkeletonVariants } from '../shared/constants/varianst.enum';
+
 @Component({
     selector: 'app-todos',
     imports: [
@@ -25,11 +27,13 @@ import { TodoSkeletonsComponent } from './components/todo-skeletons/todo-skeleto
     ],
     templateUrl: './todos.component.html',
     styleUrl: './todos.component.scss',
+    standalone: true,
 })
 export class TodosComponent {
     todos = signal<Todo[]>([]);
     isLoading = signal<boolean>(false);
     modalState = signal<boolean>(true);
+    readonly skeletonVariants = TodoSkeletonVariants;
     private searchSubject = new Subject<string>();
 
     constructor(
@@ -56,7 +60,7 @@ export class TodosComponent {
 
     ngOnInit() {
         this.routeWatcher.currentUrl$.subscribe((url) => {
-            console.log('URL changed:', url); // Logs every URL change
+            // console.log('URL changed:', url); // Logs every URL change
             if (url.includes('add') || url.includes('edit') || url.includes('details')) {
                 this.modalState.set(true);
             } else {

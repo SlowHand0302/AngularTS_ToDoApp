@@ -7,6 +7,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../../services/todo.service';
 import { TodoSkeletonsComponent } from '../todo-skeletons/todo-skeletons.component';
 import { Todo } from '../../../shared/models/todo.model';
+import { TodoSkeletonVariants } from '../../../shared/constants/varianst.enum';
+import { NotificationVariants, NotificationService } from '../../../shared/services/notification.service';
+
 @Component({
     selector: 'app-todo-form',
     imports: [SharedModule, AutoResizeDirective, TodoSkeletonsComponent],
@@ -16,13 +19,18 @@ import { Todo } from '../../../shared/models/todo.model';
 export class TodoFormComponent {
     private readonly aRoute = inject(ActivatedRoute);
     private readonly router = inject(Router);
+    readonly skeletonsVariants = TodoSkeletonVariants;
     isLoading = signal<Map<string, boolean>>(new Map());
     readonly isEditingOrAdding = computed(
         () => (this.isLoading().get('edit') ?? false) || (this.isLoading().get('add') ?? false),
     );
 
     todoForm!: FormGroup;
-    constructor(private fb: FormBuilder, private todoService: TodoService) {
+    constructor(
+        private fb: FormBuilder,
+        private todoService: TodoService,
+        private notificationService: NotificationService,
+    ) {
         this.todoForm = this.fb.group({
             id: '',
             title: ['', Validators.compose([Validators.required, Validators.minLength(6), noWhitespaceValidator()])],
@@ -57,6 +65,12 @@ export class TodoFormComponent {
             this.todoService
                 .APIEmulator(() => this.todoService.editTodo(this.todoForm.value), 'edit')
                 .subscribe(() => {
+                    this.notificationService.showNotification(NotificationVariants.TOAST, {
+                        type: 'success',
+                        title: 'Update Todo Success',
+                        subtitle: '',
+                        caption: `Update ${this.todoForm.value.title} success`,
+                    });
                     this.router.navigate(['/']);
                     this.handleResetForm();
                 });
@@ -64,6 +78,10 @@ export class TodoFormComponent {
             this.todoService
                 .APIEmulator(() => this.todoService.addTodo(this.todoForm.value), 'add')
                 .subscribe(() => {
+                    this.notificationService.showNotification(NotificationVariants.NOTIFICATION, {
+                        type: 'success',
+                        title: 'Add Todo Success',
+                    });
                     this.router.navigate(['/']);
                     this.handleResetForm();
                 });

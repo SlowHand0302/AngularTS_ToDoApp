@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { TodoSkeletonVariants } from '../../../shared/constants/varianst.enum';
 
 @Component({
     selector: 'app-todo-skeletons',
@@ -7,6 +8,7 @@ import { Component, input } from '@angular/core';
     styleUrl: './todo-skeletons.component.scss',
 })
 export class TodoSkeletonsComponent {
+    readonly variants = TodoSkeletonVariants;
     numSkeletons = Array.from({ length: 5 }, (_, i) => i);
-    variant = input.required<'todo-item' | 'todo-form__edit' | 'todo-details'>();
+    variant = input.required<TodoSkeletonVariants>();
 }

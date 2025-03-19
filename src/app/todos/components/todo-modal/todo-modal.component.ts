@@ -24,7 +24,7 @@ export class TodoModalComponent {
         });
         this.todoService.loadingSet$.subscribe((state) => {
             this.isLoading.set(state.size);
-            console.log(state.size)
+            // console.log(state.size)
         });
     }
 

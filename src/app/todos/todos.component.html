@@ -7,7 +7,7 @@
             <cds-contained-list [label]="combinedTools" [action]="combinedActions">
                 @if (isLoading()) {
                 <!-- Handle Loading State -->
-                <app-todo-skeletons variant="todo-item" />
+                <app-todo-skeletons [variant]="skeletonVariants.TODO_ITEM" />
                 } @else if (todos().length > 0) {
                 <!-- Loaded List -->
                 @for (item of todos(); track item.id) {
@@ -15,7 +15,7 @@
                 }
                 <!-- Handle Emplty List -->
                 } @else {
-                <div style="width: 100%; text-align: center; margin: 50px 0">
+                <div class="todos_empty">
                     <strong> Opps, There is nothing here :(( </strong>
                 </div>
                 }
@@ -32,6 +32,7 @@
         placeholder="Search Todo By Title"
         size="lg"
         (valueChange)="onSearchBarChange($event)"
+        (clear)="loadingTodos()"
     ></cds-search>
     <button [iconOnly]="true" cdsButton="primary" kind="primary" description="Add" [routerLink]="'add'">
         <svg class="cds--btn__icon" ibmIcon="add" size="16"></svg>

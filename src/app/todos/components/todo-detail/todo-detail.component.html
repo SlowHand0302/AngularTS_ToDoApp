@@ -1,5 +1,5 @@
 @if (isLoading()) {
-<app-todo-skeletons variant="todo-details" />
+<app-todo-skeletons [variant]="skeletonVariants.TODO_DETAILS" />
 }@else {
 <div class="details-container">
     <h3>

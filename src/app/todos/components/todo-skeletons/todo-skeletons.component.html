@@ -1,5 +1,5 @@
 <!-- Skeleton for Items list -->
-@if (variant() === 'todo-item') { @for (item of numSkeletons; track $index) {
+@if (variant() === variants.TODO_ITEM) { @for (item of numSkeletons; track $index) {
 <div class="todo-item-skeleton">
     <div class="todo-item-skeleton__checkbox"></div>
     <div class="todo-item-skeleton__content">
@@ -16,25 +16,25 @@
 } }
 
 <!-- Skeleton for Form Edit -->
-@if (variant() === 'todo-form__edit') {
+@if (variant() === variants.TODO_FORM_EDIT) {
 <div class="form">
     <div class="form__group">
-        <label class="form__label">Title:</label>
+        <p class="form__label">Title:</p>
         <div class="form__input todo-skeleton__loading"></div>
     </div>
     <div class="form__row">
         <div class="form__group">
-            <label class="form__label">Deadline:</label>
+            <p class="form__label">Deadline:</p>
             <div class="form__input todo-skeleton__loading"></div>
         </div>
         <div class="form__group">
-            <label class="form__label">Is Completed:</label>
+            <p class="form__label">Is Completed:</p>
             <div class="form__toggle todo-skeleton__loading"></div>
         </div>
     </div>
 
     <div class="form__group">
-        <label class="form__label">Details:</label>
+        <p class="form__label">Details:</p>
         <div class="form__textarea todo-skeleton__loading"></div>
     </div>
 
@@ -46,7 +46,7 @@
 }
 
 <!-- Skeleton for Todo Details -->
-@if (variant() === 'todo-details') {
+@if (variant() === variants.TODO_DETAILS) {
 <div class="details">
     <div class="details__title todo-skeleton__loading"></div>
     <div class="details__deadline todo-skeleton__loading"></div>

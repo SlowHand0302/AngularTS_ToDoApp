@@ -62,7 +62,21 @@ X: (17/03/2025):
     - Giả lập API và lazy loading ✔
 
 X: (18/03/2025):
-    - Thêm UI cho notification ✖
+    - Thêm UI cho notification ✔
     - Thêm UI loading cho create ✔, update ✔
     - Chặn modal đóng khi request đang được thực hiện ✔
     - Giả lập API cho cho create ✔, update ✔
+    - Triển khai cơ bản service cho notification ✔
+    - Refactor logic loading ✔
+
+X: (19/03/2025):
+    - Refactor code theo comment của mentor ✔
+    - Installing eslint ✔
+    - Triển khai hoàn thiện service cho notification ✔
+    - Tích hợp notification cho tác vụ Add, Update, Remove ✔
+
+X: (19/03/2025):
+    - Thiết lập API server cho Authentication
+    - Research Router Guard, Auth Guard 
+    - Dựng UI cho trang Sign In, Sign Up.
+    - Triển khai service cho authentication.

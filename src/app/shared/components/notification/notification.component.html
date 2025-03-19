@@ -1,0 +1,31 @@
+<div class="notification-container">
+    <!-- <button (click)="showNotification()">Show Notification</button>
+    <button (click)="showToast()">Show Toast</button>
+    <button (click)="showActionable()">Show Actionable</button> -->
+
+    @for (item of notifications; track item.id) {
+    <!-- show Toast -->
+    @if (item.variant === notifiVariants.TOAST) {
+    <cds-toast
+        [notificationObj]="item.content"
+        [class.hide]="item.hide"
+        (close)="closeNotification(item.id)"
+    ></cds-toast>
+    }
+    <!-- show notificaiotn -->
+    @if (item.variant === notifiVariants.NOTIFICATION) {
+    <cds-inline-notification
+        [notificationObj]="item.content"
+        [class.hide]="item.hide"
+        (close)="closeNotification(item.id)"
+    ></cds-inline-notification>
+    }
+    <!-- Show actionable -->
+    @if (item.variant === notifiVariants.ACTIONABLE) {
+    <cds-actionable-notification
+        [notificationObj]="item.content"
+        [class.hide]="item.hide"
+        (close)="closeNotification(item.id)"
+    ></cds-actionable-notification>
+    } }
+</div>

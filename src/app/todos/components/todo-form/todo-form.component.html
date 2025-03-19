@@ -1,5 +1,5 @@
 @if (isLoading().get('loadById')) {
-<app-todo-skeletons variant="todo-form__edit" />
+<app-todo-skeletons [variant]="skeletonsVariants.TODO_FORM_EDIT" />
 }@else {
 <form class="todo-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
     <cds-text-label
@@ -97,9 +97,3 @@
     </div>
 </form>
 }
-
-<pre>
-    <!-- {{ todoForm.errors | json }}
-    {{ todoForm.valid | json }}
-    {{ todoForm.value | json }} -->
-</pre>

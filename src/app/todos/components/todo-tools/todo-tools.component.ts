@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ListItem, IconService } from 'carbon-components-angular';
+import { IconService } from 'carbon-components-angular';
 
 import { TodoService } from '../../services/todo.service';
 import { ChevronSort16, ChevronDown16, ChevronUp16 } from '@carbon/icons';
@@ -24,7 +24,7 @@ export class TodoToolsComponent {
     }
 
     handleSelectSort(option: any) {
-        let optionSelected = { ...option['item'] };
+        const optionSelected = { ...option['item'] };
         this.todoService.setSortOption({
             key: optionSelected.key,
             order: optionSelected.order,
@@ -32,7 +32,7 @@ export class TodoToolsComponent {
     }
 
     handleSelectFilter(option: any) {
-        let optionSelected = { ...option['item'] };
+        const optionSelected = { ...option['item'] };
         this.todoService.setFilterOption({
             key: optionSelected.key,
             value: optionSelected.value,

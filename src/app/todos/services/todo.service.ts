@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, delay, map, Observable, of, tap } from 'rxjs';
-import { Todo, todoList } from '../../shared/models/todo.model';
+import { Todo } from '../../shared/models/todo.model';
+import { todoList } from '../../shared/constants/todoList.contants';
 import { SortOption } from '../../shared/models/sort.model';
 import { FilterOption } from '../../shared/models/filter.model';
 
@@ -53,11 +54,11 @@ export class TodoService {
     }
 
     public sortTodo() {
-        console.log(this.todoSortOption.value);
+        // console.log(this.todoSortOption.value);
         this.todosSubject.next([
             ...this.todosSubject.value.sort((a, b) => {
-                let valueA = a[this.todoSortOption.value.key];
-                let valueB = b[this.todoSortOption.value.key];
+                const valueA = a[this.todoSortOption.value.key];
+                const valueB = b[this.todoSortOption.value.key];
 
                 // Sorting for Date
                 if (valueA instanceof Object && valueB instanceof Object) {
@@ -84,9 +85,9 @@ export class TodoService {
     }
 
     public filterTodo() {
-        let filtered = todoList.filter((item) => {
+        const filtered = todoList.filter((item) => {
             return this.todoFilterOption.value.every((filter) => {
-                let itemValue = item[filter.key];
+                const itemValue = item[filter.key];
                 return filter.value === itemValue;
             });
         });
@@ -116,14 +117,14 @@ export class TodoService {
         const currentState = new Set(this.loadingSet.value);
         currentState.add(requestId);
         this.loadingSet.next(currentState);
-        console.log(this.loadingSet.value);
+        // console.log(this.loadingSet.value);
     }
 
     private removeLoading(requestId: string) {
         const currentState = new Set(this.loadingSet.value);
         currentState.delete(requestId);
         this.loadingSet.next(currentState);
-        console.log(this.loadingSet.value);
+        // console.log(this.loadingSet.value);
     }
 
     public isLoading(requestId: string): Observable<boolean> {

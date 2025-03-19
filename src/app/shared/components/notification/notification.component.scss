@@ -1,0 +1,45 @@
+.notification-container {
+    position: fixed;
+    top: 40px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px; /* Space between notifications */
+
+    ::ng-deep .cds--inline-notification,
+    ::ng-deep .cds--actionable-notification,
+    ::ng-deep .cds--toast-notification {
+        animation: slideIn 0.5s ease-out;
+        max-width: fit-content;
+    }
+
+    ::ng-deep .cds--inline-notification.hide,
+    ::ng-deep .cds--actionable-notification.hide,
+    ::ng-deep .cds--toast-notification.hide {
+        animation: slideOut 0.5s ease-in forwards;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}

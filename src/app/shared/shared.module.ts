@@ -17,7 +17,7 @@ import { DialogModule } from 'carbon-components-angular';
 import { DropdownModule } from 'carbon-components-angular';
 import { LoadingModule } from 'carbon-components-angular';
 import { InlineLoadingModule } from 'carbon-components-angular';
-
+import { NotificationModule } from 'carbon-components-angular';
 @NgModule({
     declarations: [],
     imports: [
@@ -37,6 +37,7 @@ import { InlineLoadingModule } from 'carbon-components-angular';
         DropdownModule,
         LoadingModule,
         InlineLoadingModule,
+        NotificationModule,
         // Route components & services
         RouterLink,
         RouterOutlet,
@@ -59,6 +60,7 @@ import { InlineLoadingModule } from 'carbon-components-angular';
         DropdownModule,
         LoadingModule,
         InlineLoadingModule,
+        NotificationModule,
         // Route components & services
         RouterLink,
         RouterOutlet,
