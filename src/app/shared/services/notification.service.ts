@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    NotificationContent,
-    NotificationType,
-    ActionableContent,
-    ToastContent,
-    NotificationAction,
-    NotificationLink,
-} from 'carbon-components-angular';
+import { NotificationContent, ActionableContent, ToastContent } from 'carbon-components-angular';
 import { BehaviorSubject } from 'rxjs';
 
 export enum NotificationVariants {
@@ -36,6 +29,7 @@ export type NotificationItem =
 })
 export class NotificationService {
     private notificationSubject: BehaviorSubject<NotificationItem[]> = new BehaviorSubject<NotificationItem[]>([]);
+    private timeoutIds: Map<number, ReturnType<typeof setTimeout>> = new Map<number, ReturnType<typeof setTimeout>>();
     public notificationSubject$ = this.notificationSubject.asObservable();
 
     constructor() {}
@@ -55,7 +49,7 @@ export class NotificationService {
         this.notificationSubject.next([...this.notificationSubject.value, newNotification]);
 
         // Trigger slide-out before removing notification
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
             newNotification.hide = true;
             this.notificationSubject.next([...this.notificationSubject.value]);
 
@@ -65,9 +59,23 @@ export class NotificationService {
                 ]);
             }, 500); // Matches slideOut animation duration
         }, 4500);
+        this.timeoutIds.set(newNotification.id, timeoutId);
     }
 
     public closeNotification(id: number) {
-        console.log(id);
+        const timeoutId = this.timeoutIds.get(id);
+        const notification = this.notificationSubject.value.find((item) => item.id === id);
+        if (timeoutId || notification) {
+            clearTimeout(timeoutId);
+
+            this.notificationSubject.next([
+                ...this.notificationSubject.value.map((item) => (item.id === id ? { ...item, hide: true } : item)),
+            ]);
+
+            // Remove after animation delay
+            setTimeout(() => {
+                this.notificationSubject.next(this.notificationSubject.value.filter((n) => n.id !== id));
+            }, 500); // Matches slide-out animation duration
+        }
     }
 }

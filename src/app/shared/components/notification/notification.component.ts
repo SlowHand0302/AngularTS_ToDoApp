@@ -10,7 +10,7 @@ import { NotificationService, NotificationVariants, NotificationItem } from '../
     styleUrl: './notification.component.scss',
 })
 export class NotificationComponent {
-    actionSubject = new Subject<any>();
+    actionSubject = new Subject<{ event: Event; action: any }>();
     notifications: NotificationItem[] = [];
     readonly notifiVariants = NotificationVariants;
 
@@ -19,6 +19,14 @@ export class NotificationComponent {
     ngOnInit() {
         this.notificationService.notificationSubject$.subscribe((notifies) => {
             this.notifications = [...notifies];
+        });
+        this.actionSubject.subscribe({
+            next(value) {
+                console.log(value);
+                if (value.action['fn']) {
+                    value.action.fn();
+                }
+            },
         });
     }
 
@@ -55,6 +63,9 @@ export class NotificationComponent {
                 {
                     text: 'Action',
                     click: this.actionSubject,
+                    fn: () => {
+                        console.log('log navifate');
+                    },
                 },
             ],
         });

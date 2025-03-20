@@ -9,6 +9,8 @@ import { TodoSkeletonsComponent } from '../todo-skeletons/todo-skeletons.compone
 import { Todo } from '../../../shared/models/todo.model';
 import { TodoSkeletonVariants } from '../../../shared/constants/varianst.enum';
 import { NotificationVariants, NotificationService } from '../../../shared/services/notification.service';
+import { Subject } from 'rxjs';
+import { NotificationAction } from 'carbon-components-angular';
 
 @Component({
     selector: 'app-todo-form',
@@ -65,11 +67,10 @@ export class TodoFormComponent {
             this.todoService
                 .APIEmulator(() => this.todoService.editTodo(this.todoForm.value), 'edit')
                 .subscribe(() => {
-                    this.notificationService.showNotification(NotificationVariants.TOAST, {
+                    this.notificationService.showNotification(NotificationVariants.NOTIFICATION, {
                         type: 'success',
                         title: 'Update Todo Success',
-                        subtitle: '',
-                        caption: `Update ${this.todoForm.value.title} success`,
+                        message: `Update ${this.todoForm.value.title} success`,
                     });
                     this.router.navigate(['/']);
                     this.handleResetForm();

@@ -18,6 +18,8 @@ import { DropdownModule } from 'carbon-components-angular';
 import { LoadingModule } from 'carbon-components-angular';
 import { InlineLoadingModule } from 'carbon-components-angular';
 import { NotificationModule } from 'carbon-components-angular';
+import { NgIcon } from '@ng-icons/core';
+
 @NgModule({
     declarations: [],
     imports: [
@@ -38,6 +40,7 @@ import { NotificationModule } from 'carbon-components-angular';
         LoadingModule,
         InlineLoadingModule,
         NotificationModule,
+        NgIcon,
         // Route components & services
         RouterLink,
         RouterOutlet,
@@ -61,6 +64,7 @@ import { NotificationModule } from 'carbon-components-angular';
         LoadingModule,
         InlineLoadingModule,
         NotificationModule,
+        NgIcon,
         // Route components & services
         RouterLink,
         RouterOutlet,

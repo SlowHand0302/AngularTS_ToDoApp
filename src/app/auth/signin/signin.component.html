@@ -1,0 +1,50 @@
+<div class="signin">
+    <main class="signin_container">
+        <header class="signin_header">
+            <h1>Welcome to todos works!</h1>
+            <p>Enter your email below to login to your account</p>
+        </header>
+        <form class="signin_form">
+            <cds-text-label [invalid]="true">
+                Email:
+                <input cdsText type="text" class="input-field" placeholder="Type your Email..." name="email" />
+            </cds-text-label>
+            <cds-password-label [invalid]="true" [hidePasswordLabel]="''" [showPasswordLabel]="''">
+                Password:
+                <input
+                    cdsPassword
+                    type="password"
+                    class="input-field"
+                    placeholder="Type your Password..."
+                    name="password"
+                />
+                <a [routerLink]="'/'" class="signin-forgot">Forgot Password ?</a>
+            </cds-password-label>
+            <button cdsButton="primary" type="submit" [attr.modal-primary-focus]="true">
+                <!-- <cds-inline-loading [isActive]="true"></cds-inline-loading> -->
+                Login
+            </button>
+            <div class="signin_form_row divider">
+                <hr class="solid" />
+                <p>Or Continue With</p>
+                <hr class="solid" />
+            </div>
+            <div class="signin_form_row">
+                <ng-container>
+                    <button cdsButton="primary" type="button" [attr.modal-primary-focus]="true">
+                        <!-- <cds-inline-loading [isActive]="true"></cds-inline-loading> -->
+                        <ng-icon name="bootstrapGoogle" size="20"></ng-icon>
+                        Google
+                    </button>
+                </ng-container>
+                <ng-container>
+                    <button cdsButton="secondary" type="button" [attr.modal-primary-focus]="true">
+                        <!-- <cds-inline-loading [isActive]="true"></cds-inline-loading> -->
+                        <svg [cdsIcon]="'logo--github'" size="20"></svg>
+                        Github
+                    </button>
+                </ng-container>
+            </div>
+        </form>
+    </main>
+</div>

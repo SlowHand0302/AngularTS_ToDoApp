@@ -11,13 +11,6 @@
     >
         <cds-dropdown-list [items]="sortState" [listTpl]="dropdownRenderer"></cds-dropdown-list>
         <ng-template #dropdownRenderer let-item="item">
-            <!-- @if (item.content === 'Clear Sort' && item.selected) {
-            <div class="item">
-                <svg class="cds--btn__icon" [cdsIcon]="item.icon" size="16"></svg>
-                <p>Sort By</p>
-            </div>
-            } @else {
-            } -->
             <div class="item">
                 @if (item.order === 'asc') {
                 <svg class="cds--btn__icon" [cdsIcon]="'chevron--up'" size="16"></svg>

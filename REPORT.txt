@@ -76,7 +76,8 @@ X: (19/03/2025):
     - Tích hợp notification cho tác vụ Add, Update, Remove ✔
 
 X: (19/03/2025):
-    - Thiết lập API server cho Authentication
-    - Research Router Guard, Auth Guard 
-    - Dựng UI cho trang Sign In, Sign Up.
-    - Triển khai service cho authentication.
+    - Thiết lập API server cho Authentication ✔
+    - Dựng UI cho trang Sign In ✔
+    - Triển khai chức năng đóng notification chủ động ✔
+    - Xử lý actions trên notification ✖
+    - Research Router Guard, Auth Guard ✖

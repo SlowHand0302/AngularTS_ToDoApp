@@ -1,5 +1,5 @@
 <cds-modal [open]="modalState()" (overlaySelected)="handleOnCloseModal()" (close)="handleOnCloseModal()">
-    <cds-modal-header (closeSelect)="handleOnCloseModal()" [showCloseButton]="true">
+    <cds-modal-header (closeSelect)="handleOnCloseModal()" [showCloseButton]="true" [attr.modal-primary-focus]="false">
         <p cdsModalHeaderHeading class="cds--modal-header__heading cds--type-beta">{{ modalTitle }} Todo</p>
     </cds-modal-header>
     <div class="cds--modal-content">

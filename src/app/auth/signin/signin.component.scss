@@ -1,0 +1,136 @@
+.signin {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    align-items: center;
+
+    .signin_container {
+        border: 1px solid oklch(0.929 0.013 255.508);
+        border-radius: 20px;
+        padding: 20px 30px;
+        width: 30vw;
+        flex-direction: column;
+        gap: 20px;
+        display: flex;
+
+        .signin_header {
+            h1 {
+                font-size: 30px;
+                font-weight: bold;
+                line-height: calc(2.25 / 1.875);
+            }
+            p {
+                font-size: 16px;
+                line-height: calc(1.5 / 1);
+            }
+        }
+
+        .signin_form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .signin_form_row {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            ::ng-deep .cds--text-input__field-wrapper {
+                &[data-invalid='true'] {
+                    .input-field {
+                        border: 2px solid red;
+                        background-color: #ffe6e6;
+                    }
+                }
+                .input-field {
+                    border: 1px solid black;
+                    border-radius: 5px;
+                }
+            }
+
+            ::ng-deep .cds--label {
+                font-size: 13px;
+            }
+
+            ::ng-deep .cds--btn:not(.cds--skeleton) {
+                padding-block: 0;
+                block-size: 0;
+                padding-inline: 0;
+                justify-content: center;
+                align-items: center;
+                font-size: 16px;
+                font-weight: bold;
+                flex: 0 1 50%;
+                max-inline-size: none;
+                gap: 5px;
+                border-radius: 5px;
+                &:not(.cds--tooltip__trigger) {
+                    width: 100%;
+                }
+                ::ng-deep .cds--inline-loading {
+                    inline-size: unset;
+                    justify-content: center;
+                    display: none;
+                    &[ng-reflect-is-active='true'] {
+                        display: flex;
+                    }
+                }
+            }
+
+            ::ng-deep .cds--text-input--password__visibility__toggle {
+                top: 50%;
+            }
+
+            ::ng-deep .cds--password-input-wrapper {
+                ::ng-deep .cds--label {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    .signin-forgot {
+                        font-size: 13px;
+                        color: #525252;
+                        text-decoration: none;
+                        line-height: 1rem;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+            .divider {
+                hr.solid {
+                    border-top: 1px solid #bbb;
+                    width: 100%;
+                }
+                p {
+                    white-space: nowrap;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .signin_container {
+        min-width: 100%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .signin {
+        .signin_container {
+            width: 60vw;
+        }
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .signin {
+        .signin_container {
+            width: 60vw;
+        }
+    }
+}
