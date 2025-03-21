@@ -9,6 +9,7 @@ export const routes: Routes = [
     {
         path: '',
         loadComponent: () => import('./todos/todos.component').then((m) => m.TodosComponent),
+        // canDeactivate: [AuthLoginGuard],
         children: [
             {
                 path: 'add',

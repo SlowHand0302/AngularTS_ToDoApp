@@ -2,6 +2,8 @@
     <main class="todos_container">
         <header class="todos_header">
             <p>todos works!</p>
+            <a [routerLink]="'/login'">Login</a>
+            <button (click)="loadingAPITest()">Re-trigger API</button>
         </header>
         <section class="todos_content">
             <cds-contained-list [label]="combinedTools" [action]="combinedActions">

@@ -13,6 +13,7 @@ import { RouteWatcherService } from '../shared/services/route-watcher.service';
 import { TodoService } from './services/todo.service';
 import { TodoSkeletonsComponent } from './components/todo-skeletons/todo-skeletons.component';
 import { TodoSkeletonVariants } from '../shared/constants/varianst.enum';
+import { AuthService } from '../auth/service/auth.service';
 
 @Component({
     selector: 'app-todos',
@@ -41,6 +42,7 @@ export class TodosComponent {
         private routeWatcher: RouteWatcherService,
         private todoService: TodoService,
         protected iconService: IconService,
+        private authService: AuthService,
     ) {
         iconService.registerAll([ChevronDown16, ChevronSort16, ChevronUp16]);
         this.searchSubject
@@ -74,6 +76,7 @@ export class TodosComponent {
             this.isLoading.set(result);
         });
         this.loadingTodos();
+        this.loadingAPITest()
     }
 
     onSearchBarChange(searchText: string) {
@@ -91,5 +94,12 @@ export class TodosComponent {
 
     loadingTodos() {
         this.todoService.APIEmulator(() => this.todoService.resetTodo(), 'loadTodos').subscribe();
+    }
+
+    loadingAPITest() {
+        this.authService.testReq().subscribe({
+            next: (res) => console.log(res),
+            error: (err) => console.log(err),
+        });
     }
 }
