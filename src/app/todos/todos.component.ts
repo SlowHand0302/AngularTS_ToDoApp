@@ -82,7 +82,11 @@ export class TodosComponent {
 
     handleTriggerCloseModal() {
         this.router.navigate(['/']);
-        this.modalState.set(false);
+        this.routeWatcher.currentUrl$.subscribe((url) => {
+            if (url === '/') {
+                this.modalState.set(false);
+            }
+        });
     }
 
     loadingTodos() {

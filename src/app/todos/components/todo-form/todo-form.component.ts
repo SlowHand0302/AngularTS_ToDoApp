@@ -9,8 +9,6 @@ import { TodoSkeletonsComponent } from '../todo-skeletons/todo-skeletons.compone
 import { Todo } from '../../../shared/models/todo.model';
 import { TodoSkeletonVariants } from '../../../shared/constants/varianst.enum';
 import { NotificationVariants, NotificationService } from '../../../shared/services/notification.service';
-import { Subject } from 'rxjs';
-import { NotificationAction } from 'carbon-components-angular';
 
 @Component({
     selector: 'app-todo-form',

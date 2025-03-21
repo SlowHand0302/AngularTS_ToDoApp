@@ -1,30 +1,32 @@
 import { Routes } from '@angular/router';
-import { TodoFormComponent } from './todos/components/todo-form/todo-form.component';
-import { TodosComponent } from './todos/todos.component';
-import { TodoDetailComponent } from './todos/components/todo-detail/todo-detail.component';
-import { SigninComponent } from './auth/signin/signin.component';
+import { CanLeaveEditGuardService } from './shared/guards/can-leave-edit-guard.service';
 
 export const routes: Routes = [
     {
+        path: 'login',
+        loadComponent: () => import('./auth/signin/signin.component').then((m) => m.SigninComponent),
+    },
+    {
         path: '',
-        component: TodosComponent,
+        loadComponent: () => import('./todos/todos.component').then((m) => m.TodosComponent),
         children: [
             {
                 path: 'add',
-                component: TodoFormComponent,
+                loadComponent: () =>
+                    import('./todos/components/todo-form/todo-form.component').then((m) => m.TodoFormComponent),
+                canDeactivate: [CanLeaveEditGuardService],
             },
             {
                 path: 'edit/:id',
-                component: TodoFormComponent,
+                loadComponent: () =>
+                    import('./todos/components/todo-form/todo-form.component').then((m) => m.TodoFormComponent),
+                canDeactivate: [CanLeaveEditGuardService],
             },
             {
                 path: 'details/:id',
-                component: TodoDetailComponent,
+                loadComponent: () =>
+                    import('./todos/components/todo-detail/todo-detail.component').then((m) => m.TodoDetailComponent),
             },
         ],
-    },
-    {
-        path: 'login',
-        component: SigninComponent,
     },
 ];

@@ -4,12 +4,45 @@
             <h1>Welcome to todos works!</h1>
             <p>Enter your email below to login to your account</p>
         </header>
-        <form class="signin_form">
-            <cds-text-label [invalid]="true">
+        <form class="signin_form" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+            <cds-text-label
+                [invalid]="
+                    !signinForm.controls['email'].valid &&
+                    (signinForm.controls['email'].dirty || signinForm.controls['email'].touched)
+                "
+                [invalidText]="
+                    signinForm.controls['email'].hasError('required')
+                        ? 'Please fill the email'
+                        : signinForm.controls['email'].hasError('email')
+                        ? 'Invalid email'
+                        : ''
+                "
+            >
                 Email:
-                <input cdsText type="text" class="input-field" placeholder="Type your Email..." name="email" />
+                <input
+                    cdsText
+                    type="text"
+                    class="input-field"
+                    placeholder="Type your Email..."
+                    name="email"
+                    formControlName="email"
+                />
             </cds-text-label>
-            <cds-password-label [invalid]="true" [hidePasswordLabel]="''" [showPasswordLabel]="''">
+            <cds-password-label
+                [invalid]="
+                    !signinForm.controls['password'].valid &&
+                    (signinForm.controls['password'].dirty || signinForm.controls['password'].touched)
+                "
+                [invalidText]="
+                    signinForm.controls['password'].hasError('required')
+                        ? 'Please fill the password'
+                        : signinForm.controls['password'].hasError('whitespace')
+                        ? 'Invalid value, value is only whitespace'
+                        : ''
+                "
+                [hidePasswordLabel]="''"
+                [showPasswordLabel]="''"
+            >
                 Password:
                 <input
                     cdsPassword
@@ -17,6 +50,7 @@
                     class="input-field"
                     placeholder="Type your Password..."
                     name="password"
+                    formControlName="password"
                 />
                 <a [routerLink]="'/'" class="signin-forgot">Forgot Password ?</a>
             </cds-password-label>
