@@ -16,7 +16,7 @@ import { NotificationVariants, NotificationService } from '../../../shared/servi
     templateUrl: './todo-form.component.html',
     styleUrl: './todo-form.component.scss',
 })
-export class TodoFormComponent implements OnInit{
+export class TodoFormComponent implements OnInit {
     private readonly aRoute = inject(ActivatedRoute);
     private readonly router = inject(Router);
     readonly skeletonsVariants = TodoSkeletonVariants;
@@ -56,7 +56,6 @@ export class TodoFormComponent implements OnInit{
     }
 
     onCloseButtonClick() {
-        this.handleResetForm();
         this.router.navigate(['/']);
     }
 

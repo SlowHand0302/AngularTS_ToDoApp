@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { CanLeaveEditGuardService } from './shared/guards/can-leave-edit-guard.service';
+import { CanLeaveEditGuard } from './shared/guards/can-leave-edit.guard';
 
 export const routes: Routes = [
     {
@@ -15,13 +15,13 @@ export const routes: Routes = [
                 path: 'add',
                 loadComponent: () =>
                     import('./todos/components/todo-form/todo-form.component').then((m) => m.TodoFormComponent),
-                canDeactivate: [CanLeaveEditGuardService],
+                canDeactivate: [CanLeaveEditGuard],
             },
             {
                 path: 'edit/:id',
                 loadComponent: () =>
                     import('./todos/components/todo-form/todo-form.component').then((m) => m.TodoFormComponent),
-                canDeactivate: [CanLeaveEditGuardService],
+                canDeactivate: [CanLeaveEditGuard],
             },
             {
                 path: 'details/:id',

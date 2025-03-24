@@ -5,7 +5,7 @@ import { TodoFormComponent } from '../../todos/components/todo-form/todo-form.co
 @Injectable({
     providedIn: 'root',
 })
-export class CanLeaveEditGuardService implements CanDeactivate<TodoFormComponent> {
+export class CanLeaveEditGuard implements CanDeactivate<TodoFormComponent> {
     canDeactivate(
         component: TodoFormComponent,
         currentRoute: ActivatedRouteSnapshot,
@@ -13,7 +13,7 @@ export class CanLeaveEditGuardService implements CanDeactivate<TodoFormComponent
         nextState: RouterStateSnapshot,
     ): MaybeAsync<GuardResult> {
         if (component.todoForm.dirty || component.todoForm.touched) {
-            const r = confirm('Do you want to leave Editing') && (component.todoForm.dirty || component.todoForm.touched);
+            const r = window.confirm('Do you want to leave Editing');
             return r;
         }
         return true;

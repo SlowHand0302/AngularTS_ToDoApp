@@ -95,3 +95,6 @@ X: (21/03/2025):
 X: (21/03/2025):
     - Refactor code theo comment của mentor ✔
     - Refactor code theo eslint ✔
+    - Installing Jest ✔
+    - Research Jest ✔
+    - Implement unit test for todo-skeleton component & can-leave-edit guard ✔
