@@ -14,6 +14,10 @@ describe('TodoSkeletonsComponent', () => {
         }).compileComponents();
     });
 
+    afterEach(() => {
+        fixture?.destroy();
+    });
+
     function createComponentWithVariants(variants: TodoSkeletonVariants) {
         fixture = TestBed.createComponent(TodoSkeletonsComponent);
         fixture.componentRef.setInput('variant', variants);
@@ -31,21 +35,13 @@ describe('TodoSkeletonsComponent', () => {
         expect(component.numSkeletons).toHaveLength(5);
     });
 
-    it('should render form edit skeleton when skeleton variant is TODO_FORM_EDIT', () => {
-        createComponentWithVariants(TodoSkeletonVariants.TODO_FORM_EDIT);
-        const formSkeleton = fixture.debugElement.query(By.css('.form'));
-        expect(formSkeleton).toBeTruthy();
-    });
-
-    it('should render form edit skeleton when skeleton variant is TODO_DETAILS', () => {
-        createComponentWithVariants(TodoSkeletonVariants.TODO_DETAILS);
-        const formSkeleton = fixture.debugElement.query(By.css('.details'));
-        expect(formSkeleton).toBeTruthy();
-    });
-
-    it('should render form edit skeleton when skeleton variant is TODO_ITEM', () => {
-        createComponentWithVariants(TodoSkeletonVariants.TODO_ITEM);
-        const formSkeleton = fixture.debugElement.query(By.css('.todo-item-skeleton'));
+    it.each([
+        { variant: TodoSkeletonVariants.TODO_DETAILS, desc: 'todo details', cssQuery: '.details' },
+        { variant: TodoSkeletonVariants.TODO_ITEM, desc: 'todo item', cssQuery: '.todo-item-skeleton' },
+        { variant: TodoSkeletonVariants.TODO_FORM_EDIT, desc: 'todo form edit', cssQuery: '.form' },
+    ])('should render $desc skeleton when skeleton variant is $variant', ({ variant, cssQuery }) => {
+        createComponentWithVariants(variant);
+        const formSkeleton = fixture.debugElement.query(By.css(cssQuery));
         expect(formSkeleton).toBeTruthy();
     });
 });

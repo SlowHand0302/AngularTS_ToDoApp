@@ -9,6 +9,6 @@ import { TodoSkeletonVariants } from '../../../shared/constants/varianst.enum';
 })
 export class TodoSkeletonsComponent {
     readonly variants = TodoSkeletonVariants;
-    numSkeletons = Array.from({ length: 5 }, (_, i) => i);
+    numSkeletons: number[] = Array.from({ length: 5 }, (_, i) => i);
     variant = input.required<TodoSkeletonVariants>();
 }

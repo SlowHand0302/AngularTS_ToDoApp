@@ -6,8 +6,18 @@ import { TodoFormComponent } from '../../todos/components/todo-form/todo-form.co
 
 describe('CanLeaveEditGuard', () => {
     let guard: CanLeaveEditGuard;
-    let mockComponent: Partial<TodoFormComponent>;
+    let mockComponent: TodoFormComponent;
     let confirmSpy: jest.SpyInstance;
+    // Explicitly typed as a tuple
+    const routeArgs: [ActivatedRouteSnapshot, RouterStateSnapshot, RouterStateSnapshot] = [
+        {} as ActivatedRouteSnapshot,
+        {} as RouterStateSnapshot,
+        {} as RouterStateSnapshot,
+    ];
+
+    const createMockComponent = (dirty = false, touched = false): TodoFormComponent => {
+        return { todoForm: { dirty, touched } } as TodoFormComponent;
+    };
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -15,7 +25,7 @@ describe('CanLeaveEditGuard', () => {
         });
         guard = TestBed.inject(CanLeaveEditGuard);
         confirmSpy = jest.spyOn(window, 'confirm');
-        mockComponent = { todoForm: { dirty: false, touched: false } } as TodoFormComponent;
+        mockComponent = createMockComponent();
     });
 
     afterEach(() => {
@@ -23,77 +33,24 @@ describe('CanLeaveEditGuard', () => {
     });
 
     it('should return true if form is neither dirty nor touched', () => {
-        mockComponent = {
-            todoForm: { dirty: false, touched: false },
-        } as Partial<TodoFormComponent> as TodoFormComponent;
-        expect(
-            guard.canDeactivate(
-                mockComponent as TodoFormComponent,
-                {} as ActivatedRouteSnapshot,
-                {} as RouterStateSnapshot,
-                {} as RouterStateSnapshot,
-            ),
-        ).toBeTruthy();
+        expect(guard.canDeactivate(mockComponent as TodoFormComponent, ...routeArgs)).toBeTruthy();
         expect(confirmSpy).not.toHaveBeenCalled();
     });
 
-    it('should call confirm and return true if form is dirty and user confirms', () => {
-        mockComponent = {
-            todoForm: { dirty: true, touched: false },
-        } as Partial<TodoFormComponent> as TodoFormComponent;
+    it.each([
+        { dirty: true, touched: false, desc: 'dirty' },
+        { dirty: false, touched: true, desc: 'touched' },
+    ])('calls confirm and respects user choice when form is $desc', ({ dirty, touched }) => {
+        mockComponent = createMockComponent(dirty, touched);
+
+        // User confirms
         confirmSpy.mockReturnValueOnce(true);
-        const result = guard.canDeactivate(
-            mockComponent as TodoFormComponent,
-            {} as ActivatedRouteSnapshot,
-            {} as RouterStateSnapshot,
-            {} as RouterStateSnapshot,
-        );
+        expect(guard.canDeactivate(mockComponent, ...routeArgs)).toBe(true);
         expect(confirmSpy).toHaveBeenCalledWith('Do you want to leave Editing');
-        expect(result).toBeTruthy();
-    });
 
-    it('should call confirm and return true if form is touched and user confirms', () => {
-        mockComponent = {
-            todoForm: { dirty: false, touched: true },
-        } as Partial<TodoFormComponent> as TodoFormComponent;
-        confirmSpy.mockReturnValueOnce(true);
-        const result = guard.canDeactivate(
-            mockComponent as TodoFormComponent,
-            {} as ActivatedRouteSnapshot,
-            {} as RouterStateSnapshot,
-            {} as RouterStateSnapshot,
-        );
-        expect(confirmSpy).toHaveBeenCalledWith('Do you want to leave Editing');
-        expect(result).toBeTruthy();
-    });
-
-    it('should call confirm and return false if form is dirty and user cancels', () => {
-        mockComponent = {
-            todoForm: { dirty: true, touched: false },
-        } as Partial<TodoFormComponent> as TodoFormComponent;
+        // User cancels
         confirmSpy.mockReturnValueOnce(false);
-        const result = guard.canDeactivate(
-            mockComponent as TodoFormComponent,
-            {} as ActivatedRouteSnapshot,
-            {} as RouterStateSnapshot,
-            {} as RouterStateSnapshot,
-        );
-        expect(confirmSpy).toHaveBeenCalledWith('Do you want to leave Editing');
-        expect(result).toBeFalsy();
-    });
-
-    it('should call confirm and return false if form is touched and user cancels', () => {
-        mockComponent = {
-            todoForm: { dirty: false, touched: true },
-        } as Partial<TodoFormComponent> as TodoFormComponent;
-        confirmSpy.mockReturnValueOnce(false);
-        const result = guard.canDeactivate(
-            mockComponent as TodoFormComponent,
-            {} as ActivatedRouteSnapshot,
-            {} as RouterStateSnapshot,
-            {} as RouterStateSnapshot,
-        );
-        expect(confirmSpy).toHaveBeenCalledWith('Do you want to leave Editing');
-        expect(result).toBeFalsy();
+        expect(guard.canDeactivate(mockComponent, ...routeArgs)).toBe(false);
+        expect(confirmSpy).toHaveBeenCalledTimes(2);
     });
 });
