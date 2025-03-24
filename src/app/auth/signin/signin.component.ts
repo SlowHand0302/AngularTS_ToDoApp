@@ -36,7 +36,7 @@ export class SigninComponent {
 
     onSubmit() {
         this.authService.signin(this.signinForm.value).subscribe({
-            next: (res) => {
+            next: () => {
                 this.notificationService.showNotification(NotificationVariants.NOTIFICATION, {
                     type: 'success',
                     title: 'Login Success',

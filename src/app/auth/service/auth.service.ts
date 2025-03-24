@@ -1,19 +1,8 @@
-import {
-    HttpClient,
-    HttpErrorResponse,
-    HttpEvent,
-    HttpEventType,
-    HttpHandler,
-    HttpHandlerFn,
-    HttpHeaders,
-    HttpInterceptor,
-    HttpRequest,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { User } from '../../shared/models/user.model';
 import { environment } from '../../../environments/environment.dev';
-import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -32,8 +21,6 @@ export class AuthService {
         });
         // .pipe(catchError(this.handleError));
     }
-
-    
 
     public testReq(): Observable<User> {
         return this.httpClient.get<User>(`${environment.apiUrl}/user/read`, {
@@ -62,21 +49,4 @@ export class AuthService {
         console.error(errorMessage);
         return throwError(() => new Error(errorMessage)); // Pass error message to subscribers
     }
-}
-
-export function authVerifyInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-    const router = inject(Router); // Inject Router for redirection
-
-    return next(req).pipe(
-        catchError((error: HttpErrorResponse) => {
-            if (
-                (error.error.msg === 'No credentials provide' || error.error.msg === 'Credential Expired') &&
-                error.status === 401
-            ) {
-                console.warn('Unauthorized: Redirecting to login...');
-                router.navigate(['/login']);
-            }
-            return throwError(() => error);
-        }),
-    );
 }

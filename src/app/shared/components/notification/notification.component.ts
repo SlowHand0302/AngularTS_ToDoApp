@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedModule } from '../../shared.module';
 import { Subject } from 'rxjs';
 import { NotificationService, NotificationVariants, NotificationItem } from '../../services/notification.service';
+import { ActionableContent, NotificationContent, ToastContent } from 'carbon-components-angular';
 
 @Component({
     selector: 'app-notification',
@@ -9,7 +10,7 @@ import { NotificationService, NotificationVariants, NotificationItem } from '../
     templateUrl: './notification.component.html',
     styleUrl: './notification.component.scss',
 })
-export class NotificationComponent {
+export class NotificationComponent implements OnInit {
     actionSubject = new Subject<{ event: Event; action: any }>();
     notifications: NotificationItem[] = [];
     readonly notifiVariants = NotificationVariants;
@@ -35,25 +36,27 @@ export class NotificationComponent {
     }
 
     showNotification() {
-        this.notificationService.showNotification(this.notifiVariants.NOTIFICATION, {
+        const sampleNotification: NotificationContent = {
             type: 'info',
             title: 'Sample notification',
             message: 'Sample info message',
-        });
+        };
+        this.notificationService.showNotification(this.notifiVariants.NOTIFICATION, sampleNotification);
     }
 
     showToast() {
-        this.notificationService.showNotification(this.notifiVariants.TOAST, {
+        const sampleToast: ToastContent = {
             type: 'info',
             title: 'Sample toast',
             subtitle: 'Sample subtitle message',
             caption: 'Sample caption',
             message: 'message',
-        });
+        };
+        this.notificationService.showNotification(this.notifiVariants.TOAST, sampleToast);
     }
 
     showActionable() {
-        this.notificationService.showNotification(this.notifiVariants.ACTIONABLE, {
+        const sampleActionable: ActionableContent = {
             type: 'success',
             title: 'Actionable notification',
             message: 'Sample info message',
@@ -68,6 +71,7 @@ export class NotificationComponent {
                     },
                 },
             ],
-        });
+        };
+        this.notificationService.showNotification(this.notifiVariants.ACTIONABLE, sampleActionable);
     }
 }

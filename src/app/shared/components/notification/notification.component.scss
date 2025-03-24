@@ -8,17 +8,19 @@
     align-items: flex-end;
     gap: 10px; /* Space between notifications */
 
-    ::ng-deep .cds--inline-notification,
-    ::ng-deep .cds--actionable-notification,
-    ::ng-deep .cds--toast-notification {
-        animation: slideIn 0.5s ease-out;
-        max-width: fit-content;
-    }
+    ::ng-deep {
+        .cds--inline-notification,
+        .cds--actionable-notification,
+        .cds--toast-notification {
+            animation: slideIn 0.5s ease-out;
+            max-width: fit-content;
+        }
 
-    ::ng-deep .cds--inline-notification.hide,
-    ::ng-deep .cds--actionable-notification.hide,
-    ::ng-deep .cds--toast-notification.hide {
-        animation: slideOut 0.5s ease-in forwards;
+        .cds--inline-notification.hide,
+        .cds--actionable-notification.hide,
+        .cds--toast-notification.hide {
+            animation: slideOut 0.5s ease-in forwards;
+        }
     }
 }
 

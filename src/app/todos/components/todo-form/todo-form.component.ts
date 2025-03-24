@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
 import { AutoResizeDirective } from '../../../shared/directives/auto-resize.directive';
@@ -16,7 +16,7 @@ import { NotificationVariants, NotificationService } from '../../../shared/servi
     templateUrl: './todo-form.component.html',
     styleUrl: './todo-form.component.scss',
 })
-export class TodoFormComponent {
+export class TodoFormComponent implements OnInit{
     private readonly aRoute = inject(ActivatedRoute);
     private readonly router = inject(Router);
     readonly skeletonsVariants = TodoSkeletonVariants;

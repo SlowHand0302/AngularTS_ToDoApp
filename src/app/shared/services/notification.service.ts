@@ -32,8 +32,6 @@ export class NotificationService {
     private timeoutIds: Map<number, ReturnType<typeof setTimeout>> = new Map<number, ReturnType<typeof setTimeout>>();
     public notificationSubject$ = this.notificationSubject.asObservable();
 
-    constructor() {}
-
     public showNotification<T extends NotificationVariants>(
         variant: T,
         content: T extends NotificationVariants.TOAST

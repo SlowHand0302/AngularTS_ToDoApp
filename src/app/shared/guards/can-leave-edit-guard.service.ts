@@ -6,7 +6,6 @@ import { TodoFormComponent } from '../../todos/components/todo-form/todo-form.co
     providedIn: 'root',
 })
 export class CanLeaveEditGuardService implements CanDeactivate<TodoFormComponent> {
-    constructor() {}
     canDeactivate(
         component: TodoFormComponent,
         currentRoute: ActivatedRouteSnapshot,
@@ -14,7 +13,7 @@ export class CanLeaveEditGuardService implements CanDeactivate<TodoFormComponent
         nextState: RouterStateSnapshot,
     ): MaybeAsync<GuardResult> {
         if (component.todoForm.dirty || component.todoForm.touched) {
-            let r = confirm('Do you want to leave Editing') && (component.todoForm.dirty || component.todoForm.touched);
+            const r = confirm('Do you want to leave Editing') && (component.todoForm.dirty || component.todoForm.touched);
             return r;
         }
         return true;

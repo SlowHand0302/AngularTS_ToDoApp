@@ -21,7 +21,7 @@ export class TodoItemComponent {
     ) {}
 
     handleUpdateState() {
-        let updatedState: Todo = { ...this.todo(), isCompleted: !this.todo().isCompleted };
+        const updatedState: Todo = { ...this.todo(), isCompleted: !this.todo().isCompleted };
         this.todoService.editTodo(updatedState);
     }
 

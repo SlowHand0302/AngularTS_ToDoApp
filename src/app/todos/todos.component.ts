@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { IconService } from 'carbon-components-angular';
@@ -30,7 +30,7 @@ import { AuthService } from '../auth/service/auth.service';
     styleUrl: './todos.component.scss',
     standalone: true,
 })
-export class TodosComponent {
+export class TodosComponent implements OnInit{
     todos = signal<Todo[]>([]);
     isLoading = signal<boolean>(false);
     modalState = signal<boolean>(true);

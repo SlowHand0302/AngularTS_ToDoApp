@@ -17,69 +17,71 @@
         }
 
         .todos_content {
-            ::ng-deep .cds--contained-list__header {
-                padding-inline: 0;
-                height: fit-content;
-                gap: 10px;
+            ::ng-deep {
+                .cds--contained-list__header {
+                    padding-inline: 0;
+                    height: fit-content;
+                    gap: 10px;
 
-                ::ng-deep .cds--contained-list__action {
-                    position: static;
-                    flex: 1 0 50%;
-                    margin-bottom: 3px;
-                    max-width: 100%;
-                }
-
-                ::ng-deep .cds--contained-list__label {
-                    inline-size: unset;
-                    flex: 1 1 50%;
-                    max-width: 100%;
-
-                    ::ng-deep .cds--list-box__menu-item__option {
-                        padding-inline-end: 0;
-                        &:focus {
-                            outline: none;
-                        }
+                    .cds--contained-list__action {
+                        position: static;
+                        flex: 1 0 50%;
+                        margin-bottom: 3px;
+                        max-width: 100%;
                     }
-                    .todos_tools {
-                        display: flex;
-                        gap: 5px;
+
+                    .cds--contained-list__label {
+                        inline-size: unset;
+                        flex: 1 1 50%;
                         max-width: 100%;
 
-                        .sort {
-                            flex: 1 0 50%;
-
-                            ::ng-deep .cds--list-box__menu-icon {
-                                display: none;
+                        .cds--list-box__menu-item__option {
+                            padding-inline-end: 0;
+                            &:focus {
+                                outline: none;
                             }
+                        }
+                        .todos_tools {
+                            display: flex;
+                            gap: 5px;
+                            max-width: 100%;
 
-                            .hiddenLastChild {
-                                ::ng-deep .cds--list-box__menu {
-                                    li[title='Clear Sort'] {
-                                        display: none;
+                            .sort {
+                                flex: 1 0 50%;
+
+                                .cds--list-box__menu-icon {
+                                    display: none;
+                                }
+
+                                .hiddenLastChild {
+                                    .cds--list-box__menu {
+                                        li[title='Clear Sort'] {
+                                            display: none;
+                                        }
                                     }
+                                }
+
+                                .item {
+                                    font-size: 14px;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 5px;
+                                    height: 100%;
                                 }
                             }
 
-                            .item {
-                                font-size: 14px;
-                                display: flex;
-                                align-items: center;
-                                gap: 5px;
-                                height: 100%;
+                            .filter {
+                                flex: 1 0 50%;
                             }
-                        }
 
-                        .filter {
-                            flex: 1 0 50%;
-                        }
-
-                        ::ng-deep .cds--dropdown,
-                        .cds--list-box__field:focus,
-                        .cds--list-box__menu-item--highlighted,
-                        .cds--list-box__menu:focus {
-                            border-radius: 5px;
-                            border-bottom: none;
-                            outline-color: #f4f4f5;
+                            .cds--dropdown,
+                            .cds--list-box__field:focus,
+                            .cds--list-box__menu-item--highlighted,
+                            .cds--list-box__menu:focus {
+                                border-radius: 5px;
+                                border-bottom: none;
+                                outline-color: #f4f4f5;
+                            }
                         }
                     }
                 }

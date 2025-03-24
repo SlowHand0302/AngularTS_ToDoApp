@@ -54,7 +54,7 @@
                 />
                 <a [routerLink]="'/'" class="signin-forgot">Forgot Password ?</a>
             </cds-password-label>
-            <button cdsButton="primary" type="submit" [attr.modal-primary-focus]="true">
+            <button cdsButton="primary" type="submit" [disabled]="!signinForm.valid" [attr.modal-primary-focus]="true">
                 <!-- <cds-inline-loading [isActive]="true"></cds-inline-loading> -->
                 Login
             </button>
