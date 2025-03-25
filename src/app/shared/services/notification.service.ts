@@ -40,7 +40,16 @@ export class NotificationService {
             ? ActionableContent
             : NotificationContent,
     ) {
-        console.log('Showing notification:', content);
+        // console.log('Showing notification:', content);
+
+        // Validate content structure based on variant
+        if (
+            (variant === NotificationVariants.NOTIFICATION && !this.isNotificationContent(content)) ||
+            (variant === NotificationVariants.TOAST && !this.isToastContent(content)) ||
+            (variant === NotificationVariants.ACTIONABLE && !this.isActionableContent(content))
+        ) {
+            throw new Error(`Invalid content structure for variant: ${variant}`);
+        }
 
         // Ensure the correct type is used based on the variant
         const newNotification = { id: Date.now(), hide: false, variant, content } as NotificationItem;
@@ -75,5 +84,25 @@ export class NotificationService {
                 this.notificationSubject.next(this.notificationSubject.value.filter((n) => n.id !== id));
             }, 500); // Matches slide-out animation duration
         }
+    }
+
+    isNotificationContent(content: any): content is NotificationContent {
+        return content && typeof content.type === 'string' && typeof content.title === 'string';
+    }
+
+    isToastContent(content: any): content is ToastContent {
+        return (
+            this.isNotificationContent(content) &&
+            typeof content['subtitle'] === 'string' &&
+            typeof content['caption'] === 'string'
+        );
+    }
+
+    isActionableContent(content: any): content is ActionableContent {
+        return (
+            this.isNotificationContent(content) &&
+            Array.isArray(content['actions']) &&
+            content['actions'].every((action) => typeof action.text === 'string' && typeof action.click === 'object')
+        );
     }
 }

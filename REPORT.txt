@@ -92,9 +92,14 @@ X: (21/03/2025):
     - Connect và Intergrate API cho Auth Service ✔
     - Triển khai authVerifyInterceptor ✔
 
-X: (21/03/2025):
-    - Refactor code theo comment của mentor ✔
-    - Refactor code theo eslint ✔
+X: (24/03/2025):
+    - Refactor code base on comment của mentor ✔
+    - Refactor code base on eslint ✔
     - Installing Jest ✔
     - Research Jest ✔
-    - Implement unit test for todo-skeleton component & can-leave-edit guard ✔
+    - Implement and Refactor unit test for todo-skeleton component & can-leave-edit guard ✔
+
+X: (25/03/2025):
+    - Implement unit test for notification service ✔
+    - Implement unit test for route-watcher service ✔
+    - Refactor notification service: add type guard for showNotification function ✔
