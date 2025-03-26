@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router, NavigationEnd, Event } from '@angular/router';
 import { RouteWatcherService } from './route-watcher.service';
 import { Observable, Subject } from 'rxjs';
-import { single, multiple } from '../mockups/routeWatcherTest.mockups';
+import { single, multiple } from '../mockups/testRouteWatcher.mockups';
 
 describe('RouteWatcherService', () => {
     let service: RouteWatcherService;

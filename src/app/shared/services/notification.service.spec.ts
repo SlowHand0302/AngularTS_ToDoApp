@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { NotificationItem, NotificationService, NotificationVariants } from './notification.service';
 import { NotificationContent } from 'carbon-components-angular';
 import { Subscription } from 'rxjs';
-import { notificationItem } from '../mockups/notificationServiceTest.mockup';
+import { notificationItem } from '../mockups/testNotificationService.mockup';
 
 describe('NotificationService', () => {
     let service: NotificationService;

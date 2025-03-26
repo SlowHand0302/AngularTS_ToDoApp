@@ -15,7 +15,7 @@ export class TodoService {
         key: 'title',
         order: 'asc',
     });
-    private loadingSet = new BehaviorSubject<Set<string>>(new Set());
+    private loadingSet: BehaviorSubject<Set<string>> = new BehaviorSubject<Set<string>>(new Set());
     public loadingSet$ = this.loadingSet.asObservable();
     public todosSubject$: Observable<Todo[]> = this.todosSubject.asObservable();
 
@@ -23,7 +23,7 @@ export class TodoService {
         return todoList.find((item) => item.id == todoId) ?? null;
     }
 
-    public addTodo(todo: Todo) {
+    public addTodo(todo: Omit<Todo, 'id'>) {
         this.todosSubject.next([{ ...todo, id: this.todosSubject.value.length + 1 }, ...this.todosSubject.value]);
     }
 
@@ -36,10 +36,10 @@ export class TodoService {
     }
 
     public setFilterOption(option: FilterOption<Todo>) {
-        if (this.todoFilterOption.value.length <= 0) {
+        if (option.value === null) {
+            this.todoFilterOption.next([]);
+        } else if (this.todoFilterOption.value.length <= 0) {
             this.todoFilterOption.next([...this.todoFilterOption.value, option]);
-        } else if (option.value === null) {
-            this.todoFilterOption.next([...this.todoFilterOption.value.filter((item) => item.key !== option.key)]);
         } else {
             this.todoFilterOption.next([
                 ...this.todoFilterOption.value.map((item) => (item.key === option.key ? option : item)),
@@ -53,7 +53,7 @@ export class TodoService {
         this.sortTodo();
     }
 
-    public sortTodo() {
+    private sortTodo() {
         // console.log(this.todoSortOption.value);
         this.todosSubject.next([
             ...this.todosSubject.value.sort((a, b) => {
@@ -84,7 +84,7 @@ export class TodoService {
         ]);
     }
 
-    public filterTodo() {
+    private filterTodo() {
         const filtered = todoList.filter((item) => {
             return this.todoFilterOption.value.every((filter) => {
                 const itemValue = item[filter.key];

@@ -103,3 +103,8 @@ X: (25/03/2025):
     - Implement unit test for notification service ✔
     - Implement unit test for route-watcher service ✔
     - Refactor notification service: add type guard for showNotification function ✔
+
+X: (26/03/2025):
+    - Implement unit test for notification component ✔
+    - Implement unit test for todo service ✔
+    - Refactor setFilterOption() in todo service ✔

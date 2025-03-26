@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Todo } from '../../../shared/models/todo.model';
 import { SharedModule } from '../../../shared/shared.module';
 import { TodoService } from '../../services/todo.service';
@@ -12,9 +12,8 @@ import { TodoSkeletonVariants } from '../../../shared/constants/varianst.enum';
     templateUrl: './todo-detail.component.html',
     styleUrl: './todo-detail.component.scss',
 })
-export class TodoDetailComponent implements OnInit{
+export class TodoDetailComponent implements OnInit {
     private readonly aRoute = inject(ActivatedRoute);
-    private readonly router = inject(Router);
     private readonly todoService = inject(TodoService);
     readonly skeletonVariants = TodoSkeletonVariants;
     isLoading = signal<boolean>(false);
