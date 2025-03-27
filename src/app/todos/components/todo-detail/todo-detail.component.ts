@@ -17,7 +17,7 @@ export class TodoDetailComponent implements OnInit {
     private readonly todoService = inject(TodoService);
     readonly skeletonVariants = TodoSkeletonVariants;
     isLoading = signal<boolean>(false);
-    todo!: Todo;
+    todo: Todo | null = null;
 
     ngOnInit() {
         this.aRoute.paramMap.subscribe((params) => {

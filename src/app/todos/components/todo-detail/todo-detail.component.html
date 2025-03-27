@@ -3,12 +3,12 @@
 }@else {
 <div class="details-container">
     <h3>
-        <strong>{{ todo.title }}</strong>
+        <strong>{{ todo?.title }}</strong>
     </h3>
     <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">
-        Deadline: {{ todo.deadline[0] | date : 'dd/MM/yyyy' }}
+        Deadline: {{ todo?.deadline?.[0] | date : 'dd/MM/yyyy' }}
     </p>
-    @if (todo.isCompleted) {
+    @if (todo?.isCompleted) {
     <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">
         State: <span class="details-state completed">Completed</span>
     </p>
@@ -18,7 +18,7 @@
     </p>
     }
     <p>
-        {{ todo.details }}
+        {{ todo?.details }}
     </p>
 </div>
 }

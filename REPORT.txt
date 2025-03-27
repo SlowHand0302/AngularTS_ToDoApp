@@ -108,3 +108,8 @@ X: (26/03/2025):
     - Implement unit test for notification component ✔
     - Implement unit test for todo service ✔
     - Refactor setFilterOption() in todo service ✔
+
+X: (26/03/2025):
+    - Implement unit test for todo-detail component ✔
+    - Implement unit test for todo-item component ✖
+    - Refactor template of todo.detail component ✔
