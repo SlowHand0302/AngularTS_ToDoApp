@@ -109,7 +109,14 @@ X: (26/03/2025):
     - Implement unit test for todo service ✔
     - Refactor setFilterOption() in todo service ✔
 
-X: (26/03/2025):
+X: (27/03/2025):
     - Implement unit test for todo-detail component ✔
-    - Implement unit test for todo-item component ✖
+    - Implement unit test for todo-item component ✔
     - Refactor template of todo.detail component ✔
+
+X: (27/03/2025):
+    - Implement unit test for todo-form component ✔
+    - Implement unit test for todo-modal component ✔
+    - Refactor template of todo.form component ✔
+    - Refactor todo.form component ✔
+    

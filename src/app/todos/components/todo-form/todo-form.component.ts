@@ -45,6 +45,8 @@ export class TodoFormComponent implements OnInit {
             const id = params.get('id'); // Get the 'id' from the URL
             if (id) {
                 this.fetchTodoById(+id); // Convert string to number
+            } else {
+                this.handleResetForm();
             }
         });
 
@@ -60,7 +62,7 @@ export class TodoFormComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.todoForm.value['id']) {
+        if (this.todoForm.value['id'] !== '') {
             this.todoService
                 .APIEmulator(() => this.todoService.editTodo(this.todoForm.value), 'edit')
                 .subscribe(() => {
@@ -88,6 +90,7 @@ export class TodoFormComponent implements OnInit {
 
     handleResetForm() {
         this.todoForm.reset({
+            id: '',
             title: '',
             deadline: [],
             isCompleted: false,

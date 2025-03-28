@@ -45,15 +45,9 @@ describe('TodoDetailComponent', () => {
             ],
         }).compileComponents();
 
-        jest.useFakeTimers();
         fixture = TestBed.createComponent(TodoDetailComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-    });
-
-    afterEach(() => {
-        jest.clearAllTimers();
-        // paramMapSubject.unsubscribe()
     });
 
     it('should initiate with todo and isLoading = false', () => {
@@ -107,9 +101,10 @@ describe('TodoDetailComponent', () => {
         expect(formSkeleton).toBeFalsy();
 
         loadingSetMock.next(new Set(['loadById']));
-        todoServiceMock.findTodoById('loadById');
         fixture.detectChanges();
         formSkeleton = fixture.debugElement.query(By.css('.details'));
         expect(formSkeleton).toBeTruthy();
     });
+
+    
 });

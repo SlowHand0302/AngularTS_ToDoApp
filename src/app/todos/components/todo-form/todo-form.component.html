@@ -49,6 +49,7 @@
             offText="Processing"
             name="state"
             formControlName="isCompleted"
+            [disabled]="isEditingOrAdding()"
         ></cds-toggle>
     </div>
     <cds-textarea-label
@@ -79,7 +80,12 @@
     </cds-textarea-label>
     <div class="todo-form_group">
         <ng-container>
-            <button cdsButton="primary" type="submit" [disabled]="todoForm.invalid" [attr.modal-primary-focus]="true">
+            <button
+                cdsButton="primary"
+                type="submit"
+                [disabled]="todoForm.invalid || isEditingOrAdding()"
+                [attr.modal-primary-focus]="true"
+            >
                 <cds-inline-loading [isActive]="isEditingOrAdding()"></cds-inline-loading>Okay
             </button>
         </ng-container>
