@@ -114,9 +114,12 @@ X: (27/03/2025):
     - Implement unit test for todo-item component ✔
     - Refactor template of todo.detail component ✔
 
-X: (27/03/2025):
+X: (28/03/2025):
     - Implement unit test for todo-form component ✔
     - Implement unit test for todo-modal component ✔
     - Refactor template of todo.form component ✔
     - Refactor todo.form component ✔
-    
+
+X: (31/03/2025):
+    - Implement unit test for todos component ✔
+    - Implement unit test for todo-tools component ✔

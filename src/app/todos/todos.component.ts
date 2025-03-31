@@ -30,7 +30,7 @@ import { AuthService } from '../auth/service/auth.service';
     styleUrl: './todos.component.scss',
     standalone: true,
 })
-export class TodosComponent implements OnInit{
+export class TodosComponent implements OnInit {
     todos = signal<Todo[]>([]);
     isLoading = signal<boolean>(false);
     modalState = signal<boolean>(true);
@@ -53,7 +53,9 @@ export class TodosComponent implements OnInit{
             .subscribe((value) => {
                 if (value) {
                     this.todoService.searchTodo(value);
-                    this.todoService.APIEmulator(() => this.todoService.searchTodo(value), 'loadTodos').subscribe();
+                    this.todoService
+                        .APIEmulator(() => this.todoService.searchTodo(value), 'loadTodos')
+                        .subscribe();
                 } else {
                     this.loadingTodos();
                 }
@@ -76,7 +78,7 @@ export class TodosComponent implements OnInit{
             this.isLoading.set(result);
         });
         this.loadingTodos();
-        this.loadingAPITest()
+        this.loadingAPITest();
     }
 
     onSearchBarChange(searchText: string) {
