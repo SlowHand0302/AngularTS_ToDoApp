@@ -23,7 +23,6 @@ export class NotificationComponent implements OnInit {
         });
         this.actionSubject.subscribe({
             next(value) {
-                console.log(value);
                 if (value.action['fn']) {
                     value.action.fn();
                 }

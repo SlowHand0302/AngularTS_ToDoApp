@@ -123,3 +123,15 @@ X: (28/03/2025):
 X: (31/03/2025):
     - Implement unit test for todos component ✔
     - Implement unit test for todo-tools component ✔
+
+X: (01/04/2025):
+    - Implement unit test for auth service ✔
+    - Implement unit test for authVerifyInterceptor ✔
+    - Implement unit test for sign-in component ✔
+    - Implement unit test for autoResizeService ✔
+    - Implement unit test for noWhitespace ✔
+    
+X: (02/04/2025):
+    - Refactor todo-form component ✔
+    - Research Redux
+    - Research NgRx

@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../../shared/models/user.model';
 import { environment } from '../../../environments/environment.dev';
 
@@ -29,24 +29,4 @@ export class AuthService {
         });
     }
 
-    private handleError(error: HttpErrorResponse) {
-        let errorMessage = 'An unknown error occurred!';
-        console.log(error);
-
-        if (error.error instanceof ErrorEvent) {
-            // Client-side error (e.g., network issue)
-            errorMessage = `Client error: ${error.error.message}`;
-        } else {
-            // Server-side error
-            errorMessage = `Server error ${error.status}: ${error.message}`;
-
-            // If API returns an error message, use it
-            if (error.error && error.error.msg) {
-                errorMessage = error.error.msg;
-            }
-        }
-
-        console.error(errorMessage);
-        return throwError(() => new Error(errorMessage)); // Pass error message to subscribers
-    }
 }

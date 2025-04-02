@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SharedModule } from '../../../shared/shared.module';
 import { AutoResizeDirective } from '../../../shared/directives/auto-resize.directive';
@@ -31,11 +31,24 @@ export class TodoFormComponent implements OnInit {
         private todoService: TodoService,
         private notificationService: NotificationService,
     ) {
+        effect(() => {
+            if (this.isEditingOrAdding()) {
+                this.todoForm.controls['isCompleted'].disable();
+            } else {
+                this.todoForm.controls['isCompleted'].enable();
+            }
+        });
         this.todoForm = this.fb.group({
             id: '',
-            title: ['', Validators.compose([Validators.required, Validators.minLength(6), noWhitespaceValidator()])],
+            title: [
+                '',
+                Validators.compose([Validators.required, Validators.minLength(6), noWhitespaceValidator()]),
+            ],
             deadline: [[], Validators.compose([Validators.required])],
-            details: ['', Validators.compose([Validators.required, Validators.minLength(6), noWhitespaceValidator()])],
+            details: [
+                '',
+                Validators.compose([Validators.required, Validators.minLength(6), noWhitespaceValidator()]),
+            ],
             isCompleted: false,
         });
     }
@@ -64,7 +77,7 @@ export class TodoFormComponent implements OnInit {
     onSubmit() {
         if (this.todoForm.value['id'] !== '') {
             this.todoService
-                .APIEmulator(() => this.todoService.editTodo(this.todoForm.value), 'edit')
+                .APIEmulator(() => this.todoService.editTodo(this.todoForm.getRawValue()), 'edit')
                 .subscribe(() => {
                     this.notificationService.showNotification(NotificationVariants.NOTIFICATION, {
                         type: 'success',
@@ -76,7 +89,7 @@ export class TodoFormComponent implements OnInit {
                 });
         } else {
             this.todoService
-                .APIEmulator(() => this.todoService.addTodo(this.todoForm.value), 'add')
+                .APIEmulator(() => this.todoService.addTodo(this.todoForm.getRawValue()), 'add')
                 .subscribe(() => {
                     this.notificationService.showNotification(NotificationVariants.NOTIFICATION, {
                         type: 'success',

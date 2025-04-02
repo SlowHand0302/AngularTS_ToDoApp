@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { IconService } from 'carbon-components-angular';
 import { provideIcons } from '@ng-icons/core';
-import { LogoGithub20 } from '@carbon/icons';
-import { bootstrapGoogle, bootstrapFacebook } from '@ng-icons/bootstrap-icons';
+import { bootstrapGoogle, bootstrapFacebook, bootstrapGithub } from '@ng-icons/bootstrap-icons';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { noWhitespaceValidator } from '../../shared/validators/no-whitespace.validator';
 import { AuthService } from '../service/auth.service';
@@ -15,7 +14,7 @@ import { Router } from '@angular/router';
     imports: [SharedModule],
     templateUrl: './signin.component.html',
     styleUrl: './signin.component.scss',
-    providers: [provideIcons({ bootstrapGoogle, bootstrapFacebook })],
+    providers: [provideIcons({ bootstrapGoogle, bootstrapFacebook, bootstrapGithub })],
     standalone: true,
 })
 export class SigninComponent {
@@ -27,7 +26,6 @@ export class SigninComponent {
         private notificationService: NotificationService,
         private router: Router,
     ) {
-        iconService.registerAll([LogoGithub20]);
         this.signinForm = this.fb.group({
             email: ['', Validators.compose([Validators.required, Validators.email])],
             password: ['', Validators.compose([Validators.required, noWhitespaceValidator()])],

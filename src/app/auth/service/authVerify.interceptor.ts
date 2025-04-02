@@ -12,7 +12,7 @@ export function authVerifyInterceptor(req: HttpRequest<unknown>, next: HttpHandl
                 (error.error.msg === 'No credentials provide' || error.error.msg === 'Credential Expired') &&
                 error.status === 401
             ) {
-                console.warn('Unauthorized: Redirecting to login...');
+                console.log('Unauthorized: Redirecting to login...');
                 router.navigate(['/login']);
             }
             return throwError(() => error);

@@ -14,7 +14,10 @@ describe('TodoFormComponent', () => {
     let fixture: ComponentFixture<TodoFormComponent>;
     let paramMapSubject: BehaviorSubject<Partial<ParamMap>>;
     let routerMock: Pick<Router, 'navigate'>;
-    let todoServiceMock: Pick<TodoService, 'isLoading' | 'APIEmulator' | 'addTodo' | 'editTodo' | 'findTodoById'>;
+    let todoServiceMock: Pick<
+        TodoService,
+        'isLoading' | 'APIEmulator' | 'addTodo' | 'editTodo' | 'findTodoById'
+    >;
     let notificationServiceMock: Partial<NotificationService>;
     let loadingSetMock: BehaviorSubject<Set<string>>;
 
@@ -91,8 +94,6 @@ describe('TodoFormComponent', () => {
     });
 
     it('should react to paramMap changes', () => {
-        fixture.detectChanges();
-
         expect(todoServiceMock.APIEmulator).toHaveBeenCalled();
         expect(todoServiceMock.findTodoById).toHaveBeenCalledWith(1);
 
@@ -142,10 +143,13 @@ describe('TodoFormComponent', () => {
         component.onSubmit();
         expect(todoServiceMock.APIEmulator).toHaveBeenCalled();
         expect(todoServiceMock.addTodo).toHaveBeenCalledWith(sampleTodo);
-        expect(notificationServiceMock.showNotification).toHaveBeenCalledWith(NotificationVariants.NOTIFICATION, {
-            type: 'success',
-            title: 'Add Todo Success',
-        });
+        expect(notificationServiceMock.showNotification).toHaveBeenCalledWith(
+            NotificationVariants.NOTIFICATION,
+            {
+                type: 'success',
+                title: 'Add Todo Success',
+            },
+        );
         expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
     });
 
@@ -160,11 +164,14 @@ describe('TodoFormComponent', () => {
 
         expect(todoServiceMock.APIEmulator).toHaveBeenCalled();
         expect(todoServiceMock.editTodo).toHaveBeenCalledWith({ ...todoList[0], ...sampleTodo });
-        expect(notificationServiceMock.showNotification).toHaveBeenCalledWith(NotificationVariants.NOTIFICATION, {
-            type: 'success',
-            title: 'Update Todo Success',
-            message: `Update ${sampleTodo.title} success`,
-        });
+        expect(notificationServiceMock.showNotification).toHaveBeenCalledWith(
+            NotificationVariants.NOTIFICATION,
+            {
+                type: 'success',
+                title: 'Update Todo Success',
+                message: `Update ${sampleTodo.title} success`,
+            },
+        );
         expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
     });
 
@@ -177,7 +184,6 @@ describe('TodoFormComponent', () => {
     });
 
     it('should render skeleton for edit form for the first time when navigating to: /edit', () => {
-        fixture.detectChanges();
         let formSkeleton = fixture.debugElement.query(By.css('.form'));
         expect(formSkeleton).toBeFalsy();
 
@@ -188,19 +194,28 @@ describe('TodoFormComponent', () => {
     });
 
     it('should disable all button and inputs when form is submitting', () => {
-        let buttons = fixture.debugElement.queryAll(By.css('button'));
+        let buttons = fixture.debugElement.queryAll(By.css('.cds--btn'));
         let fields = fixture.debugElement.queryAll(By.css('input, textarea'));
+        let toggle = component.todoForm.get('isCompleted')?.disabled;
 
+        expect(toggle).toBeFalsy();
         expect(buttons.every((button) => button.properties['disabled'])).toBeFalsy();
         expect(
-            fields.every((field) => (field.properties['readonly'] ?? false) || (field.properties['readOnly'] ?? false)),
+            fields.every(
+                (field) => (field.properties['readonly'] ?? false) || (field.properties['readOnly'] ?? false),
+            ),
         ).toBeFalsy();
 
         loadingSetMock.next(new Set(['add']));
         fixture.detectChanges();
+
+        toggle = component.todoForm.get('isCompleted')?.disabled;
+        expect(toggle).toBeTruthy();
         expect(buttons.every((button) => button.properties['disabled'])).toBeTruthy();
         expect(
-            fields.every((field) => (field.properties['readonly'] ?? false) || (field.properties['readOnly'] ?? false)),
+            fields.every(
+                (field) => (field.properties['readonly'] ?? false) || (field.properties['readOnly'] ?? false),
+            ),
         ).toBeTruthy();
     });
 });

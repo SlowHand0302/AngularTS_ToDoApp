@@ -10,7 +10,9 @@ import { FilterOption } from '../../shared/models/filter.model';
 })
 export class TodoService {
     private todosSubject: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
-    private todoFilterOption: BehaviorSubject<FilterOption<Todo>[]> = new BehaviorSubject<FilterOption<Todo>[]>([]);
+    private todoFilterOption: BehaviorSubject<FilterOption<Todo>[]> = new BehaviorSubject<
+        FilterOption<Todo>[]
+    >([]);
     private todoSortOption: BehaviorSubject<SortOption<Todo>> = new BehaviorSubject<SortOption<Todo>>({
         key: 'title',
         order: 'asc',
@@ -24,11 +26,16 @@ export class TodoService {
     }
 
     public addTodo(todo: Omit<Todo, 'id'>) {
-        this.todosSubject.next([{ ...todo, id: this.todosSubject.value.length + 1 }, ...this.todosSubject.value]);
+        this.todosSubject.next([
+            { ...todo, id: this.todosSubject.value.length + 1 },
+            ...this.todosSubject.value,
+        ]);
     }
 
     public editTodo(todo: Todo) {
-        this.todosSubject.next([...this.todosSubject.value.map((item) => (item.id === todo.id ? todo : item))]);
+        this.todosSubject.next([
+            ...this.todosSubject.value.map((item) => (item.id === todo.id ? todo : item)),
+        ]);
     }
 
     public removeTodo(todoId: number | string) {

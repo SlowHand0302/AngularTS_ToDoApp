@@ -7,7 +7,13 @@ export const notificationItem = [
     },
     {
         variant: NotificationVariants.TOAST,
-        content: { type: 'info', title: 'Sample notification 2', message: 'Sample info message' },
+        content: {
+            type: 'info',
+            title: 'Sample notification 2',
+            message: 'Sample info message',
+            subtitle: 'Sample Subtitle',
+            caption: 'Samle Caption',
+        },
     },
     {
         variant: NotificationVariants.NOTIFICATION,
