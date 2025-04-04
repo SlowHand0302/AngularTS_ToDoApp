@@ -4,7 +4,7 @@ import { Todo } from '../../../shared/models/todo.model';
 import { SharedModule } from '../../../shared/shared.module';
 import { TodoService } from '../../services/todo.service';
 import { TodoSkeletonsComponent } from '../todo-skeletons/todo-skeletons.component';
-import { TodoSkeletonVariants } from '../../../shared/constants/varianst.enum';
+import { TodoSkeletonVariants } from '../../../shared/constants/variants.enum';
 
 @Component({
     selector: 'app-todo-detail',

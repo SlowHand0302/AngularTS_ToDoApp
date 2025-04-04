@@ -6,7 +6,7 @@ import { Todo } from '../../shared/models/todo.model';
 import { todoSortList } from '../../shared/models/sort.model';
 import { filterOutput, sortOutput } from '../../shared/mockups/testTodoService.mockup';
 import { todoFilterList } from '../../shared/models/filter.model';
-import { todoList } from '../../shared/constants/todoList.contants';
+import { todoList } from '../../shared/constants/todoList.constant';
 
 describe('TodoService', () => {
     let service: TodoService;
@@ -38,7 +38,7 @@ describe('TodoService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should intiate with empty array', () => {
+    it('should initiate with empty array', () => {
         expect(mockTodos.length).toBe(0);
     });
 

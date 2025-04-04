@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodoItemComponent } from './todo-item.component';
-import { todoList } from '../../../shared/constants/todoList.contants';
+import { todoList } from '../../../shared/constants/todoList.constant';
 import { Router } from '@angular/router';
 import { TodoService } from '../../services/todo.service';
 import { NotificationService, NotificationVariants } from '../../../shared/services/notification.service';

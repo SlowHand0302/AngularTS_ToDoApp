@@ -19,7 +19,7 @@ import { TodoModalComponent } from './components/todo-modal/todo-modal.component
 import { TodoSkeletonsComponent } from './components/todo-skeletons/todo-skeletons.component';
 import { TodoToolsComponent } from './components/todo-tools/todo-tools.component';
 import { By } from '@angular/platform-browser';
-import { todoList } from '../shared/constants/todoList.contants';
+import { todoList } from '../shared/constants/todoList.constant';
 
 describe('TodosComponent', () => {
     let component: TodosComponent;
@@ -191,6 +191,6 @@ describe('TodosComponent', () => {
 
     it('should call authService.testReq when loadingAPITest called', () => {
         component.loadingAPITest();
-        expect(authServiceMock.testReq).toHaveBeenCalled()
+        expect(authServiceMock.testReq).toHaveBeenCalled();
     });
 });

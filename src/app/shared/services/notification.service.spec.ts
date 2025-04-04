@@ -34,14 +34,13 @@ describe('NotificationService', () => {
         expect(notifications.length).toBe(0);
     });
 
-    describe.each([...notificationItem])('showNofitication: %j', ({ variant, content }) => {
+    describe.each([...notificationItem])('showNotification: %j', ({ variant, content }) => {
         it('should add valid content base on variant for new notification', () => {
             expect(() => service.showNotification(variant, content as any)).not.toThrow();
             expect(notifications.length).toBe(1);
             expect(notifications[0].variant).toEqual(variant);
             expect(notifications[0].content).toMatchObject(content);
         });
-
         it('should preserve content through lifecycle', () => {
             service.showNotification(variant, content as any);
             expect(notifications.length).toBe(1);
@@ -57,7 +56,7 @@ describe('NotificationService', () => {
         });
     });
 
-    it('showNofitication should handle multiple notifications independently', () => {
+    it('showNotification should handle multiple notifications independently', () => {
         service.showNotification(NotificationVariants.NOTIFICATION, {
             type: 'info',
             title: 'First',
@@ -80,7 +79,10 @@ describe('NotificationService', () => {
 
     it('should manually close a notification', () => {
         const sampleNotification = { type: 'info', title: 'First', message: 'First message' };
-        service.showNotification(NotificationVariants.NOTIFICATION, sampleNotification as NotificationContent);
+        service.showNotification(
+            NotificationVariants.NOTIFICATION,
+            sampleNotification as NotificationContent,
+        );
         expect(notifications.length).toBe(1);
         expect(notifications[0].variant).toEqual(NotificationVariants.NOTIFICATION);
         expect(notifications[0].content).toMatchObject(sampleNotification);
@@ -97,8 +99,14 @@ describe('NotificationService', () => {
         const sampleNotification1 = { type: 'info', title: 'First', message: 'First message' };
         const sampleNotification2 = { type: 'info', title: 'Second', message: 'Second message' };
 
-        service.showNotification(NotificationVariants.NOTIFICATION, sampleNotification1 as NotificationContent);
-        service.showNotification(NotificationVariants.NOTIFICATION, sampleNotification2 as NotificationContent);
+        service.showNotification(
+            NotificationVariants.NOTIFICATION,
+            sampleNotification1 as NotificationContent,
+        );
+        service.showNotification(
+            NotificationVariants.NOTIFICATION,
+            sampleNotification2 as NotificationContent,
+        );
 
         expect(notifications.length).toBe(2);
         expect(notifications[0].variant).toEqual(NotificationVariants.NOTIFICATION);

@@ -133,5 +133,17 @@ X: (01/04/2025):
     
 X: (02/04/2025):
     - Refactor todo-form component ✔
-    - Research Redux
-    - Research NgRx
+    - Refactor sign-in component ✔
+    - Research Redux ✔
+    - Basic Implement Redux Angular ✔
+    - Research NgRx ✖
+
+X: (03/04/2025):
+    - Init API Server ✔
+    - Implement API for Todo ✔ 
+    - Integrate API Todo to frontend ✔
+    - Research NgRx ✔
+    - Basic Implement NgRx ✖
+
+X: (04/04/2025):
+    - Refactor code base on spell checker and remove unnecessary function ✔

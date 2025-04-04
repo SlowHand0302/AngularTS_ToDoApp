@@ -12,7 +12,7 @@ import { TodoToolsComponent } from './components/todo-tools/todo-tools.component
 import { RouteWatcherService } from '../shared/services/route-watcher.service';
 import { TodoService } from './services/todo.service';
 import { TodoSkeletonsComponent } from './components/todo-skeletons/todo-skeletons.component';
-import { TodoSkeletonVariants } from '../shared/constants/varianst.enum';
+import { TodoSkeletonVariants } from '../shared/constants/variants.enum';
 import { AuthService } from '../auth/service/auth.service';
 
 @Component({

@@ -15,10 +15,10 @@
                 @for (item of todos(); track item.id) {
                 <app-todo-item [todo]="item" />
                 }
-                <!-- Handle Emplty List -->
+                <!-- Handle Empty List -->
                 } @else {
                 <div class="todos_empty">
-                    <strong> Opps, There is nothing here :(( </strong>
+                    <strong> Oops, There is nothing here :(( </strong>
                 </div>
                 }
             </cds-contained-list>

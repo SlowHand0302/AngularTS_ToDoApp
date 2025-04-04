@@ -81,7 +81,7 @@ describe('SigninComponent', () => {
     });
 
     it('should disable submit button when form is invalid', () => {
-        let submitButton = fixture.debugElement.query(By.css('button[type=submit]'));
+        const submitButton = fixture.debugElement.query(By.css('button[type=submit]'));
         expect(submitButton.properties['disabled']).toBeTruthy();
     });
 
@@ -109,7 +109,7 @@ describe('SigninComponent', () => {
 
         const notificationSpy = jest.spyOn(notificationServiceMock, 'showNotification');
 
-        component.signinForm.patchValue({ email: 'wrong@example.com', password: 'wrongpassword' });
+        component.signinForm.patchValue({ email: 'wrong@example.com', password: 'wrongPassword' });
         component.onSubmit();
 
         expect(authServiceMock.signin).toHaveBeenCalled();

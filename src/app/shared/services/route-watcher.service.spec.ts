@@ -59,7 +59,7 @@ describe('RouteWatcherService', () => {
             eventsSubject.next(new NavigationEnd(index + 1, url, url));
         });
 
-        // Verify all navigations were tracked
+        // Verify all navigation were tracked
         expect(navigationUrls.length).toBe(testUrls.length + 1); // +1 for initial empty value
         expect(navigationUrls.slice(1)).toEqual(testUrls);
 

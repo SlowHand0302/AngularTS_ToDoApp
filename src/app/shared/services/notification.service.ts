@@ -28,8 +28,13 @@ export type NotificationItem =
     providedIn: 'root',
 })
 export class NotificationService {
-    private notificationSubject: BehaviorSubject<NotificationItem[]> = new BehaviorSubject<NotificationItem[]>([]);
-    private timeoutIds: Map<number, ReturnType<typeof setTimeout>> = new Map<number, ReturnType<typeof setTimeout>>();
+    private notificationSubject: BehaviorSubject<NotificationItem[]> = new BehaviorSubject<
+        NotificationItem[]
+    >([]);
+    private timeoutIds: Map<number, ReturnType<typeof setTimeout>> = new Map<
+        number,
+        ReturnType<typeof setTimeout>
+    >();
     public notificationSubject$ = this.notificationSubject.asObservable();
 
     public showNotification<T extends NotificationVariants>(
@@ -40,8 +45,6 @@ export class NotificationService {
             ? ActionableContent
             : NotificationContent,
     ) {
-        // console.log('Showing notification:', content);
-
         // Validate content structure based on variant
         if (
             (variant === NotificationVariants.NOTIFICATION && !this.isNotificationContent(content)) ||
@@ -76,7 +79,9 @@ export class NotificationService {
             clearTimeout(timeoutId);
 
             this.notificationSubject.next([
-                ...this.notificationSubject.value.map((item) => (item.id === id ? { ...item, hide: true } : item)),
+                ...this.notificationSubject.value.map((item) =>
+                    item.id === id ? { ...item, hide: true } : item,
+                ),
             ]);
 
             // Remove after animation delay
@@ -102,7 +107,9 @@ export class NotificationService {
         return (
             this.isNotificationContent(content) &&
             Array.isArray(content['actions']) &&
-            content['actions'].every((action) => typeof action.text === 'string' && typeof action.click === 'object')
+            content['actions'].every(
+                (action) => typeof action.text === 'string' && typeof action.click === 'object',
+            )
         );
     }
 }

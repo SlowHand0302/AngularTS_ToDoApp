@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, delay, map, Observable, of, tap } from 'rxjs';
 import { Todo } from '../../shared/models/todo.model';
-import { todoList } from '../../shared/constants/todoList.contants';
+import { todoList } from '../../shared/constants/todoList.constant';
 import { SortOption } from '../../shared/models/sort.model';
 import { FilterOption } from '../../shared/models/filter.model';
 

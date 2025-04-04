@@ -42,7 +42,7 @@ describe('NotificationComponent', () => {
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(component).toBeTruthy(); 
     });
 
     it('should subscribe and get initial value from BehaviorSubject', () => {
@@ -55,7 +55,7 @@ describe('NotificationComponent', () => {
         ({ cssQuery, ...notificationItem }) => {
             notificationSubject.next([...notificationSubject.value, notificationItem as NotificationItem]);
             fixture.detectChanges();
-            let notify = fixture.debugElement.query(By.css(cssQuery));
+            const notify = fixture.debugElement.query(By.css(cssQuery));
             expect(notify).toBeTruthy();
         },
     );

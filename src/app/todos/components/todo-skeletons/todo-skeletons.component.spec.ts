@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodoSkeletonsComponent } from './todo-skeletons.component';
-import { TodoSkeletonVariants } from '../../../shared/constants/varianst.enum';
+import { TodoSkeletonVariants } from '../../../shared/constants/variants.enum';
 import { By } from '@angular/platform-browser';
 
 describe('TodoSkeletonsComponent', () => {

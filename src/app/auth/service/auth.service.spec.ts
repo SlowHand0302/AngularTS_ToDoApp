@@ -74,7 +74,7 @@ describe('AuthService', () => {
     }));
 
     it('should handle signin error', fakeAsync(() => {
-        const credentials = { email: 'test@example.com', password: 'wrongpassword' };
+        const credentials = { email: 'test@example.com', password: 'wrongPassword' };
         const errorMessage = 'Invalid credentials';
 
         service.signin(credentials).subscribe({

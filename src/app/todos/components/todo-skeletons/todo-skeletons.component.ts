@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { TodoSkeletonVariants } from '../../../shared/constants/varianst.enum';
+import { TodoSkeletonVariants } from '../../../shared/constants/variants.enum';
 
 @Component({
     selector: 'app-todo-skeletons',

@@ -1,4 +1,3 @@
-import { todoList } from '../constants/todoList.contants';
 import { todoFilterList } from '../models/filter.model';
 import { todoSortList } from '../models/sort.model';
 

@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../../services/todo.service';
 import { TodoSkeletonsComponent } from '../todo-skeletons/todo-skeletons.component';
 import { Todo } from '../../../shared/models/todo.model';
-import { TodoSkeletonVariants } from '../../../shared/constants/varianst.enum';
+import { TodoSkeletonVariants } from '../../../shared/constants/variants.enum';
 import { NotificationVariants, NotificationService } from '../../../shared/services/notification.service';
 
 @Component({

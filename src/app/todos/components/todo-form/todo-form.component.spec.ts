@@ -6,7 +6,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TodoService } from '../../services/todo.service';
 import { NotificationService, NotificationVariants } from '../../../shared/services/notification.service';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { todoList } from '../../../shared/constants/todoList.contants';
+import { todoList } from '../../../shared/constants/todoList.constant';
 import { By } from '@angular/platform-browser';
 
 describe('TodoFormComponent', () => {

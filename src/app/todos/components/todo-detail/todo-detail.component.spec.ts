@@ -4,7 +4,7 @@ import { TodoDetailComponent } from './todo-detail.component';
 import { TodoService } from '../../services/todo.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { BehaviorSubject, map, Observable, of } from 'rxjs';
-import { todoList } from '../../../shared/constants/todoList.contants';
+import { todoList } from '../../../shared/constants/todoList.constant';
 import { TodoSkeletonsComponent } from '../todo-skeletons/todo-skeletons.component';
 import { Todo } from '../../../shared/models/todo.model';
 import { By } from '@angular/platform-browser';
@@ -30,7 +30,9 @@ describe('TodoDetailComponent', () => {
                     loadingSetMock.asObservable().pipe(map((set) => set.has(requestId))),
                 ),
             findTodoById: jest.fn().mockReturnValue(of(todoList[0])),
-            APIEmulator: jest.fn().mockImplementation((callback: () => Observable<Todo | null>) => callback()),
+            APIEmulator: jest
+                .fn()
+                .mockImplementation((callback: () => Observable<Todo | null>) => callback()),
             loadingSet$: loadingSetMock.asObservable(),
         };
     };
@@ -105,6 +107,4 @@ describe('TodoDetailComponent', () => {
         formSkeleton = fixture.debugElement.query(By.css('.details'));
         expect(formSkeleton).toBeTruthy();
     });
-
-    
 });

@@ -12,7 +12,7 @@ export const notificationItem = [
             title: 'Sample notification 2',
             message: 'Sample info message',
             subtitle: 'Sample Subtitle',
-            caption: 'Samle Caption',
+            caption: 'Sample Caption',
         },
     },
     {

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedModule } from '../../shared.module';
 import { Subject } from 'rxjs';
-import { NotificationService, NotificationVariants, NotificationItem } from '../../services/notification.service';
-import { ActionableContent, NotificationContent, ToastContent } from 'carbon-components-angular';
+import {
+    NotificationService,
+    NotificationVariants,
+    NotificationItem,
+} from '../../services/notification.service';
 
 @Component({
     selector: 'app-notification',
@@ -13,7 +16,7 @@ import { ActionableContent, NotificationContent, ToastContent } from 'carbon-com
 export class NotificationComponent implements OnInit {
     actionSubject = new Subject<{ event: Event; action: any }>();
     notifications: NotificationItem[] = [];
-    readonly notifiVariants = NotificationVariants;
+    readonly notificationVariants = NotificationVariants;
 
     constructor(private notificationService: NotificationService) {}
 
@@ -21,6 +24,7 @@ export class NotificationComponent implements OnInit {
         this.notificationService.notificationSubject$.subscribe((notifies) => {
             this.notifications = [...notifies];
         });
+        // TODO: research more details
         this.actionSubject.subscribe({
             next(value) {
                 if (value.action['fn']) {
@@ -32,45 +36,5 @@ export class NotificationComponent implements OnInit {
 
     closeNotification(id: number) {
         this.notificationService.closeNotification(id);
-    }
-
-    showNotification() {
-        const sampleNotification: NotificationContent = {
-            type: 'info',
-            title: 'Sample notification',
-            message: 'Sample info message',
-        };
-        this.notificationService.showNotification(this.notifiVariants.NOTIFICATION, sampleNotification);
-    }
-
-    showToast() {
-        const sampleToast: ToastContent = {
-            type: 'info',
-            title: 'Sample toast',
-            subtitle: 'Sample subtitle message',
-            caption: 'Sample caption',
-            message: 'message',
-        };
-        this.notificationService.showNotification(this.notifiVariants.TOAST, sampleToast);
-    }
-
-    showActionable() {
-        const sampleActionable: ActionableContent = {
-            type: 'success',
-            title: 'Actionable notification',
-            message: 'Sample info message',
-            subtitle: 'Sample subtitle message',
-            caption: 'Sample caption',
-            actions: [
-                {
-                    text: 'Action',
-                    click: this.actionSubject,
-                    fn: () => {
-                        console.log('log navifate');
-                    },
-                },
-            ],
-        };
-        this.notificationService.showNotification(this.notifiVariants.ACTIONABLE, sampleActionable);
     }
 }
