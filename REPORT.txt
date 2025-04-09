@@ -147,3 +147,7 @@ X: (03/04/2025):
 
 X: (04/04/2025):
     - Refactor code base on spell checker and remove unnecessary function ✔
+
+X: (08/04/2025):
+    - Implement API Handler for Task ✔
+    - Implement Task action, effect, reducer, selector ✔
