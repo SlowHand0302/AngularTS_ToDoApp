@@ -1,13 +1,17 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { Router } from '@angular/router';
 import { TaskService } from '../../API/task.service';
 import { TaskActions } from './task.actions';
-
+import { NotificationService } from '../../services/notification.service';
+import { NotificationVariants } from '../../services/notification.service';
 @Injectable()
 export class TaskEffects {
     private actions$ = inject(Actions);
     private taskService = inject(TaskService);
+    private notificationService = inject(NotificationService);
+    private router = inject(Router);
 
     loadTasks$ = createEffect(() => {
         return this.actions$.pipe(
@@ -29,7 +33,9 @@ export class TaskEffects {
             exhaustMap(({ taskID }) => {
                 return this.taskService.loadTaskById(taskID).pipe(
                     map((res) => TaskActions.loadTaskByID.success({ task: res.metadata })),
-                    catchError((error) => of(TaskActions.loadTaskByID.error({ error: error.message }))),
+                    catchError((error) => {
+                        return of(TaskActions.loadTaskByID.error({ error: error.error.message }));
+                    }),
                 );
             }),
         );
@@ -82,4 +88,47 @@ export class TaskEffects {
             }),
         );
     });
+
+    successNotification$ = createEffect(
+        () =>
+            this.actions$.pipe(
+                ofType(TaskActions.updateTask.success, TaskActions.createTask.success, TaskActions.deleteTask.success),
+                tap((action) => {
+                    this.notificationService.showNotification(NotificationVariants.NOTIFICATION, {
+                        type: 'success',
+                        title: `${action.type.split(' ')[0].split('/').join(' ')} Success`,
+                        message: `${action.task.title}`,
+                    });
+                }),
+            ),
+        { dispatch: false },
+    );
+
+    errorNotification$ = createEffect(
+        () =>
+            this.actions$.pipe(
+                ofType(
+                    TaskActions.createTask.error,
+                    TaskActions.updateTask.error,
+                    TaskActions.deleteTask.error,
+                    TaskActions.loadTaskByID.error,
+                ),
+                tap((action) => {
+                    this.notificationService.showNotification(NotificationVariants.NOTIFICATION, {
+                        type: 'error',
+                        title: `${action.error}`,
+                    });
+                }),
+            ),
+        { dispatch: false },
+    );
+
+    navigate$ = createEffect(
+        () =>
+            this.actions$.pipe(
+                ofType(TaskActions.createTask.success, TaskActions.updateTask.success, TaskActions.loadTaskByID.error),
+                tap((action) => this.router.navigate(['/'])),
+            ),
+        { dispatch: false },
+    );
 }
