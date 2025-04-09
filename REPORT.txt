@@ -151,3 +151,8 @@ X: (04/04/2025):
 X: (08/04/2025):
     - Implement API Handler for Task ✔
     - Implement Task action, effect, reducer, selector ✔
+
+X: (09/04/2025):
+    - Implement task effects to show notification and navigate ✔
+    - Integrate task store to todos, todo-detail, todo-form, todo-item component ✔
+    - Refactor template and component base on task store for todos, todo-detail, todo-form, todo-item ✔

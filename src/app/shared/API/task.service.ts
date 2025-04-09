@@ -65,7 +65,7 @@ export class TaskService {
   }
 
   public deleteTaskById(id: Pick<Task, '_id'>) {
-    return this.httpClient.delete<APIResponse<Task>>(`${this.baseUrl}/${id}`, {
+    return this.httpClient.delete<APIResponse<Task>>(`${this.baseUrl}/${id._id}`, {
       headers: this.headers,
       withCredentials: true,
     });

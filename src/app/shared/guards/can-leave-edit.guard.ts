@@ -12,7 +12,7 @@ export class CanLeaveEditGuard implements CanDeactivate<TodoFormComponent> {
         currentState: RouterStateSnapshot,
         nextState: RouterStateSnapshot,
     ): MaybeAsync<GuardResult> {
-        if (component.todoForm.dirty || component.todoForm.touched) {
+        if ((component.todoForm.dirty || component.todoForm.touched) && !component.isSubmitted) {
             const r = window.confirm('Do you want to leave Editing');
             return r;
         }

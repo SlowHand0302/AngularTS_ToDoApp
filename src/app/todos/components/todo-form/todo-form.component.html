@@ -1,4 +1,4 @@
-@if (isLoading().get('loadById')) {
+@if (isLoading()) {
 <app-todo-skeletons [variant]="skeletonsVariants.TODO_FORM_EDIT" />
 }@else {
 <form class="todo-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
@@ -28,28 +28,79 @@
             [readOnly]="isEditingOrAdding()"
         />
     </cds-text-label>
-    <div class="todo-form_group">
+    <div class="todo-form_row">
         <cds-date-picker
-            [label]="'Deadline:'"
+            [label]="'Start Date:'"
             [theme]="'dark'"
             [range]="false"
-            name="deadline"
-            formControlName="deadline"
+            name="startDate"
+            formControlName="startDate"
             [invalid]="
-                !todoForm.controls['deadline'].valid &&
-                (todoForm.controls['deadline'].dirty || todoForm.controls['deadline'].touched)
+                !todoForm.controls['startDate'].valid &&
+                (todoForm.controls['startDate'].dirty || todoForm.controls['startDate'].touched)
             "
-            [invalidText]="'Please fill the deadline'"
+            [invalidText]="'Please fill the Start Date'"
             dateFormat="d/m/Y"
             [readonly]="isEditingOrAdding()"
         ></cds-date-picker>
-        <cds-toggle
-            label="Is Completed:"
-            onText="Completed"
-            offText="Processing"
-            name="state"
-            formControlName="isCompleted"
-        ></cds-toggle>
+        <cds-date-picker
+            [label]="'End Date:'"
+            [theme]="'dark'"
+            [range]="false"
+            name="endDate"
+            formControlName="endDate"
+            [invalid]="
+                !todoForm.controls['endDate'].valid &&
+                (todoForm.controls['endDate'].dirty || todoForm.controls['endDate'].touched)
+            "
+            [invalidText]="'Please fill the End Date'"
+            dateFormat="d/m/Y"
+            [readonly]="isEditingOrAdding()"
+        ></cds-date-picker>
+    </div>
+    <div class="todo-form_row">
+        <cds-combo-box
+            label="Type"
+            formControlName="type"
+            [items]="taskTypes"
+            [appendInline]="true"
+            [invalid]="
+                !todoForm.controls['type'].valid &&
+                (todoForm.controls['type'].dirty || todoForm.controls['type'].touched)
+            "
+            [invalidText]="'Please select Type'"
+            [readonly]="isEditingOrAdding()"
+        >
+            <cds-dropdown-list></cds-dropdown-list>
+        </cds-combo-box>
+        <cds-combo-box
+            label="Priority"
+            formControlName="priority"
+            [items]="taskPriorities"
+            [appendInline]="true"
+            [invalid]="
+                !todoForm.controls['priority'].valid &&
+                (todoForm.controls['priority'].dirty || todoForm.controls['priority'].touched)
+            "
+            [invalidText]="'Please select Priority'"
+            [readonly]="isEditingOrAdding()"
+        >
+            <cds-dropdown-list></cds-dropdown-list>
+        </cds-combo-box>
+        <cds-combo-box
+            label="Status"
+            formControlName="status"
+            [items]="taskStatuses"
+            [appendInline]="true"
+            [invalid]="
+                !todoForm.controls['status'].valid &&
+                (todoForm.controls['status'].dirty || todoForm.controls['status'].touched)
+            "
+            [invalidText]="'Please select Status'"
+            [readonly]="isEditingOrAdding()"
+        >
+            <cds-dropdown-list></cds-dropdown-list>
+        </cds-combo-box>
     </div>
     <cds-textarea-label
         [invalid]="
@@ -77,7 +128,7 @@
             [readOnly]="isEditingOrAdding()"
         ></textarea>
     </cds-textarea-label>
-    <div class="todo-form_group">
+    <div class="todo-form_row">
         <ng-container>
             <button
                 cdsButton="primary"

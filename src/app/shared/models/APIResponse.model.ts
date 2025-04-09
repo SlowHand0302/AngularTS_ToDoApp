@@ -1,5 +1,5 @@
-export type APIResponse<T> = {
+export interface APIResponse<T> {
     statusCode: number;
     messages: string;
     metadata: T;
-};
+}

@@ -3,8 +3,13 @@
     flex-direction: column;
     gap: 0.5rem;
 
-    ::ng-deep .cds--modal-header__label{
+    ::ng-deep .cds--modal-header__label {
         font-size: 14px;
+    }
+    .details-row {
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
 
     .details-state {
@@ -12,16 +17,58 @@
         border-radius: 0.375rem;
         font-weight: bold;
         font-size: 0.75rem;
-        margin-left: 5px;
-        &.completed {
-            border: 1px solid oklch(0.627 0.194 149.214);
-            background-color: oklch(0.982 0.018 155.826);
-            color: oklch(0.527 0.154 150.069);
+        // margin-left: 5px;
+
+        &.todo {
+            border: 1px solid oklch(0.6 0.2 85); /* yellow */
+            background-color: oklch(0.97 0.04 85);
+            color: oklch(0.45 0.2 85);
         }
-        &.processing {
-            border: 1px solid oklch(0.488 0.243 264.376);
-            background-color: oklch(0.97 0.014 254.604);
-            color: oklch(0.488 0.243 264.376);
+
+        &.in-progress {
+            border: 1px solid oklch(0.5 0.25 260); /* blue/purple */
+            background-color: oklch(0.96 0.03 260);
+            color: oklch(0.4 0.2 260);
+        }
+
+        &.done {
+            border: 1px solid oklch(0.6 0.2 150); /* green */
+            background-color: oklch(0.98 0.02 150);
+            color: oklch(0.45 0.18 150);
+        }
+
+        &.backlog {
+            border: 1px solid oklch(0.65 0.15 30); /* orange */
+            background-color: oklch(0.985 0.025 30);
+            color: oklch(0.48 0.15 30);
+        }
+
+        &.canceled {
+            border: 1px solid oklch(0.55 0.2 20); /* red */
+            background-color: oklch(0.97 0.015 20);
+            color: oklch(0.42 0.18 20);
+        }
+        &.high {
+            border: 1px solid oklch(0.6 0.25 25); /* bold red */
+            background-color: oklch(0.97 0.035 25);
+            color: oklch(0.5 0.2 25);
+        }
+
+        &.medium {
+            border: 1px solid oklch(0.6 0.2 85); /* golden yellow */
+            background-color: oklch(0.98 0.03 85);
+            color: oklch(0.5 0.2 85);
+        }
+
+        &.low {
+            border: 1px solid oklch(0.55 0.18 220); /* blue/gray */
+            background-color: oklch(0.96 0.02 220);
+            color: oklch(0.45 0.18 220);
+        }
+
+        &.draft {
+            border: 1px solid oklch(86.9% 0.022 252.894);
+            background-color: oklch(92.9% 0.013 255.508);
         }
     }
 }

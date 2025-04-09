@@ -3,11 +3,11 @@
     flex-direction: column;
     gap: 20px;
 
-    .todo-form_group {
+    .todo-form_row {
         display: flex;
         gap: 10px;
     }
-    
+
     ::ng-deep {
         .cds--text-input__field-wrapper {
             &[data-invalid='true'] {
@@ -66,6 +66,29 @@
                 display: none;
                 &[ng-reflect-is-active='true'] {
                     display: flex;
+                }
+            }
+        }
+
+        .cds--list-box {
+            border-block-end: none;
+            border: 1px solid black;
+            border-radius: 5px;
+            &:focus-within {
+                border: 2px solid var(--cds-focus, #0f62fe);
+            }
+            .cds--text-input {
+                border-block-end: none;
+                &:focus {
+                    outline: none;
+                }
+            }
+            &[data-invalid='true'] {
+                border: 2px solid red;
+                background-color: #ffe6e6;
+                outline: none;
+                .cds--text-input {
+                    outline: none;
                 }
             }
         }

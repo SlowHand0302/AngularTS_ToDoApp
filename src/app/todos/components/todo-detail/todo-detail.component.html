@@ -2,23 +2,25 @@
 <app-todo-skeletons [variant]="skeletonVariants.TODO_DETAILS" />
 }@else {
 <div class="details-container">
-    <h3>
-        <strong>{{ todo?.title }}</strong>
+    <h3 class="details-row">
+        <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">
+            <span class="details-state draft">{{ task?.type }}</span>
+        </p>
+        <strong>{{ task?.title }}</strong>
     </h3>
     <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">
-        Deadline: {{ todo?.deadline?.[0] | date : 'dd/MM/yyyy' }}
+        {{ task?.startDate | date : 'dd/MM/yyyy' }} - {{ task?.endDate | date : 'dd/MM/yyyy' }}
     </p>
-    @if (todo?.isCompleted) {
-    <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">
-        State: <span class="details-state completed">Completed</span>
-    </p>
-    } @else {
-    <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">
-        State: <span class="details-state processing">Processing</span>
-    </p>
-    }
-    <p>
-        {{ todo?.details }}
-    </p>
+    <div class="details-row">
+        <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">
+            Status: <span class="details-state {{ task?.status | lowercase }}">{{ task?.status }}</span>
+        </p>
+        <p cdsModalHeaderLabel class="cds--modal-header__label cds--type-delta">
+            Priority: <span class="details-state {{ task?.priority | lowercase }}">{{ task?.priority }}</span>
+        </p>
+    </div>
+    <article>
+        {{ task?.details }}
+    </article>
 </div>
 }

@@ -1,10 +1,14 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
-import { Todo } from '../../../shared/models/todo.model';
+import { Component, inject, OnInit, signal } from '@angular/core';
+
+import { Task } from '../../../shared/models/task.model';
 import { SharedModule } from '../../../shared/shared.module';
-import { TodoService } from '../../services/todo.service';
-import { TodoSkeletonsComponent } from '../todo-skeletons/todo-skeletons.component';
+import { TaskState } from '../../../shared/stores/task/task.reducers';
+import { TaskActions } from '../../../shared/stores/task/task.actions';
 import { TodoSkeletonVariants } from '../../../shared/constants/variants.enum';
+import { TodoSkeletonsComponent } from '../todo-skeletons/todo-skeletons.component';
+import { selectChosenTask, selectLoading } from '../../../shared/stores/task/task.selectors';
 
 @Component({
     selector: 'app-todo-detail',
@@ -14,30 +18,27 @@ import { TodoSkeletonVariants } from '../../../shared/constants/variants.enum';
 })
 export class TodoDetailComponent implements OnInit {
     private readonly aRoute = inject(ActivatedRoute);
-    private readonly todoService = inject(TodoService);
+    private store = inject(Store<{ task: TaskState }>);
     readonly skeletonVariants = TodoSkeletonVariants;
     isLoading = signal<boolean>(false);
-    todo: Todo | null = null;
+    task: Task | null = null;
 
     ngOnInit() {
         this.aRoute.paramMap.subscribe((params) => {
             const id = params.get('id'); // Get the 'id' from the URL
             if (id) {
-                this.fetchTodoById(+id); // Convert string to number
+                this.fetchTodoById(id);
             }
         });
-        this.todoService.isLoading('loadById').subscribe((result) => {
-            this.isLoading.set(result);
+        this.store.select(selectLoading).subscribe((loadings) => {
+            this.isLoading.set(loadings.has('loadTaskByID'));
+        });
+        this.store.select(selectChosenTask).subscribe((task) => {
+            this.task = task;
         });
     }
 
-    fetchTodoById(id: number | string) {
-        this.todoService
-            .APIEmulator<Todo | null>(() => this.todoService.findTodoById(id), 'loadById')
-            .subscribe((result) => {
-                if (result) {
-                    this.todo = { ...result };
-                }
-            });
+    fetchTodoById(_id: string) {
+        this.store.dispatch(TaskActions.loadTaskByID.request({ taskID: { _id } }));
     }
 }

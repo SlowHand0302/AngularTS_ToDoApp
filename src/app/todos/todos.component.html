@@ -10,10 +10,10 @@
                 @if (isLoading()) {
                 <!-- Handle Loading State -->
                 <app-todo-skeletons [variant]="skeletonVariants.TODO_ITEM" />
-                } @else if (todos().length > 0) {
+                } @else if (tasks().length > 0) {
                 <!-- Loaded List -->
-                @for (item of todos(); track item.id) {
-                <app-todo-item [todo]="item" />
+                @for (item of tasks(); track item._id) {
+                <app-todo-item [task]="item" />
                 }
                 <!-- Handle Empty List -->
                 } @else {
@@ -34,7 +34,7 @@
         placeholder="Search Todo By Title"
         size="lg"
         (valueChange)="onSearchBarChange($event)"
-        (clear)="loadingTodos()"
+        (clear)="loadingAPITest()"
     ></cds-search>
     <button [iconOnly]="true" cdsButton="primary" kind="primary" description="Add" [routerLink]="'add'">
         <svg class="cds--btn__icon" ibmIcon="add" size="16"></svg>

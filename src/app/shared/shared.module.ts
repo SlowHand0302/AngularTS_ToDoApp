@@ -19,6 +19,7 @@ import { LoadingModule } from 'carbon-components-angular';
 import { InlineLoadingModule } from 'carbon-components-angular';
 import { NotificationModule } from 'carbon-components-angular';
 import { NgIcon } from '@ng-icons/core';
+import { ComboBoxModule } from 'carbon-components-angular';
 
 @NgModule({
     declarations: [],
@@ -40,6 +41,7 @@ import { NgIcon } from '@ng-icons/core';
         LoadingModule,
         InlineLoadingModule,
         NotificationModule,
+        ComboBoxModule,
         NgIcon,
         // Route components & services
         RouterLink,
@@ -65,6 +67,7 @@ import { NgIcon } from '@ng-icons/core';
         InlineLoadingModule,
         NotificationModule,
         NgIcon,
+        ComboBoxModule,
         // Route components & services
         RouterLink,
         RouterOutlet,
