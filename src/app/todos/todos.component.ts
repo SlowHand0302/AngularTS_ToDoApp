@@ -57,7 +57,6 @@ export class TodosComponent implements OnInit {
 
     ngOnInit() {
         this.routeWatcher.currentUrl$.subscribe((url) => {
-            // console.log('URL changed:', url); // Logs every URL change
             if (url.includes('add') || url.includes('edit') || url.includes('details')) {
                 this.modalState.set(true);
             } else {

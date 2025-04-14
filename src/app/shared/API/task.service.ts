@@ -16,6 +16,7 @@ export class TaskService {
   private readonly baseUrl = `${environment.apiUrl}/task`;
 
   public loadAllTasks(): Observable<APIResponse<Task[]>> {
+    
     return this.httpClient.get<APIResponse<Task[]>>(`${this.baseUrl}`, {
       headers: this.headers,
       withCredentials: true,

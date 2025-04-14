@@ -1,22 +1,27 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap, withLatestFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { TaskService } from '../../API/task.service';
 import { TaskActions } from './task.actions';
 import { NotificationService } from '../../services/notification.service';
 import { NotificationVariants } from '../../services/notification.service';
+import { Store } from '@ngrx/store';
+import { TaskState } from './task.reducers';
+import { selectQueryString } from './task.selectors';
 @Injectable()
 export class TaskEffects {
     private actions$ = inject(Actions);
     private taskService = inject(TaskService);
     private notificationService = inject(NotificationService);
     private router = inject(Router);
+    private store = inject(Store<{ task: TaskState }>);
 
     loadTasks$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(TaskActions.loadTasks.request),
-            exhaustMap(() => {
+            withLatestFrom(this.store.select(selectQueryString)),
+            exhaustMap(([_, state]) => {
                 return this.taskService.loadAllTasks().pipe(
                     map((res) => {
                         return TaskActions.loadTasks.success({ tasks: res.metadata });
