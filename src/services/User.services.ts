@@ -14,7 +14,7 @@ class UserService implements UserRepo {
         return await UserModel.findOne({ email }).lean();
     }
     async searchByUsername(username: string, _id: Types.ObjectId): Promise<User[] | null> {
-        return await UserModel.find({ username: { $regex: username, $options: 'i' }, _id: { $ne: _id } })
+        return await UserModel.find({ username: { $regex: username, $options: 'i' }, _id: { $ne: _id} })
             .select('username')
             .limit(10)
             .lean();

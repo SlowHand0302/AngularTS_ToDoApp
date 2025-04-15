@@ -6,7 +6,7 @@ dotenv.config({ path: path.resolve(__dirname, '../configs/env.config') });
 
 // Interface to load env variables
 // Note these variables can possibly be undefined
-// as someone could skip these varibales or not setup a .env file at all
+// as someone could skip these variables or not setup a .env file at all
 interface ENV {
     PORT: number | undefined;
     SECRET_KEY: string | undefined;
@@ -33,7 +33,7 @@ export const getConfig = (): ENV => {
     };
 };
 
-export const getSanitzedConfig = (config: ENV): EnvConfig => {
+export const getSanitizedConfig = (config: ENV): EnvConfig => {
     for (const [key, value] of Object.entries(config)) {
         if (value === undefined) {
             throw new Error(`Missing key ${key} in config.env`);
@@ -44,6 +44,6 @@ export const getSanitzedConfig = (config: ENV): EnvConfig => {
 
 // export const config = getConfig();
 
-// export const sanitizedConfig = getSanitzedConfig(config);
+// export const sanitizedConfig = getSanitizedConfig(config);
 
 // export default sanitizedConfig;

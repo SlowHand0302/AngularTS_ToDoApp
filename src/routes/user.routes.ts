@@ -6,9 +6,8 @@ const routers = express.Router();
 // middleware for multi-session authentication
 // routers.use(AuthController.verifyAuth);
 
-// middleware for single-session authtication
+// middleware for single-session authentication
 // routers.use(AuthController.verifyAuthSingle)
-
 routers.get('/read', (req: Request, res: Response, next: NextFunction): any =>
     UserController.getAllUser(req, res, next),
 );

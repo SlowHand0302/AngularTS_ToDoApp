@@ -24,7 +24,7 @@ class AuthController {
             return res.status(200).json({
                 statusCode: 200,
                 msg: 'Create new user success',
-                metadata: { ...createdUser },
+                data: { ...createdUser },
             });
         } catch (error) {
             next();
@@ -50,7 +50,7 @@ class AuthController {
             return res.status(200).json({
                 statusCode: 200,
                 msg: 'Signed In Success',
-                metadata: { ...existed },
+                data: { ...existed },
             });
         } catch (error) {
             next(error);
@@ -90,7 +90,7 @@ class AuthController {
                     return res.status(200).json({
                         statusCode: 200,
                         msg: 'Signed In Success',
-                        metadata: { ...user },
+                        data: { ...user },
                     });
                 }
             }
@@ -100,7 +100,7 @@ class AuthController {
             return res.status(200).json({
                 statusCode: 200,
                 msg: 'Signed In Success',
-                metadata: { ...existed },
+                data: { ...existed },
             });
         } catch (error) {
             next(error);

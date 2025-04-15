@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 export type Task = {
     _id: Types.ObjectId;
     creator: Types.ObjectId;
-    asignee: Types.ObjectId;
+    assignee: Types.ObjectId;
     title: string;
     details: string;
     startDate: Date;
@@ -15,7 +15,7 @@ export type Task = {
 
 export enum TaskStatus {
     TODO = 'TODO',
-    IN_PROGESS = 'IN_PROGESS',
+    IN_PROGRESS = 'IN_PROGRESS',
     DONE = 'DONE',
     BACKLOG = 'BACKLOG',
     CANCELED = 'CANCELED',

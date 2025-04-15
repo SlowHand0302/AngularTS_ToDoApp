@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 interface ITask extends Document {
     creator: Types.ObjectId;
-    asignee: Types.ObjectId;
+    assignee: Types.ObjectId;
     title: string;
     details: string;
     startDate: Date;
@@ -17,7 +17,7 @@ interface ITask extends Document {
 const Tasks = new Schema<ITask>(
     {
         creator: { type: Schema.Types.ObjectId, ref: 'Users', required: true },
-        asignee: { type: Schema.Types.ObjectId, ref: 'Users', required: true },
+        assignee: { type: Schema.Types.ObjectId, ref: 'Users', required: true },
         title: { type: String, required: true },
         details: { type: String, required: true },
         startDate: { type: Date, required: true },

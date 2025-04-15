@@ -15,11 +15,11 @@ declare module 'express-session' {
 const app: Express = server.init();
 database.connect();
 // validate env variable
-EnvConfig.getSanitzedConfig(EnvConfig.getConfig());
+EnvConfig.getSanitizedConfig(EnvConfig.getConfig());
 
 app.get('/', (req: Request, res: Response): any => {
     return res.status(200).json({
-        msg: 'Server Initialized',
+        message: 'Server Initialized',
     });
 });
 
@@ -33,7 +33,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction): any => {
     return res.status(err.statusCode || 500).json({
         status: err.status || 500,
-        msg: err.message || 'Internal Server Error',
+        message: err.message || 'Internal Server Error',
         stack: err.stack || undefined,
     });
 });

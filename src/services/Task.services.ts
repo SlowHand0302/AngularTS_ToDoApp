@@ -1,10 +1,9 @@
-import { Types } from 'mongoose';
+import { SortOrder, Types } from 'mongoose';
 import { Task } from '../entities/Task.entity';
 import TaskRepo from '../repositories/Task.repository';
-import { FilterOption } from '../types/FilterOption.type';
-import { SortOption } from '../types/SortOption.type';
-import { TaskModel } from '../models/Task.model';
-import { title } from 'process';
+import { ITask, TaskModel } from '../models/Task.model';
+import { QueryOptions } from '../types/QueryOptions.interface';
+import { filterAdapter, searchAdapter, sortAdapter } from '../utils/mongooseFilterAdapter.utils';
 
 export default class TaskService implements TaskRepo {
     async findAll(): Promise<Task[]> {
@@ -33,11 +32,22 @@ export default class TaskService implements TaskRepo {
     async delete(_id: Types.ObjectId): Promise<Task | null> {
         return await TaskModel.findByIdAndDelete(_id).lean();
     }
-    async filter(filterOptions: FilterOption<Task>[]): Promise<Task[]> {
-        const filter = Object.assign({}, ...filterOptions);
-        return await TaskModel.find({ ...filter }).lean();
-    }
-    async sort(sortOptions: SortOption<Task>): Promise<Task[]> {
-        throw new Error('Method not implemented.');
+    async query(filterOptions: QueryOptions<Task>): Promise<Task[]> {
+        const { filter, sort, search, pagination } = filterOptions;
+        let query = TaskModel.find();
+        if (filter) {
+            query = query.find(filterAdapter(filter));
+        }
+        if (search) {
+            console.log(searchAdapter(search))
+            query = query.find(searchAdapter(search));
+        }
+        if (sort) {
+            query = query.sort(sortAdapter(sort as string[]));
+        }
+        if (pagination) {
+            query = query.skip(pagination.page * pagination.pageSize).limit(pagination.pageSize);
+        }
+        return await query.lean();
     }
 }

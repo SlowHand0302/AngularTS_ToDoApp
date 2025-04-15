@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', (req: Request, res: Response): any => {
     return res.status(200).json({
-        msg: 'API version 1 connected',
+        message: 'API version 1 connected',
     });
 });
 
