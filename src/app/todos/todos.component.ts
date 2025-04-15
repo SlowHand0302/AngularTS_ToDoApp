@@ -50,7 +50,7 @@ export class TodosComponent implements OnInit {
                     this.todoService.searchTodo(value);
                     this.todoService.APIEmulator(() => this.todoService.searchTodo(value), 'loadTodos').subscribe();
                 } else {
-                    this.loadingAPITest();
+                    this.loadTasks();
                 }
             });
     }
@@ -70,7 +70,7 @@ export class TodosComponent implements OnInit {
         this.store.select(selectLoading).subscribe((loadings) => {
             this.isLoading.set(loadings.has('loadTasks'));
         });
-        this.loadingAPITest();
+        this.loadTasks();
     }
 
     onSearchBarChange(searchText: string) {
@@ -86,7 +86,7 @@ export class TodosComponent implements OnInit {
         });
     }
 
-    loadingAPITest() {
+    loadTasks() {
         this.store.dispatch(TaskActions.loadTasks.request());
     }
 }

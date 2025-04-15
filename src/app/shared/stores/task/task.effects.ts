@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap, withLatestFrom } from 'rxjs';
 import { Router } from '@angular/router';
-import { TaskService } from '../../API/task.service';
+import { TaskService } from '../../API/services/task.service';
 import { TaskActions } from './task.actions';
 import { NotificationService } from '../../services/notification.service';
 import { NotificationVariants } from '../../services/notification.service';
@@ -20,11 +20,11 @@ export class TaskEffects {
     loadTasks$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(TaskActions.loadTasks.request),
-            withLatestFrom(this.store.select(selectQueryString)),
-            exhaustMap(([_, state]) => {
+            exhaustMap(() => {
                 return this.taskService.loadAllTasks().pipe(
                     map((res) => {
-                        return TaskActions.loadTasks.success({ tasks: res.metadata });
+                        console.log(res);
+                        return TaskActions.loadTasks.success({ tasks: res.data });
                     }),
                     catchError((error) => of(TaskActions.loadTasks.error({ error: error.message }))),
                 );
@@ -37,7 +37,7 @@ export class TaskEffects {
             ofType(TaskActions.loadTaskByID.request),
             exhaustMap(({ taskID }) => {
                 return this.taskService.loadTaskById(taskID).pipe(
-                    map((res) => TaskActions.loadTaskByID.success({ task: res.metadata })),
+                    map((res) => TaskActions.loadTaskByID.success({ task: res.data })),
                     catchError((error) => {
                         return of(TaskActions.loadTaskByID.error({ error: error.error.message }));
                     }),
@@ -51,7 +51,7 @@ export class TaskEffects {
             ofType(TaskActions.loadTasksByUserID.request),
             exhaustMap(({ userID }) =>
                 this.taskService.loadTaskByUserId(userID).pipe(
-                    map((res) => TaskActions.loadTasksByUserID.success({ tasks: res.metadata })),
+                    map((res) => TaskActions.loadTasksByUserID.success({ tasks: res.data })),
                     catchError((error) => of(TaskActions.loadTasksByUserID.error({ error: error.message }))),
                 ),
             ),
@@ -63,7 +63,7 @@ export class TaskEffects {
             ofType(TaskActions.createTask.request),
             exhaustMap(({ task }) => {
                 return this.taskService.createTask(task).pipe(
-                    map((res) => TaskActions.createTask.success({ task: res.metadata })),
+                    map((res) => TaskActions.createTask.success({ task: res.data })),
                     catchError((error) => of(TaskActions.createTask.error({ error: error.message }))),
                 );
             }),
@@ -75,7 +75,7 @@ export class TaskEffects {
             ofType(TaskActions.updateTask.request),
             exhaustMap(({ task }) => {
                 return this.taskService.updateTaskById(task).pipe(
-                    map((res) => TaskActions.updateTask.success({ task: res.metadata })),
+                    map((res) => TaskActions.updateTask.success({ task: res.data })),
                     catchError((error) => of(TaskActions.updateTask.error({ error: error.message }))),
                 );
             }),
@@ -87,7 +87,7 @@ export class TaskEffects {
             ofType(TaskActions.deleteTask.request),
             exhaustMap(({ id }) => {
                 return this.taskService.deleteTaskById(id).pipe(
-                    map((res) => TaskActions.deleteTask.success({ task: res.metadata })),
+                    map((res) => TaskActions.deleteTask.success({ task: res.data })),
                     catchError((error) => of(TaskActions.deleteTask.error({ error: error.message }))),
                 );
             }),

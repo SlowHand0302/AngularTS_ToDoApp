@@ -3,7 +3,7 @@
         <header class="todos_header">
             <p>todos works!</p>
             <a [routerLink]="'/login'">Login</a>
-            <button (click)="loadingAPITest()">Re-trigger API</button>
+            <button (click)="loadTasks()">Re-trigger API</button>
         </header>
         <section class="todos_content">
             <cds-contained-list [label]="combinedTools" [action]="combinedActions">
@@ -34,7 +34,7 @@
         placeholder="Search Todo By Title"
         size="lg"
         (valueChange)="onSearchBarChange($event)"
-        (clear)="loadingAPITest()"
+        (clear)="loadTasks()"
     ></cds-search>
     <button [iconOnly]="true" cdsButton="primary" kind="primary" description="Add" [routerLink]="'add'">
         <svg class="cds--btn__icon" ibmIcon="add" size="16"></svg>
