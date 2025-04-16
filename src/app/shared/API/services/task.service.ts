@@ -4,6 +4,7 @@ import { environment } from '../../../../environments/environment.dev';
 import { Observable } from 'rxjs';
 import { Task } from '../../models/task.model';
 import { SuccessResponse } from '../models/SuccessResponse.interface';
+import { QueryOptions } from '../models/QueryOptions.interface';
 @Injectable({
     providedIn: 'root',
 })
@@ -33,5 +34,10 @@ export class TaskService {
 
     public deleteTaskById(id: Pick<Task, '_id'>) {
         return this.httpClient.delete<SuccessResponse<Task>>(`${this.baseUrl}/${id._id}`);
+    }
+
+    public queryTask(query: QueryOptions<Task>) {
+        console.log(query);
+        return this.httpClient.post<SuccessResponse<Task[]>>(`${this.baseUrl}/query`, query);
     }
 }

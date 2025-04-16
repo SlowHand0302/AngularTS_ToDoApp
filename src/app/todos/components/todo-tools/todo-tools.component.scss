@@ -4,19 +4,11 @@
     max-width: 100%;
 
     .sort {
-        flex: 1 0 50%;
+        // flex: 1 0 50%;
 
         ::ng-deep .cds--list-box__menu-icon {
             display: none;
         }
-
-        // .hiddenLastChild {
-        //     ::ng-deep .cds--list-box__menu {
-        //         li[title='Clear Sort'] {
-        //             display: none;
-        //         }
-        //     }
-        // }
 
         .item {
             font-size: 14px;
@@ -28,7 +20,7 @@
     }
 
     .filter {
-        flex: 1 0 50%;
+        // flex: 1 0 50%;
     }
 
     ::ng-deep .cds--dropdown,
@@ -38,5 +30,29 @@
         border-radius: 5px;
         border-bottom: none;
         outline-color: #f4f4f5;
+    }
+
+    ::ng-deep .cds--list-box {
+        border-block-end: none;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: white;
+        &:focus-within {
+            border: 2px solid var(--cds-focus, #0f62fe);
+        }
+        .cds--text-input {
+            border-block-end: none;
+            &:focus {
+                outline: none;
+            }
+        }
+        &[data-invalid='true'] {
+            border: 2px solid red;
+            background-color: #ffe6e6;
+            outline: none;
+            .cds--text-input {
+                outline: none;
+            }
+        }
     }
 }

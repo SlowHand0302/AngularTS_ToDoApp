@@ -10,4 +10,6 @@ export const selectTasks = createSelector(selectTaskState, (state: TaskState) =>
 export const selectLoading = createSelector(selectTaskState, (state: TaskState) => state.loading);
 export const selectError = createSelector(selectTaskState, (state: TaskState) => state.error);
 export const selectChosenTask = createSelector(selectTaskState, (state: TaskState) => state.selectedTask);
-export const selectQueryString = createSelector(selectTaskState, (state: TaskState) => state.queryString);
+export const selectFilterQuery = createSelector(selectTaskState, (state: TaskState) => state.filter);
+export const selectSortQuery = createSelector(selectTaskState, (state: TaskState) => state.sort);
+export const selectSearchQuery = createSelector(selectTaskState, (state: TaskState) => state.search);

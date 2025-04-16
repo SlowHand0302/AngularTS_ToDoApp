@@ -4,7 +4,7 @@ import { SearchQuery } from './SearchQuery.type';
 
 export interface QueryOptions<T> {
     filter?: RawFilterQuery<T>;
-    sort?: SortOption<T>;
+    sort?: SortOption<T>[];
     search?: SearchQuery<T>;
     pagination?: PaginationQuery;
 }

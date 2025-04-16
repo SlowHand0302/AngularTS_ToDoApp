@@ -15,7 +15,7 @@ import { TodoSkeletonVariants } from '../shared/constants/variants.enum';
 import { TaskState } from '../shared/stores/task/task.reducers';
 import { Store } from '@ngrx/store';
 import { Task } from '../shared/models/task.model';
-import { selectLoading, selectTasks } from '../shared/stores/task/task.selectors';
+import { selectLoading, selectSearchQuery, selectTasks } from '../shared/stores/task/task.selectors';
 import { TaskActions } from '../shared/stores/task/task.actions';
 
 @Component({
@@ -33,12 +33,7 @@ export class TodosComponent implements OnInit {
     private searchSubject = new Subject<string>();
     private store = inject(Store<{ task: TaskState }>);
 
-    constructor(
-        private router: Router,
-        private routeWatcher: RouteWatcherService,
-        private todoService: TodoService,
-        protected iconService: IconService,
-    ) {
+    constructor(private router: Router, private routeWatcher: RouteWatcherService, protected iconService: IconService) {
         iconService.registerAll([ChevronDown16, ChevronSort16, ChevronUp16]);
         this.searchSubject
             .pipe(
@@ -47,9 +42,9 @@ export class TodosComponent implements OnInit {
             )
             .subscribe((value) => {
                 if (value) {
-                    this.todoService.searchTodo(value);
-                    this.todoService.APIEmulator(() => this.todoService.searchTodo(value), 'loadTodos').subscribe();
+                    this.store.dispatch(TaskActions.searchTask.set({ option: { title: value } }));
                 } else {
+                    this.store.dispatch(TaskActions.searchTask.reset());
                     this.loadTasks();
                 }
             });
@@ -69,6 +64,9 @@ export class TodosComponent implements OnInit {
         });
         this.store.select(selectLoading).subscribe((loadings) => {
             this.isLoading.set(loadings.has('loadTasks'));
+        });
+        this.store.select(selectSearchQuery).subscribe((search) => {
+            console.log(search);
         });
         this.loadTasks();
     }

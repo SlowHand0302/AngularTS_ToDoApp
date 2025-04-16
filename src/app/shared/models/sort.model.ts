@@ -12,7 +12,7 @@ export const todoSortList: SortListItem<Todo>[] = [
     {
         key: 'title',
         order: 'asc',
-        selected: true,
+        selected: false,
         content: 'Title Asc',
     },
     {

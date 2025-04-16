@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap, withLatestFrom } from 'rxjs';
+import { catchError, exhaustMap, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { TaskService } from '../../API/services/task.service';
 import { TaskActions } from './task.actions';
@@ -8,7 +8,9 @@ import { NotificationService } from '../../services/notification.service';
 import { NotificationVariants } from '../../services/notification.service';
 import { Store } from '@ngrx/store';
 import { TaskState } from './task.reducers';
-import { selectQueryString } from './task.selectors';
+import { selectFilterQuery, selectSearchQuery, selectSortQuery } from './task.selectors';
+import { QueryOptions } from '../../API/models/QueryOptions.interface';
+import { Task } from '../../models/task.model';
 @Injectable()
 export class TaskEffects {
     private actions$ = inject(Actions);
@@ -23,7 +25,6 @@ export class TaskEffects {
             exhaustMap(() => {
                 return this.taskService.loadAllTasks().pipe(
                     map((res) => {
-                        console.log(res);
                         return TaskActions.loadTasks.success({ tasks: res.data });
                     }),
                     catchError((error) => of(TaskActions.loadTasks.error({ error: error.message }))),
@@ -136,4 +137,81 @@ export class TaskEffects {
             ),
         { dispatch: false },
     );
+
+    triggerFilterTasks$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(TaskActions.filterTask.set, TaskActions.filterTask.unset),
+            withLatestFrom(this.store.select(selectFilterQuery), this.store.select(selectSortQuery)),
+            filter(([_, filter]) => !!filter),
+            map(([action, filter, sort]) => {
+                const query = sort ? { filter: filter!, sort: [sort] } : { filter: filter! };
+                return TaskActions.filterTask.request({ query });
+            }),
+        );
+    });
+
+    filterTask$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(TaskActions.filterTask.request),
+            exhaustMap(({ query }) => {
+                console.log(query);
+                return this.taskService.queryTask(query).pipe(
+                    map((res) => TaskActions.filterTask.success({ tasks: res.data })),
+                    catchError((error) => of(TaskActions.filterTask.error({ error: error.message }))),
+                );
+            }),
+        );
+    });
+
+    triggerSortTask$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(TaskActions.sortTask.set, TaskActions.sortTask.unset),
+            withLatestFrom(this.store.select(selectSortQuery), this.store.select(selectFilterQuery)),
+            map(([action, sort, filter]) => {
+                const query: QueryOptions<Task> = {
+                    filter: { ...(filter ?? {}) },
+                    ...(sort ? { sort: [sort] } : {}),
+                };
+                console.log(query);
+                return TaskActions.sortTask.request({ query });
+            }),
+        );
+    });
+
+    sortTask$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(TaskActions.sortTask.request),
+            exhaustMap(({ query }) => {
+                return this.taskService.queryTask(query).pipe(
+                    map((res) => TaskActions.sortTask.success({ tasks: res.data })),
+                    catchError((error) => of(TaskActions.sortTask.error({ error }))),
+                );
+            }),
+        );
+    });
+
+    triggerSearchTask$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(TaskActions.searchTask.set),
+            withLatestFrom(this.store.select(selectSearchQuery)),
+            map(([action, state]) => {
+                console.log(state);
+                const query: QueryOptions<Task> = state ? { search: { ...state } } : {};
+                return TaskActions.searchTask.request({ query });
+            }),
+        );
+    });
+
+    searchTask$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(TaskActions.searchTask.request),
+            exhaustMap(({ query }) => {
+                console.log(query);
+                return this.taskService.queryTask(query).pipe(
+                    map((res) => TaskActions.searchTask.success({ tasks: res.data })),
+                    catchError((error) => of(TaskActions.searchTask.error(error))),
+                );
+            }),
+        );
+    });
 }

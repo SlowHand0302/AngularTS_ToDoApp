@@ -89,7 +89,7 @@ X: (21/03/2025):
     - Research HttpClient ✔
     - Triển khai Auth service cơ bản ✔ 
     - Refactor routes ✔
-    - Connect và Intergrate API cho Auth Service ✔
+    - Connect và Integrate API cho Auth Service ✔
     - Triển khai authVerifyInterceptor ✔
 
 X: (24/03/2025):
@@ -160,3 +160,21 @@ X: (09/04/2025):
 X: (10/04/2025):
     - Implement query state for task store ✔
     - Implement filter, search, sort and pagination for API Server ✔
+
+X: (13/04/2025):
+    - Research Request Query, ✔
+    - Implement strict type for API and Query for BE ✔
+    - Implement filter adapter from request query ✔
+
+X: (14/04/2025):
+    - Refactor filter adapter from request query ✔
+
+X: (15/04/2025):
+    - Implement handleLoadingStateReducer, setHeaderInterceptor, ✔
+    - Strict type for API response and query for FE ✔
+    - Implement filter middleware, catchAsync and successRes utils ✔
+
+X: (15/04/2025):
+    - Implement search, filter, sort action for Task store. ✔
+    - Refactor todo-tools component template for new filter. ✔
+    - Integrate search, filter, sort action to todo-tools component ✔

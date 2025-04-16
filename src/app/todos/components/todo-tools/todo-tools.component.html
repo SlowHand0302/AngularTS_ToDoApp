@@ -1,24 +1,37 @@
 <div class="todos_tools">
-    <cds-dropdown [appendInline]="true" [dropUp]="false" class="filter" (selected)="handleSelectFilter($event)">
-        <cds-dropdown-list [items]="filterState"></cds-dropdown-list>
-    </cds-dropdown>
-    <cds-dropdown
+    <cds-combo-box
+        [items]="taskTypes"
+        placeholder="Type"
         [appendInline]="true"
-        class="sort"
-        [dropUp]="false"
-        [displayValue]="dropdownRenderer"
+        type="multi"
+        (selected)="handleSelectType($event)"
+    >
+        <cds-dropdown-list></cds-dropdown-list>
+    </cds-combo-box>
+    <cds-combo-box
+        [items]="taskPriorities"
+        placeholder="Priority"
+        [appendInline]="true"
+        type="multi"
+        (selected)="handleSelectPriority($event)"
+    >
+        <cds-dropdown-list></cds-dropdown-list>
+    </cds-combo-box>
+    <cds-combo-box
+        [items]="taskStatuses"
+        placeholder="Status"
+        [appendInline]="true"
+        type="multi"
+        (selected)="handleSelectStatus($event)"
+    >
+        <cds-dropdown-list></cds-dropdown-list>
+    </cds-combo-box>
+    <cds-combo-box
+        [items]="sortState"
+        placeholder="Sort By"
+        [appendInline]="true"
         (selected)="handleSelectSort($event)"
     >
-        <cds-dropdown-list [items]="sortState" [listTpl]="dropdownRenderer"></cds-dropdown-list>
-        <ng-template #dropdownRenderer let-item="item">
-            <div class="item">
-                @if (item.order === 'asc') {
-                <svg class="cds--btn__icon" [cdsIcon]="'chevron--up'" size="16"></svg>
-                } @else {
-                <svg class="cds--btn__icon" [cdsIcon]="'chevron--down'" size="16"></svg>
-                }
-                <p>{{ item.content }}</p>
-            </div>
-        </ng-template>
-    </cds-dropdown>
+        <cds-dropdown-list></cds-dropdown-list>
+    </cds-combo-box>
 </div>

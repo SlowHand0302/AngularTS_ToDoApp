@@ -22,18 +22,18 @@
                     padding-inline: 0;
                     height: fit-content;
                     gap: 10px;
+                    flex-direction: column-reverse;
+                    margin-bottom: 3px;
+
 
                     .cds--contained-list__action {
                         position: static;
-                        flex: 1 0 50%;
-                        margin-bottom: 3px;
-                        max-width: 100%;
+                        width: 100%;
                     }
 
                     .cds--contained-list__label {
                         inline-size: unset;
-                        flex: 1 1 50%;
-                        max-width: 100%;
+                        width: 100%;
 
                         .cds--list-box__menu-item__option {
                             padding-inline-end: 0;

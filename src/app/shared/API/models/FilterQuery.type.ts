@@ -10,7 +10,7 @@ export enum FilterComparisonOperators {
 }
 
 export type RawFilterQueryValue = {
-    [key in keyof typeof FilterComparisonOperators]?: string;
+    [key in keyof typeof FilterComparisonOperators]?: string | string[];
 };
 
 export type RawFilterQuery<T> = Partial<Record<keyof T, RawFilterQueryValue>>;
