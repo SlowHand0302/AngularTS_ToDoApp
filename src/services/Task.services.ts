@@ -2,7 +2,7 @@ import { SortOrder, Types } from 'mongoose';
 import { Task } from '../entities/Task.entity';
 import TaskRepo from '../repositories/Task.repository';
 import { ITask, TaskModel } from '../models/Task.model';
-import { QueryOptions } from '../types/QueryOptions.interface';
+import { QueryOptions, SortOption } from '../types/QueryOptions.interface';
 import { filterAdapter, searchAdapter, sortAdapter } from '../utils/mongooseFilterAdapter.utils';
 
 export default class TaskService implements TaskRepo {
@@ -39,11 +39,10 @@ export default class TaskService implements TaskRepo {
             query = query.find(filterAdapter(filter));
         }
         if (search) {
-            console.log(searchAdapter(search))
             query = query.find(searchAdapter(search));
         }
         if (sort) {
-            query = query.sort(sortAdapter(sort as string[]));
+            query = query.sort(sortAdapter(sort as SortOption<Task>[]));
         }
         if (pagination) {
             query = query.skip(pagination.page * pagination.pageSize).limit(pagination.pageSize);

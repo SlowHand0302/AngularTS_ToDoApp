@@ -1,6 +1,7 @@
 import { FilterComparisonOperators, RawFilterQuery } from '../types/FilterQuery.type';
 import { FilterQuery, Condition, SortOrder } from 'mongoose';
 import { SearchQuery } from '../types/SearchQuery.type';
+import { SortOption } from '../types/QueryOptions.interface';
 
 export const filterAdapter = <T>(filters: RawFilterQuery<T>): FilterQuery<T> => {
     const query: FilterQuery<T> = {};
@@ -26,9 +27,9 @@ export const filterAdapter = <T>(filters: RawFilterQuery<T>): FilterQuery<T> => 
     return query;
 };
 
-export const sortAdapter = (sorts: string[]): [string, SortOrder][] => {
+export const sortAdapter = <T>(sorts: SortOption<T>[]): [string, SortOrder][] => {
     return sorts.map((sort) => {
-        const [field, order] = sort.split(':');
+        const [field, order] = Object.entries(sort)[0];
 
         const sortOrder =
             order === 'asc' ||

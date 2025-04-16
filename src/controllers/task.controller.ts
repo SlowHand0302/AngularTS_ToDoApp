@@ -5,7 +5,6 @@ import { Types } from 'mongoose';
 import { Task } from '../entities/Task.entity';
 import { successResponse } from '../utils/resSuccess.util';
 import { QueryOptions } from '../types/QueryOptions.interface';
-import { filterAdapter, searchAdapter, sortAdapter } from '../utils/mongooseFilterAdapter.utils';
 export default class TaskController {
     private static service = new TaskService();
 
