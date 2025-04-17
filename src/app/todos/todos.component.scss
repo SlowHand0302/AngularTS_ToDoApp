@@ -10,10 +10,57 @@
         padding: 10px;
         width: 60vw;
 
-        .todos_header p {
-            font-size: 30px;
-            font-weight: bold;
-            color: #008000;
+        .todos_header {
+            display: flex;
+            margin-bottom: 10px;
+            justify-content: end;
+            position: relative;
+            p {
+                font-size: 40px;
+                font-weight: bold;
+                color: #008000;
+                position: absolute;
+                left: 50%; /* Center horizontally */
+                transform: translateX(-50%); /* Offset by half its width */
+                bottom: -24px;
+                z-index: 1000;
+            }
+
+            ::ng-deep {
+                .cds--overflow-menu {
+                    background-color: none;
+                    border: none;
+                    padding: 0;
+                    min-width: unset;
+                    width: auto;
+                    height: auto;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .cds--overflow-menu:focus,
+                .cds--overflow-menu:hover {
+                    outline: none;
+                    background: none;
+                }
+
+                .cds--btn__icon {
+                    display: block;
+                    width: 48px;
+                    height: 48px;
+                }
+
+                .cds--btn--ghost:focus,
+                .cds--toolbar-action:focus:not([disabled]) {
+                    outline: none;
+                    box-shadow: none;
+                }
+
+                .cds--overflow-menu.cds--overflow-menu--open {
+                    border-radius: 100%;
+                }
+            }
         }
 
         .todos_content {
@@ -24,7 +71,6 @@
                     gap: 10px;
                     flex-direction: column-reverse;
                     margin-bottom: 3px;
-
 
                     .cds--contained-list__action {
                         position: static;
@@ -104,6 +150,14 @@
 @media only screen and (max-width: 768px) {
     .todos .todos_container {
         min-width: 90vw;
+        .todos_header {
+            p {
+                bottom: 0;
+                left: 0;
+                font-size: 30px;
+                transform: translate(0, -10px);
+            }
+        }
         ::ng-deep .cds--contained-list__header {
             flex-wrap: wrap;
 

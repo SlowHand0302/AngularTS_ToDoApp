@@ -174,7 +174,14 @@ X: (15/04/2025):
     - Strict type for API response and query for FE ✔
     - Implement filter middleware, catchAsync and successRes utils ✔
 
-X: (15/04/2025):
+X: (16/04/2025):
     - Implement search, filter, sort action for Task store. ✔
     - Refactor todo-tools component template for new filter. ✔
     - Integrate search, filter, sort action to todo-tools component ✔
+    - Refactor sortAdapter function of API Server ✔
+
+X: (17/04/2025):
+    - Refactor UI of components base on new Schema. ✔
+    - Implement avatar menu overflow menu UI. ✔
+    - Integrate API signOut. ✔
+    - Implement unit test for API service Auth and Task. ✔

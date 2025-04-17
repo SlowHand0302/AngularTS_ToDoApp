@@ -21,7 +21,7 @@ export class TaskService {
     }
 
     public loadTaskByUserId(userID: Pick<Task, 'creator'>): Observable<SuccessResponse<Task[]>> {
-        return this.httpClient.get<SuccessResponse<Task[]>>(`${this.baseUrl}/user/${userID}`);
+        return this.httpClient.get<SuccessResponse<Task[]>>(`${this.baseUrl}/user/${userID.creator}`);
     }
 
     public createTask(task: Omit<Task, '_id'>): Observable<SuccessResponse<Task>> {

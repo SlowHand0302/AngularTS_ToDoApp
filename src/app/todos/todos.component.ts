@@ -2,14 +2,13 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { Router } from '@angular/router';
 import { IconService } from 'carbon-components-angular';
-import { ChevronSort16, ChevronDown16, ChevronUp16 } from '@carbon/icons';
+import { ChevronSort16, ChevronDown16, ChevronUp16, UserAvatar20 } from '@carbon/icons';
 import { debounce, distinctUntilChanged, Subject, timer } from 'rxjs';
 
 import { TodoModalComponent } from './components/todo-modal/todo-modal.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { TodoToolsComponent } from './components/todo-tools/todo-tools.component';
 import { RouteWatcherService } from '../shared/services/route-watcher.service';
-import { TodoService } from './services/todo.service';
 import { TodoSkeletonsComponent } from './components/todo-skeletons/todo-skeletons.component';
 import { TodoSkeletonVariants } from '../shared/constants/variants.enum';
 import { TaskState } from '../shared/stores/task/task.reducers';
@@ -17,7 +16,8 @@ import { Store } from '@ngrx/store';
 import { Task } from '../shared/models/task.model';
 import { selectLoading, selectSearchQuery, selectTasks } from '../shared/stores/task/task.selectors';
 import { TaskActions } from '../shared/stores/task/task.actions';
-
+import { AuthService } from '../shared/API/services/auth.service';
+import { NotificationService, NotificationVariants } from '../shared/services/notification.service';
 @Component({
     selector: 'app-todos',
     imports: [SharedModule, TodoModalComponent, TodoItemComponent, TodoToolsComponent, TodoSkeletonsComponent],
@@ -26,15 +26,17 @@ import { TaskActions } from '../shared/stores/task/task.actions';
     standalone: true,
 })
 export class TodosComponent implements OnInit {
+    private store = inject(Store<{ task: TaskState }>);
+    private authService = inject(AuthService);
+    private notificationService = inject(NotificationService);
+    private searchSubject = new Subject<string>();
+    readonly skeletonVariants = TodoSkeletonVariants;
     tasks = signal<Task[]>([]);
     isLoading = signal<boolean>(false);
     modalState = signal<boolean>(true);
-    readonly skeletonVariants = TodoSkeletonVariants;
-    private searchSubject = new Subject<string>();
-    private store = inject(Store<{ task: TaskState }>);
 
     constructor(private router: Router, private routeWatcher: RouteWatcherService, protected iconService: IconService) {
-        iconService.registerAll([ChevronDown16, ChevronSort16, ChevronUp16]);
+        iconService.registerAll([ChevronDown16, ChevronSort16, ChevronUp16, UserAvatar20]);
         this.searchSubject
             .pipe(
                 debounce(() => timer(300)),
@@ -86,5 +88,18 @@ export class TodosComponent implements OnInit {
 
     loadTasks() {
         this.store.dispatch(TaskActions.loadTasks.request());
+    }
+
+    handleSignOut() {
+        this.authService.signOut().subscribe({
+            next: (value) => {
+                console.log(value)
+                this.notificationService.showNotification(NotificationVariants.NOTIFICATION, {
+                    type: 'success',
+                    title: 'Logout Success',
+                });
+                this.router.navigate(['/login']);
+            },
+        });
     }
 }

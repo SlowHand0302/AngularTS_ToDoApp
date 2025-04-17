@@ -3,26 +3,6 @@
     gap: 5px;
     max-width: 100%;
 
-    .sort {
-        // flex: 1 0 50%;
-
-        ::ng-deep .cds--list-box__menu-icon {
-            display: none;
-        }
-
-        .item {
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            height: 100%;
-        }
-    }
-
-    .filter {
-        // flex: 1 0 50%;
-    }
-
     ::ng-deep .cds--dropdown,
     .cds--list-box__field:focus,
     .cds--list-box__menu-item--highlighted,
@@ -53,6 +33,22 @@
             .cds--text-input {
                 outline: none;
             }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .todos_tools {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .todos_tools {
+        flex-wrap: wrap;
+        align-items: stretch;
+        ::ng-deep .cds--list-box__wrapper{
+            flex-grow: 1;
         }
     }
 }

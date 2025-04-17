@@ -2,8 +2,23 @@
     <main class="todos_container">
         <header class="todos_header">
             <p>todos works!</p>
-            <a [routerLink]="'/login'">Login</a>
-            <button (click)="loadTasks()">Re-trigger API</button>
+            <ibm-tooltip class="cds--icon-tooltip todos-tooltip" description="">
+                <ibm-overflow-menu
+                    [flip]="true"
+                    triggerClass="cds--toolbar-action"
+                    [placement]="'bottom'"
+                    [align]="'bottom-left'"
+                    [customTrigger]="triggerProfile"
+                    [highContrast]="true"
+                    [offset]="{ x: -48, y: -3 }"
+                    description=""
+                >
+                    <ibm-overflow-menu-option>View Profile</ibm-overflow-menu-option>
+                    <ibm-overflow-menu-option (selected)="handleSignOut()" [divider]="true" type="danger">
+                        Logout
+                    </ibm-overflow-menu-option>
+                </ibm-overflow-menu>
+            </ibm-tooltip>
         </header>
         <section class="todos_content">
             <cds-contained-list [label]="combinedTools" [action]="combinedActions">
@@ -48,3 +63,7 @@
 <app-todo-modal [modalState]="modalState()" (triggerCloseModal)="handleTriggerCloseModal()">
     <router-outlet />
 </app-todo-modal>
+
+<ng-template #triggerProfile>
+    <svg class="cds--btn__icon" [cdsIcon]="'user--avatar'" size="20"></svg>
+</ng-template>
