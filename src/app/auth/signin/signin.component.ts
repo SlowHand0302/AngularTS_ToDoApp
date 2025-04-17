@@ -5,9 +5,9 @@ import { provideIcons } from '@ng-icons/core';
 import { bootstrapGoogle, bootstrapFacebook, bootstrapGithub } from '@ng-icons/bootstrap-icons';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { noWhitespaceValidator } from '../../shared/validators/no-whitespace.validator';
-import { AuthService } from '../service/auth.service';
 import { NotificationVariants, NotificationService } from '../../shared/services/notification.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../shared/API/services/auth.service';
 
 @Component({
     selector: 'app-signin',
@@ -33,7 +33,7 @@ export class SigninComponent {
     }
 
     onSubmit() {
-        this.authService.signin(this.signinForm.value).subscribe({
+        this.authService.signIn(this.signinForm.value).subscribe({
             next: () => {
                 this.notificationService.showNotification(NotificationVariants.NOTIFICATION, {
                     type: 'success',
@@ -45,7 +45,7 @@ export class SigninComponent {
                 const error = err.error;
                 this.notificationService.showNotification(NotificationVariants.NOTIFICATION, {
                     type: 'error',
-                    title: error.msg,
+                    title: error.message,
                 });
             },
         });
