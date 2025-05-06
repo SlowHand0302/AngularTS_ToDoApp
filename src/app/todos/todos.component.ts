@@ -2,8 +2,9 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { Router } from '@angular/router';
 import { IconService } from 'carbon-components-angular';
-import { ChevronSort16, ChevronDown16, ChevronUp16, UserAvatar20 } from '@carbon/icons';
+
 import { debounce, distinctUntilChanged, Subject, timer } from 'rxjs';
+import { CarbonIcons } from '@app/shared/icons';
 
 import { TodoModalComponent } from './components/todo-modal/todo-modal.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
@@ -36,7 +37,7 @@ export class TodosComponent implements OnInit {
     modalState = signal<boolean>(true);
 
     constructor(private router: Router, private routeWatcher: RouteWatcherService, protected iconService: IconService) {
-        iconService.registerAll([ChevronDown16, ChevronSort16, ChevronUp16, UserAvatar20]);
+        iconService.registerAll([CarbonIcons.ChevronDown16, CarbonIcons.ChevronSort16, CarbonIcons.ChevronUp16, CarbonIcons.UserAvatar20]);
         this.searchSubject
             .pipe(
                 debounce(() => timer(300)),

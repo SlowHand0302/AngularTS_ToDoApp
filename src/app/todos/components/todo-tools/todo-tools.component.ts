@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { IconService, ListItem } from 'carbon-components-angular';
 
-import { ChevronSort16, ChevronDown16, ChevronUp16 } from '@carbon/icons';
+
+import { CarbonIcons } from '@app/shared/icons';
 import { SharedModule } from '../../../shared/shared.module';
 import { Todo } from '../../../shared/models/todo.model';
 import { SortListItem, todoSortList } from '../../../shared/models/sort.model';
@@ -35,7 +36,7 @@ export class TodoToolsComponent {
     }));
 
     constructor(protected iconService: IconService) {
-        iconService.registerAll([ChevronDown16, ChevronSort16, ChevronUp16]);
+        iconService.registerAll([CarbonIcons.ChevronDown16, CarbonIcons.ChevronSort16, CarbonIcons.ChevronUp16]);
     }
 
     ngOnInit() {

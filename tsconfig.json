@@ -16,7 +16,13 @@
         "moduleResolution": "bundler",
         "importHelpers": true,
         "target": "ES2022",
-        "module": "ES2022"
+        "module": "ES2022",
+        "baseUrl": "src",
+        "paths": {
+            "@app/*": ["app/*"],
+            "@shared/*": ["app/shared/*"],
+            "@icons/*": ["app/shared/icons/*"]
+        }
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
@@ -24,5 +30,5 @@
         "strictInputAccessModifiers": true,
         "strictTemplates": true
     },
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/module.d.ts"]
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/module.d.ts", "src/types/**/*.d.ts"]
 }
