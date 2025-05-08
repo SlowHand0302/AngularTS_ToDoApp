@@ -40,7 +40,7 @@ export class TaskEffects {
                 return this.taskService.loadTaskById(taskID).pipe(
                     map((res) => TaskActions.loadTaskByID.success({ task: res.data })),
                     catchError((error) => {
-                        return of(TaskActions.loadTaskByID.error({ error: error.error.message }));
+                        return of(TaskActions.loadTaskByID.error({ error: error.message }));
                     }),
                 );
             }),
@@ -184,7 +184,7 @@ export class TaskEffects {
             exhaustMap(({ query }) => {
                 return this.taskService.queryTask(query).pipe(
                     map((res) => TaskActions.sortTask.success({ tasks: res.data })),
-                    catchError((error) => of(TaskActions.sortTask.error({ error }))),
+                    catchError((error) => of(TaskActions.sortTask.error({ error: error.message }))),
                 );
             }),
         );
@@ -209,7 +209,7 @@ export class TaskEffects {
                 console.log(query);
                 return this.taskService.queryTask(query).pipe(
                     map((res) => TaskActions.searchTask.success({ tasks: res.data })),
-                    catchError((error) => of(TaskActions.searchTask.error(error))),
+                    catchError((error) => of(TaskActions.searchTask.error({error: error.message}))),
                 );
             }),
         );
