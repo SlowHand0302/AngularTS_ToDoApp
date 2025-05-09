@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { IconService, ListItem } from 'carbon-components-angular';
 
 
-import { CarbonIcons } from '@app/shared/icons';
+import { CarbonIcons } from '../../../shared/icons';
 import { SharedModule } from '../../../shared/shared.module';
 import { Todo } from '../../../shared/models/todo.model';
 import { SortListItem, todoSortList } from '../../../shared/models/sort.model';

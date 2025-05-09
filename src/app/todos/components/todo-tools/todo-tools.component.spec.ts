@@ -1,72 +1,87 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { Store } from '@ngrx/store';
+import { TestBed } from '@angular/core/testing';
+import { IconService, ListItem } from 'carbon-components-angular';
+import { IconDirectiveMock } from '../../../__mocks__/icon-directive.mock';
 
 import { TodoToolsComponent } from './todo-tools.component';
-import { TodoService } from '../../services/todo.service';
-import { BehaviorSubject } from 'rxjs';
-import { FilterOption, todoFilterList } from '../../../shared/models/filter.model';
-import { Todo } from '../../../shared/models/todo.model';
-import { SortOption, todoSortList } from '../../../shared/models/sort.model';
+import { TaskActions } from '../../../shared/stores/task/task.actions';
+import * as fromReducer from '../../../shared/stores/task/task.reducers';
+import { todoSortList } from '../../../shared/models/sort.model';
+import { IconServiceMock } from '../../../__mocks__/icon-service.mock';
 
+// Create isolated unit tests for the component
 describe('TodoToolsComponent', () => {
-    let component: TodoToolsComponent;
-    let fixture: ComponentFixture<TodoToolsComponent>;
-    let todoServiceMock: Partial<TodoService>;
-    let filterOptionMock: BehaviorSubject<FilterOption<Todo>[]>;
-    let sortOptionMock: BehaviorSubject<SortOption<Todo>>;
+  let component: TodoToolsComponent;
+  let store: MockStore<fromReducer.TaskState>;
+  let dispatchSpy: jest.SpyInstance;
 
-    const createService = () => {
-        filterOptionMock = new BehaviorSubject<FilterOption<Todo>[]>([]);
-        sortOptionMock = new BehaviorSubject<SortOption<Todo>>({ key: 'title', order: 'asc' });
-        todoServiceMock = {
-            setFilterOption: jest.fn().mockImplementation((option) => {
-                filterOptionMock.next([...filterOptionMock.value, option]);
-            }),
-            setSortOption: jest.fn().mockImplementation((option) => {
-                sortOptionMock.next(option);
-            }),
-        };
+  beforeEach(() => {
+    const initialState: fromReducer.TaskState = {
+      tasks: [],
+      selectedTask: null,
+      loading: new Set<string>(['']),
+      error: null,
+      sort: null,
+      filter: null,
+      search: null,
     };
 
-    beforeEach(async () => {
-        createService();
-
-        await TestBed.configureTestingModule({
-            imports: [TodoToolsComponent],
-            providers: [{ provide: TodoService, useValue: todoServiceMock }],
-        }).compileComponents();
-
-        fixture = TestBed.createComponent(TodoToolsComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+    TestBed.configureTestingModule({
+      providers: [
+        // Use the mock IconService
+        { provide: IconService, useClass: IconServiceMock },
+        { provide: 'ibmIcon', useClass: IconDirectiveMock },
+        provideMockStore({
+          initialState: initialState,
+        }),
+        TodoToolsComponent
+      ]
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+    store = TestBed.inject(Store) as MockStore<fromReducer.TaskState>;
+    dispatchSpy = jest.spyOn(store, 'dispatch');
+    
+    // Get the component from TestBed
+    component = TestBed.inject(TodoToolsComponent);
+  });
 
-    it('should add sort option to service when sort option is selected', () => {
-        component.handleSelectSort({ item: { ...todoSortList[0] } });
-        expect(todoServiceMock.setSortOption).toHaveBeenCalledWith({
-            key: todoSortList[0].key,
-            order: todoSortList[0].order,
-        });
-        expect(sortOptionMock.value).toEqual({
-            key: todoSortList[0].key,
-            order: todoSortList[0].order,
-        });
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-    it('should add filter option to service when filter option is selected', () => {
-        component.handleSelectFilter({ item: { ...todoFilterList[0] } });
-        expect(todoServiceMock.setFilterOption).toHaveBeenCalledWith({
-            key: todoFilterList[0].key,
-            value: todoFilterList[0].value,
-        });
+  it('should dispatch sort action when handleSelectSort is called', () => {
+    // Create a mock sort option
+    const mockSortOption = todoSortList[0];
+    
+    // Call the method directly
+    component.handleSelectSort(mockSortOption);
+    
+    // Verify the dispatch was called with the correct action
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      TaskActions.sortTask.set({ 
+        options: { [mockSortOption.key]: mockSortOption.order } 
+      })
+    );
+  });
 
-        expect(
-            filterOptionMock.value.find(
-                (item) => item.key === todoFilterList[0].key && item.value === todoFilterList[0].value,
-            ),
-        ).toBeTruthy();
-    });
+  it('should dispatch filter action when handleSelectStatus is called', () => {
+    // Create a mock ListItem
+    const mockStatusOption: ListItem = { 
+      content: 'Pending',
+      selected: false
+    };
+    
+    // Call the method directly
+    component.handleSelectStatus(mockStatusOption);
+    
+    // Verify the dispatch was called with the correct action
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      TaskActions.filterTask.set({
+        options: {
+          status: { in: ['Pending'] }
+        }
+      })
+    );
+  });
 });

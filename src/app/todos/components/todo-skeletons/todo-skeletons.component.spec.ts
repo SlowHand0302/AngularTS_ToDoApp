@@ -1,8 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TodoSkeletonsComponent } from './todo-skeletons.component';
 import { TodoSkeletonVariants } from '../../../shared/constants/variants.enum';
 import { By } from '@angular/platform-browser';
+import { IconService } from 'carbon-components-angular';
+import { IconServiceMock } from '../../../__mocks__/icon-service.mock';
+import { IconDirectiveMock } from '../../../__mocks__/icon-directive.mock';
 
 describe('TodoSkeletonsComponent', () => {
     let component: TodoSkeletonsComponent;
@@ -11,6 +15,11 @@ describe('TodoSkeletonsComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [TodoSkeletonsComponent],
+            schemas: [NO_ERRORS_SCHEMA],
+            providers: [
+                { provide: IconService, useClass: IconServiceMock },
+                { provide: 'ibmIcon', useClass: IconDirectiveMock }
+            ]
         }).compileComponents();
     });
 
